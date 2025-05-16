@@ -1,0 +1,10 @@
+# https://numtide.github.io/devshell
+[devshell]
+packages = [
+  "jq",
+  "terraform",
+  "google-cloud-sdk",
+  "nomad_1_9",
+  "consul",
+  "vault",
+]
