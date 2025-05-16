@@ -1,0 +1,3 @@
+module "policy" {
+  source = "./policy"
+}

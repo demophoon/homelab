@@ -1,0 +1,25 @@
+Include /etc/ssh/sshd_config.d/*.conf
+
+Port 22
+Protocol 2
+
+PrintMotd no
+
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+X11Forwarding no
+GatewayPorts no
+
+UsePAM yes
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+MaxAuthTries 3
+
+TrustedUserCAKeys /etc/ssh/ca.pem
+AllowUsers britt
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostCertificate /etc/ssh/ssh_host_rsa_key-cert.pub

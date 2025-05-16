@@ -1,0 +1,3 @@
+module "auth" {
+  source = "./auth"
+}
