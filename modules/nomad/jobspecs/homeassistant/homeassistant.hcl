@@ -73,6 +73,14 @@ job "homeassistant-app" {
           "traefik.http.routers.ha.rule=Host(`ha.services.demophoon.com`) || Host(`ha.cascadia.demophoon.com`)",
           "traefik.http.routers.ha.middlewares=ha-redirect",
         ]
+        check {
+          name     = "http check"
+          type     = "http"
+          port     = "homeassistant"
+          path     = "/manifest.json"
+          interval = "5s"
+          timeout  = "2s"
+        }
       }
       service {
         name = "ha-internal"
