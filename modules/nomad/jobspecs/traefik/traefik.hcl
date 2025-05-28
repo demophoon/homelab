@@ -237,17 +237,17 @@ http:
     vault-int:
       entrypoints:
         - secure
-      rule: "Host(`vault-ui.internal.demophoon.com`)"
+      rule: "Host(`vault-ui.internal.demophoon.com`) || Host(`vault.ts.demophoon.com`)"
       service: vault-int@file
     consul-int:
       entrypoints:
         - secure
-      rule: "Host(`consul-ui.internal.demophoon.com`)"
+      rule: "Host(`consul-ui.internal.demophoon.com`) || Host(`consul.ts.demophoon.com`)"
       service: consul-int@file
     nomad-int:
       entrypoints:
         - secure
-      rule: "Host(`nomad-ui.internal.demophoon.com`)"
+      rule: "Host(`nomad-ui.internal.demophoon.com`) || Host(`nomad.ts.demophoon.com`)"
       service: nomad-int@file
 
     consul-do:

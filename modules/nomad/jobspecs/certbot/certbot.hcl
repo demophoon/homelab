@@ -40,6 +40,7 @@ job "certbot" {
           "--domain", "*.brittg.com",
           "--domain", "demophoon.com",
           "--domain", "*.demophoon.com",
+          "--domain", "*.ts.demophoon.com",
           "--domain", "*.services.demophoon.com",
           "--domain", "*.internal.demophoon.com",
           "--domain", "*.cascadia.demophoon.com",
