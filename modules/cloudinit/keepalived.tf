@@ -6,9 +6,11 @@ resource "random_integer" "vrrp_priority" {
   }
 }
 
-data "template_file" "keepalived_config" {
-  template = file("${path.module}/templates/keepalived.conf")
-  vars = {
-    vrrp_priority = random_integer.vrrp_priority.result
-  }
+locals {
+  keepalived_config = templatefile(
+    "${path.module}/templates/keepalived.conf",
+    {
+      vrrp_priority = random_integer.vrrp_priority.result
+    }
+  )
 }

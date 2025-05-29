@@ -4,10 +4,6 @@ terraform {
       source = "hashicorp/nomad"
       version = "2.3.1"
     }
-    template = {
-      source = "hashicorp/template"
-      version = "2.2.0"
-    }
   }
 }
 

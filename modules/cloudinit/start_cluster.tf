@@ -13,12 +13,14 @@ resource "vault_kv_secret_v2" "example" {
   )
 }
 
-data "template_file" "start_cluster_sh" {
-  template = file("${path.module}/templates/start_cluster.sh")
-  vars = {
-    include_media = var.nomad_region == "cascadia" ? true : false
-    hostname      = var.hostname
-    role_id       = module.approle.provision_role_id
-    secret_id     = module.approle.secret_id
-  }
+locals {
+  start_cluster_sh = templatefile(
+    "${path.module}/templates/start_cluster.sh",
+    {
+      include_media = var.nomad_region == "cascadia" ? true : false
+      hostname      = var.hostname
+      role_id       = module.approle.provision_role_id
+      secret_id     = module.approle.secret_id
+    }
+  )
 }
