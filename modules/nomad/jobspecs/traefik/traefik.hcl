@@ -170,7 +170,7 @@ providers:
     watch: true
     endpoint:
       address: 'http://{{{ env "node.unique.network.ip-address" }}}:8500'
-    defaultRule: "Host(`{{ normalize .Name }}.services.demophoon.com`) || Host(`{{ normalize .Name }}.internal.demophoon.com`)"
+    defaultRule: "HostRegexp(`{{ normalize .Name }}.(ts|internal|services).demophoon.com`)"
     exposedByDefault: true
 
 experimental:
