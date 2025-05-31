@@ -260,6 +260,28 @@ http:
         - secure
       rule: "Host(`nomad-do.internal.demophoon.com`)"
       service: nomad-do@file
+
+    truenas:
+      entrypoints:
+        - secure
+      rule: "Host(`truenas.ts.demophoon.com`)"
+      service: truenas@file
+    beryllium:
+      entrypoints:
+        - secure
+      rule: "Host(`proxmox-beryllium.ts.demophoon.com`)"
+      service: proxmox-beryllium@file
+    nuc:
+      entrypoints:
+        - secure
+      rule: "Host(`proxmox-nuc.ts.demophoon.com`)"
+      service: proxmox-nuc@file
+    sol:
+      entrypoints:
+        - secure
+      rule: "Host(`proxmox-sol.ts.demophoon.com`)"
+      service: proxmox-sol@file
+
   services:
     vault-int:
       loadBalancer:
@@ -297,7 +319,29 @@ http:
           {{- range nodes }}{{ if .Node | contains "do-" }}
           - url: "https://{{ .Address }}:4646"
           {{- end }}{{- end }}
-
+    truenas:
+      loadBalancer:
+        serversTransport: nomad-transport
+        servers:
+          - url: "https://192.168.1.163:443"
+          {{- range service "truenas" }}
+          - url: "https://{{ .Address }}:443"
+          {{- end }}
+    proxmox-beryllium:
+      loadBalancer:
+        serversTransport: nomad-transport
+        servers:
+          - url: "https://192.168.1.4:8006"
+    proxmox-nuc:
+      loadBalancer:
+        serversTransport: nomad-transport
+        servers:
+          - url: "https://192.168.1.35:8006"
+    proxmox-sol:
+      loadBalancer:
+        serversTransport: nomad-transport
+        servers:
+          - url: "https://192.168.1.220:8006"
 
 middlewares:
   {{- with secret "kv/data/apps/traefik/oauth" }}
