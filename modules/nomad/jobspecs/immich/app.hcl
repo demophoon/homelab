@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.113.0"
+  default = "v1.133.0"
 }
 
 job "immich-app" {

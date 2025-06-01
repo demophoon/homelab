@@ -18,17 +18,8 @@ job "immich-backend" {
         destination = "/var/lib/postgresql/data"
       }
       config {
-        image = "docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52"
+        image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0"
         ports = ["postgres"]
-        command = "postgres"
-        args = [
-          "-c", "shared_preload_libraries=vectors.so",
-          "-c", "search_path='immich', public, vectors",
-          "-c", "logging_collector=on",
-          "-c", "max_wal_size=2GB",
-          "-c", "shared_buffers=512MB",
-          "-c", "wal_compression=on",
-        ]
       }
       template {
         data = <<-EOF
