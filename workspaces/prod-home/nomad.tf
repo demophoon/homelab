@@ -10,7 +10,7 @@ module "nomad-jobs" {
   homeassistant_version = "2025.4.3"
   zigbee2mqtt_version = "2.2.0"
 
-  vaultwarden_version = "1.33.2"
+  vaultwarden_version = "1.33.2" # renovate: datasource=docker depName=vaultwarden/server
 
   factorio_version = "1.1.110"
 
