@@ -6,13 +6,13 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": [
-        "/.+\\.tf$/"
+      "fileMatch": [
+        "workspaces/prod-home/nomad.tf"
       ],
       "matchStrings": [
-        "#\\s*renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?(?: extractVersion=(?<extractVersion>.*?))?\\s.*?_version\\s*=\\s*\"(?<currentValue>.*)\""
+        ".+_version\s*=\s*\"(?<currentValue>.+)\"\s*#\s*image:\s*(?<depName>.+)\\n"
       ],
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{/if}}"
+      "datasourceTemplate": "docker"
     }
   ]
 }
