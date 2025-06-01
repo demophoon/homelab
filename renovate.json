@@ -10,7 +10,7 @@
         "workspaces/prod-home/nomad.tf"
       ],
       "matchStrings": [
-        ".+_version\s*=\s*\"(?<currentValue>.+)\"\s*#\s*image:\s*(?<depName>.+)\\n"
+        ".+_version\\s*=\\s*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
       ],
       "datasourceTemplate": "docker"
     }
