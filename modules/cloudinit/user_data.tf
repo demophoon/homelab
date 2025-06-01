@@ -3,7 +3,7 @@ locals {
     "${path.module}/templates/user_data.cfg",
     {
       hostname = var.hostname
-      ts_key   = var.ts.tailscale_key
+      ts_key   = module.ts.tailscale_key
 
       ssh_ca            = base64encode(data.vault_kv_secret.ssh_ca.data.public_key)
       sshd_config       = base64encode(file("${path.module}/templates/sshd_config"))
