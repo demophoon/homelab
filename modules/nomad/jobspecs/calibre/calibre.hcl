@@ -16,7 +16,7 @@ job "calibre" {
       driver = "docker"
 
       config {
-        image = "crocodilestick/calibre-web-automated:V${var.image_version}"
+        image = "crocodilestick/calibre-web-automated:${var.image_version}"
         volumes = [
           "/mnt/nfs/calibre/config:/config",
           "/mnt/nfs/calibre/library:/calibre-library",
