@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.75.0"
+      version = "0.78.0"
     }
     truenas = {
       source = "dariusbakunas/truenas"
@@ -10,23 +10,23 @@ terraform {
     }
     tailscale = {
       source = "tailscale/tailscale"
-      version = "0.13.5"
+      version = "0.20.0"
     }
     random = {
       source = "hashicorp/random"
-      version = "3.4.3"
+      version = "3.7.2"
     }
     vault = {
       source = "hashicorp/vault"
-      version = "3.13.0"
+      version = "3.25.0"
     }
     nomad = {
       source = "hashicorp/nomad"
-      version = "2.3.1"
+      version = "2.5.0"
     }
     digitalocean = {
       source = "digitalocean/digitalocean"
-      version = "2.25.2"
+      version = "2.54.0"
     }
     #vultr = {
     #  source = "vultr/vultr"
@@ -34,7 +34,7 @@ terraform {
     #}
     google = {
       source = "hashicorp/google"
-      version = "4.46.0"
+      version = "4.85.0"
     }
     #oci = {
     #  source = "oracle/oci"

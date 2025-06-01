@@ -2,15 +2,15 @@ terraform {
   required_providers {
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.75.0"
+      version = "0.78.0"
     }
     tailscale = {
       source = "tailscale/tailscale"
-      version = "0.13.5"
+      version = "0.20.0"
     }
     random = {
       source = "hashicorp/random"
-      version = "3.4.3"
+      version = "3.7.2"
     }
     template = {
       source = "hashicorp/template"
@@ -18,7 +18,7 @@ terraform {
     }
     vault = {
       source = "hashicorp/vault"
-      version = "4.5.0"
+      version = "4.8.0"
     }
   }
 }
