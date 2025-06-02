@@ -7,8 +7,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "workspaces/prod-home/nomad.tf"
+      "managerFilePatterns": [
+        "/workspaces/prod-home/nomad.tf/"
       ],
       "matchStrings": [
         ".+_version\\s*=\\s*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
