@@ -1,6 +1,18 @@
+resource "null_resource" "created_at" {
+  triggers = {
+    timestamp = "${timestamp()}"
+  }
+}
+
 resource "random_pet" "server_name" {
   length = 1
   prefix = var.proxmox_node_prefix
+
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.created_at,
+    ]
+  }
 }
 
 module "ci-data" {
@@ -35,6 +47,10 @@ resource "proxmox_virtual_environment_vm" "vm" {
       cpu,
       initialization,
       network_device,
+    ]
+
+    replace_triggered_by = [
+      null_resource.created_at,
     ]
   }
 
