@@ -2,31 +2,31 @@ terraform {
   required_providers {
     tailscale = {
       source = "tailscale/tailscale"
-      version = "0.13.5"
+      version = "0.20.0"
     }
     random = {
       source = "hashicorp/random"
-      version = "3.4.3"
+      version = "3.7.2"
     }
     vault = {
       source = "hashicorp/vault"
-      version = "4.5.0"
+      version = "4.8.0"
     }
     nomad = {
       source = "hashicorp/nomad"
-      version = "1.4.19"
+      version = "1.4.20"
     }
     digitalocean = {
       source = "digitalocean/digitalocean"
-      version = "2.25.2"
+      version = "2.54.0"
     }
     google = {
       source = "hashicorp/google"
-      version = "4.46.0"
+      version = "4.85.0"
     }
     tfe = {
       source = "hashicorp/tfe"
-      version = "0.52.0"
+      version = "0.66.0"
     }
   }
 
