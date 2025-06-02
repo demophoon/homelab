@@ -8,13 +8,13 @@ module "nomad-jobs" {
   immich_version = "v1.134.0" # image: ghcr.io/immich-app/immich-server
 
   homeassistant_version = "2025.5.3" # image: homeassistant/home-assistant
-  zigbee2mqtt_version = "2.3.0" # image: koenkk/zigbee2mqtt
+  zigbee2mqtt_version = "2.4.0" # image: koenkk/zigbee2mqtt
 
   vaultwarden_version = "1.34.1" # image: vaultwarden/server
 
   nextcloud_version = "30.0.11" # image: nextcloud
 
-  syncthing_version = "1.29.6" # image: syncthing/syncthing
+  syncthing_version = "1.29.7" # image: syncthing/syncthing
 
   vikunja_version = "0.24.6" #image: vikunja/vikunja
 
