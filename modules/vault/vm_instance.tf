@@ -39,5 +39,5 @@ resource "vault_approle_auth_backend_role" "vm_instance" {
     vault_policy.nomad-server.name,
   ]
   secret_id_num_uses = 1
-  secret_id_ttl = "300"
+  secret_id_ttl = "900"
 }
