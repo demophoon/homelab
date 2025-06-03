@@ -149,7 +149,7 @@ $CONFIG = array (
 {{ end }}
 
   'datadirectory' => '/var/www/html/data',
-  'version' => '30.0.1.2',
+  'version' => '30.0.11.1',
   'overwrite.cli.url' => 'https://cloud.brittg.com',
   'overwriteprotocol' => 'https',
   'dbtableprefix' => 'oc_',
