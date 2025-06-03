@@ -34,7 +34,7 @@ terraform {
     #}
     google = {
       source = "hashicorp/google"
-      version = "4.85.0"
+      version = "6.37.0"
     }
     #oci = {
     #  source = "oracle/oci"
