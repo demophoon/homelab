@@ -1,6 +1,18 @@
+resource "null_resource" "created_at" {
+  triggers = {
+    timestamp = "${timestamp()}"
+  }
+}
+
 resource "random_pet" "server_name" {
   length = 1
   prefix = "do"
+
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.created_at,
+    ]
+  }
 }
 
 module "ci-data" {
@@ -23,4 +35,10 @@ resource "digitalocean_droplet" "web" {
   #size      = "s-1vcpu-1gb-amd"
   #size      = "s-1vcpu-1gb-intel"
   user_data = module.ci-data.config
+
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.created_at,
+    ]
+  }
 }
