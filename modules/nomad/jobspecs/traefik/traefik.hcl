@@ -253,12 +253,12 @@ http:
     consul-do:
       entrypoints:
         - secure
-      rule: "Host(`consul-do.internal.demophoon.com`)"
+      rule: "Host(`consul-do.internal.demophoon.com`) || Host(`consul-do.ts.demophoon.com`)"
       service: consul-do@file
     nomad-do:
       entrypoints:
         - secure
-      rule: "Host(`nomad-do.internal.demophoon.com`)"
+      rule: "Host(`nomad-do.internal.demophoon.com`) || Host(`nomad-do.ts.demophoon.com`)"
       service: nomad-do@file
 
     truenas:
