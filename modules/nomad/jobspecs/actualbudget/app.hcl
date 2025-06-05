@@ -9,7 +9,7 @@ job "actualbudget-app" {
       driver = "docker"
 
       config {
-        image = "docker.io/actualbudget/actual-server:24.2.0-alpine"
+        image = "docker.io/actualbudget/actual-server:24.2.0-alpine" # image: actualbudget/actual-server
         ports = ["app"]
         volumes = [
           "/mnt/nfs/actualbudget:/data",

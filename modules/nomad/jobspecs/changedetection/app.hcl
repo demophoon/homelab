@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "0.49.0"
+  default = "0.49.0" # image: ghcr.io/dgtlmoon/changedetection.io
 }
 
 job "changedetection" {

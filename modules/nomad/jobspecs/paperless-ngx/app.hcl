@@ -1,3 +1,8 @@
+variable "image_version" {
+  type = string
+  default = "2.16.3" # image: ghcr.io/paperless-ngx/paperless-ngx
+}
+
 job "paperless" {
   datacenters = ["cascadia"]
 

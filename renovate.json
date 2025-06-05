@@ -8,10 +8,11 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/workspaces/prod-home/nomad.tf/"
+        "/workspaces/prod-home/nomad.tf/",
+        "/modules/nomad/jobspecs/.*\\.hcl/"
       ],
       "matchStrings": [
-        ".+_version\\s*=\\s*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
+        ".*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
       ],
       "datasourceTemplate": "docker"
     }
