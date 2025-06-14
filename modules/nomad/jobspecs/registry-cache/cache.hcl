@@ -4,12 +4,15 @@ job "registry-cache" {
 
   type = "system"
 
-  constraint {
-    distinct_property = "${meta.provider}"
-  }
-
   group "main" {
     count = 1
+
+    volume "cache-volume" {
+      type            = "csi"
+      source          = "juicefs-volume"
+      attachment_mode = "file-system"
+      access_mode     = "multi-node-multi-writer"
+    }
 
     network {
       port "registry" {
@@ -24,9 +27,14 @@ job "registry-cache" {
         image = "registry:2"
         image_pull_timeout = "15m"
         ports = ["registry"]
-        volumes = [
-          "/opt/registry:/var/lib/registry"
-        ]
+        #volumes = [
+        #  "/opt/registry:/var/lib/registry"
+        #]
+      }
+
+      volume_mount {
+        volume = "cache-volume"
+        destination = "/var/lib/registry"
       }
 
       env {
@@ -66,8 +74,8 @@ job "registry-cache" {
       }
 
       resources {
-        cpu = 256
-        memory = 100
+        cpu = 100
+        memory = 128
       }
       service {
         name = "registry-cache"

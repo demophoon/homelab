@@ -54,3 +54,7 @@ variable "authentik_version" {
 }
 
 variable "calibre_version" { }
+
+variable "juicefs_version" {
+  default = "v0.27.0"
+}
