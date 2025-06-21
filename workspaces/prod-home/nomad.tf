@@ -5,7 +5,7 @@ module "nomad-jobs" {
 
   traefik_version = "v3.4.1" # image: traefik
 
-  immich_version = "v1.134.0" # image: ghcr.io/immich-app/immich-server
+  immich_version = "v1.135.3" # image: ghcr.io/immich-app/immich-server
 
   homeassistant_version = "2025.6.1" # image: homeassistant/home-assistant
   zigbee2mqtt_version = "2.4.0" # image: koenkk/zigbee2mqtt
