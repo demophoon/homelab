@@ -10,11 +10,11 @@ terraform {
     }
     tailscale = {
       source = "tailscale/tailscale"
-      version = "0.21.0"
+      version = "0.21.1"
     }
     google = {
       source = "hashicorp/google"
-      version = "6.40.0"
+      version = "6.41.0"
     }
   }
 
