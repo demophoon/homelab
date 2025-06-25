@@ -243,6 +243,10 @@ resource "nomad_job" "paperless-ngx" {
   provider = nomad.global
   jobspec = file("${path.module}/jobspecs/paperless-ngx/app.hcl")
 }
+resource "nomad_job" "paperless-ngx-db" {
+  provider = nomad.global
+  jobspec = file("${path.module}/jobspecs/paperless-ngx/backend.hcl")
+}
 
 resource "nomad_job" "openwebui" {
   provider = nomad.global

@@ -33,6 +33,9 @@ job "paperless" {
         data = <<-EOF
         {{- with secret "kv/apps/paperless/app" }}
         PAPERLESS_SECRET_KEY = "{{ .Data.data.secret_key }}"
+        PAPERLESS_OAUTH_CALLBACK_BASE_URL = "https://docs.internal.demophoon.com"
+        PAPERLESS_GMAIL_OAUTH_CLIENT_ID = "{{ .Data.data.client_id }}"
+        PAPERLESS_GMAIL_OAUTH_CLIENT_SECRET = "{{ .Data.data.client_secret }}"
         {{- end}}
 
         {{- range service "paperless-ngx-broker" }}
@@ -44,6 +47,20 @@ job "paperless" {
 
         {{- with secret "kv/apps/paperless/oauth" }}
         PAPERLESS_SOCIALACCOUNT_PROVIDERS = '{ "openid_connect": { "APPS": [ { "provider_id": "authentik", "name": "Authentik", "client_id": "{{ .Data.data.client_id }}", "secret": "{{ .Data.data.client_secret }}", "settings": { "server_url": "{{ .Data.data.provider_url }}" } } ], "OAUTH_PKCE_ENABLED": "True" } }'
+        {{- end }}
+
+        PAPERLESS_DBENGINE = "postgres"
+        {{- with service "paperless-ngx-db" }}
+          {{- with index . 0 }}
+            PAPERLESS_DBHOST = "{{ .Address  }}"
+            PAPERLESS_DBPORT = "{{ .Port  }}"
+          {{- end }}
+        {{- end }}
+
+        {{- with secret "kv/apps/paperless/postgresql" }}
+          PAPERLESS_DBNAME = "{{ .Data.data.database }}"
+          PAPERLESS_DBUSER = "{{ .Data.data.username }}"
+          PAPERLESS_DBPASS = "{{ .Data.data.password }}"
         {{- end }}
         EOF
       }
