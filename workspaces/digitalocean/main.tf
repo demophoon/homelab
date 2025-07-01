@@ -6,7 +6,7 @@ terraform {
     }
     digitalocean = {
       source = "digitalocean/digitalocean"
-      version = "2.57.0"
+      version = "2.58.0"
     }
     google = {
       source = "hashicorp/google"
@@ -14,7 +14,7 @@ terraform {
     }
     tfe = {
       source = "hashicorp/tfe"
-      version = "0.67.0"
+      version = "0.67.1"
     }
   }
 

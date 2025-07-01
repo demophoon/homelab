@@ -3,7 +3,7 @@ module "nomad-jobs" {
 
   autoscaler_version = "0.4.6" # image: hashicorp/nomad-autoscaler
 
-  traefik_version = "v3.4.1" # image: traefik
+  traefik_version = "v3.4.3" # image: traefik
 
   immich_version = "v1.135.3" # image: ghcr.io/immich-app/immich-server
 
@@ -14,7 +14,7 @@ module "nomad-jobs" {
 
   nextcloud_version = "31.0.6" # image: nextcloud
 
-  syncthing_version = "1.29.7" # image: syncthing/syncthing
+  syncthing_version = "1.30.0" # image: syncthing/syncthing
 
   vikunja_version = "0.24.6" #image: vikunja/vikunja
 
@@ -22,7 +22,7 @@ module "nomad-jobs" {
 
   shrls_version = "0.2.2"
 
-  authentik_version = "2025.6.2" # image: ghcr.io/goauthentik/server
+  authentik_version = "2025.6.3" # image: ghcr.io/goauthentik/server
 
   calibre_version = "V3.0.4" # image: crocodilestick/calibre-web-automated
 }
