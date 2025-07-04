@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "0.11.4" # image: ghcr.io/grafana/docker-otel-lgtm
+  default = "0.11.5" # image: ghcr.io/grafana/docker-otel-lgtm
 }
 
 job "lgtm" {
