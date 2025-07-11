@@ -287,3 +287,8 @@ resource "nomad_job" "calibre" {
     }
   }
 }
+
+resource "nomad_job" "static" {
+  provider = nomad.global
+  jobspec = file("${path.module}/jobspecs/static/static.hcl")
+}
