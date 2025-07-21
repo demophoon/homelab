@@ -60,10 +60,10 @@ resource "nomad_job" "vaultwarden" {
   }
 }
 
-resource "nomad_job" "nextcloud-backend" {
-  provider = nomad.global
-  jobspec = file("${path.module}/jobspecs/nextcloud/backend.hcl")
-}
+#resource "nomad_job" "nextcloud-backend" {
+#  provider = nomad.global
+#  jobspec = file("${path.module}/jobspecs/nextcloud/backend.hcl")
+#}
 
 resource "nomad_job" "nextcloud-app" {
   provider = nomad.global
@@ -174,15 +174,6 @@ resource "nomad_job" "syncthing" {
   }
 }
 
-resource "nomad_job" "vikunja" {
-  provider = nomad.global
-  jobspec = file("${path.module}/jobspecs/vikunja/vikunja.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.vikunja_version
-    }
-  }
-}
 
 resource "nomad_job" "devlog" {
   provider = nomad.global
@@ -253,10 +244,6 @@ resource "nomad_job" "openwebui" {
   jobspec = file("${path.module}/jobspecs/openwebui/app.hcl")
 }
 
-resource "nomad_job" "memos" {
-  provider = nomad.global
-  jobspec = file("${path.module}/jobspecs/memos/app.hcl")
-}
 
 resource "nomad_job" "changedetection" {
   provider = nomad.global

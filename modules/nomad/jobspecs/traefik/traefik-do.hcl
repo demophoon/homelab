@@ -252,6 +252,6 @@ tracing:
   }
 
   vault {
-    policies = ["traefik"]
+    role = "traefik"
   }
 }

@@ -28,5 +28,9 @@ path "kv/data/apps/nextcloud/*" {
 path "kv/data/apps/smtp" {
   capabilities = ["read"]
 }
+
+path "postgres/static-creds/nextcloud-admin" {
+  capabilities = [ "read" ]
+}
   EOF
 }
