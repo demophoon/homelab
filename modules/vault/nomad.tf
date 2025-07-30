@@ -95,3 +95,26 @@ resource "vault_token_auth_backend_role" "traefik" {
   token_period           = "32400"
   token_explicit_max_ttl = "2592000"
 }
+
+resource "vault_nomad_secret_backend" "cascadia" {
+    backend                   = "nomad"
+    description               = "cascadia nomad cluster"
+    default_lease_ttl_seconds = "3600"
+    max_lease_ttl_seconds     = "7200"
+    max_ttl                   = "43200"
+    ttl                       = "3600"
+    address                   = "https://nomad.ts.demophoon.com"
+}
+
+resource "vault_nomad_secret_role" "write" {
+  backend   = vault_nomad_secret_backend.cascadia.backend
+  role      = "write"
+  type      = "client"
+  policies  = ["write"]
+}
+
+resource "vault_nomad_secret_role" "management" {
+  backend   = vault_nomad_secret_backend.cascadia.backend
+  role      = "management"
+  type      = "management"
+}
