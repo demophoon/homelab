@@ -44,7 +44,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
         destination = "local/secrets.yaml"
       }
       resources {
-        cpu = 512
+        cpu = 200
         memory = 256
         memory_max = 512
       }
@@ -88,7 +88,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
         destination = "/mosquitto"
       }
       resources {
-        cpu = 512
+        cpu = 200
         memory = 256
         memory_max = 512
       }
@@ -121,7 +121,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
         ports = ["esp"]
       }
       resources {
-        cpu = 512
+        cpu = 100
         memory = 256
         memory_max = 2048
       }

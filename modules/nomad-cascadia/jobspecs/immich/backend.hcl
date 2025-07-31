@@ -34,8 +34,8 @@ job "immich-backend" {
         env = true
       }
       resources {
-        cpu = 512
-        memory = 512
+        cpu = 400
+        memory = 256
         memory_max = 1024
       }
       service {
@@ -57,8 +57,8 @@ job "immich-backend" {
         ports = ["redis"]
       }
       resources {
-        cpu = 512
-        memory = 512
+        cpu = 200
+        memory = 128
         memory_max = 1024
       }
       service {

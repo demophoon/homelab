@@ -59,8 +59,8 @@ job "homeassistant-app" {
         destination = "/config"
       }
       resources {
-        cpu = 2048
-        memory = 768
+        cpu = 1000
+        memory = 512
         memory_max = 3072
       }
       service {
@@ -131,7 +131,7 @@ ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtt://{{ .Address }}:{{ .Port }}
         env = true
       }
       resources {
-        cpu = 512
+        cpu = 200
         memory = 256
         memory_max = 512
       }
@@ -170,7 +170,7 @@ ZIGBEE2MQTT_CONFIG_MQTT_SERVER=mqtt://{{ .Address }}:{{ .Port }}
         ]
       }
       resources {
-        cpu = 512
+        cpu = 200
         memory = 256
         memory_max = 512
       }

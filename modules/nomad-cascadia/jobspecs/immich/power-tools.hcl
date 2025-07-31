@@ -39,7 +39,7 @@ EOF
       }
 
       resources {
-        cpu = 256
+        cpu = 100
         memory = 256
         memory_max = 512
       }
