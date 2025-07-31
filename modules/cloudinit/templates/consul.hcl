@@ -60,17 +60,29 @@ services {
   name = "truenas"
   id = "truenas"
   address = "192.168.1.163"
-  port = 80
+  port = 443
   tags = [
     "internal=true",
   ]
   check = {
     id = "api"
     name = "UI"
-    http = "http://192.168.1.163"
+    http = "https://192.168.1.163"
+    tls_skip_verify = true
     method = "GET"
     interval = "10s"
     timeout = "1s"
   }
+}
+
+services {
+  name = "plex"
+  id = "plex"
+  address = "192.168.1.163"
+  port = 32400
+  tags = [
+    "traefik.enable=true",
+    "traefik.http.routers.plex.rule=Host(`plex.brittg.com`)",
+  ]
 }
 %{endif}
