@@ -85,4 +85,15 @@ services {
     "traefik.http.routers.plex.rule=Host(`plex.brittg.com`)",
   ]
 }
+
+services {
+  name = "media"
+  id = "media"
+  address = "192.168.1.163"
+  port = 15055
+  tags = [
+    "traefik.enable=true",
+    "traefik.http.routers.media.rule=Host(`media.internal.demophoon.com`)",
+  ]
+}
 %{endif}
