@@ -8,7 +8,8 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/workspaces/nomad-.*/nomad.tf/",
+        "/workspaces/nomad-digitalocean/nomad.tf/",
+        "/workspaces/nomad-cascadia/nomad.tf/",
         "/modules/nomad/jobspecs/.*\\.hcl/"
       ],
       "matchStrings": [
