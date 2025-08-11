@@ -1,16 +1,16 @@
 module "nomad-jobs" {
   source = "../../modules/nomad-cascadia"
 
-  autoscaler_version = "0.4.6" # image: hashicorp/nomad-autoscaler
+  autoscaler_version = "0.4.7" # image: hashicorp/nomad-autoscaler
 
-  traefik_version = "v3.4.3" # image: traefik
+  traefik_version = "v3.5.0" # image: traefik
 
-  immich_version = "v1.136.0" # image: ghcr.io/immich-app/immich-server
+  immich_version = "v1.137.3" # image: ghcr.io/immich-app/immich-server
 
-  homeassistant_version = "2025.7.1" # image: homeassistant/home-assistant
-  zigbee2mqtt_version = "2.5.1" # image: koenkk/zigbee2mqtt
+  homeassistant_version = "2025.8.0" # image: homeassistant/home-assistant
+  zigbee2mqtt_version = "2.6.0" # image: koenkk/zigbee2mqtt
 
-  vaultwarden_version = "1.34.1" # image: vaultwarden/server
+  vaultwarden_version = "1.34.3" # image: vaultwarden/server
 
   nextcloud_version = "31.0.7" # image: nextcloud
 
@@ -22,7 +22,7 @@ module "nomad-jobs" {
 
   shrls_version = "0.2.2"
 
-  authentik_version = "2025.6.3" # image: ghcr.io/goauthentik/server
+  authentik_version = "2025.6.4" # image: ghcr.io/goauthentik/server
 
   calibre_version = "V3.0.4" # image: crocodilestick/calibre-web-automated
 }
