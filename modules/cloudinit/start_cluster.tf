@@ -18,6 +18,7 @@ locals {
     "${path.module}/templates/start_cluster.sh",
     {
       include_media = var.nomad_region == "cascadia" ? true : false
+      is_server   = var.server
       hostname      = var.hostname
       role_id       = module.approle.provision_role_id
       secret_id     = module.approle.secret_id

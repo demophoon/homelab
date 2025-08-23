@@ -2,8 +2,8 @@ module "vm-do" {
   for_each = {
     b = {
       size = "s-2vcpu-2gb-intel"
-    #  size = "s-1vcpu-1gb-intel"
-      server = true
+      #size = "s-1vcpu-1gb-intel"
+      server = false
     }
 # Backups below
     #e = {
@@ -22,6 +22,7 @@ module "vm-do" {
   }
   source = "../../modules/digitalocean"
   resource = "module.vm-do"
+  workspace = "digitalocean"
 
   gcp_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_demophoon_com
   size = each.value.size

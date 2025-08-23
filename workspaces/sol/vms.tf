@@ -5,13 +5,14 @@ module "vm-sol" {
   proxmox_node_prefix = "sol"
   proxmox_node_name = "sol"
   proxmox_host = "192.168.1.220"
-  is_server = "true"
+  is_server = "false"
 
-  cpu = 2
-  memory = 8192
+  cpu = 4
+  memory = 12288
   proxmox_ssh_user = var.proxmox_ssh_user
   proxmox_ssh_password = var.proxmox_ssh_password
   template_name = data.tfe_outputs.prod_home.values.sol_template_id
 
   tailscale_tailnet_name = var.tailscale_tailnet_name
+  workspace = "sol"
 }

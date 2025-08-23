@@ -4,7 +4,7 @@ module "vm-nuc-2" {
 
   proxmox_node_prefix = "nuc-aux-1"
   proxmox_node_name = "nuc"
-  proxmox_host = "proxmox-nuc"
+  proxmox_host = "192.168.1.35"
   is_server = "true"
 
   cpu = 4
@@ -14,4 +14,5 @@ module "vm-nuc-2" {
   template_name = data.tfe_outputs.prod_home.values.nuc_template_id
 
   tailscale_tailnet_name = var.tailscale_tailnet_name
+  workspace = "nuc-aux"
 }

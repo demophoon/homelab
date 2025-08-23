@@ -8,3 +8,4 @@ variable "join_nodes" {
   default = []
 }
 variable "resource" {}
+variable "workspace" {}

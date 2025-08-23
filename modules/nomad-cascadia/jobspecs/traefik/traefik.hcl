@@ -1,14 +1,11 @@
 variable "image_version" {
   type = string
-  default = "v3.1"
-}
-variable "region" {
-  type = string
+  default = "v3.5.0"
 }
 
 job "traefik" {
   datacenters = ["cascadia"]
-  region = "${var.region}"
+  region = "global"
   priority = 100
 
   type = "system"

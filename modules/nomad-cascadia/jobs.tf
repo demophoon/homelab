@@ -3,7 +3,6 @@ resource "nomad_job" "traefik_global" {
   hcl2 {
     vars = {
       image_version = var.traefik_version
-      region = "global"
     }
   }
 }
@@ -26,9 +25,6 @@ resource "nomad_job" "homeassistant-app" {
 resource "nomad_job" "homeassistant-backend" {
   jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-backend.hcl")
 }
-#resource "nomad_job" "homeassistant-music-assistant" {
-#  jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-music.hcl")
-#}
 
 resource "nomad_job" "registry-cache" {
   jobspec = file("${path.module}/jobspecs/registry-cache/cache.hcl")
@@ -49,24 +45,6 @@ resource "nomad_job" "vaultwarden" {
       image_version = var.vaultwarden_version
     }
   }
-}
-
-#resource "nomad_job" "nextcloud-backend" {
-#  provider = nomad.global
-#  jobspec = file("${path.module}/jobspecs/nextcloud/backend.hcl")
-#}
-
-#resource "nomad_job" "nextcloud-app" {
-#  jobspec = file("${path.module}/jobspecs/nextcloud/app.hcl")
-#  hcl2 {
-#    vars = {
-#      image_version = var.nextcloud_version
-#    }
-#  }
-#}
-
-resource "nomad_job" "immich-power-tools" {
-  jobspec = file("${path.module}/jobspecs/immich/power-tools.hcl")
 }
 
 resource "nomad_job" "immich-backend" {
@@ -109,19 +87,6 @@ resource "nomad_job" "shrls-demo" {
   hcl2 {
     vars = {
       image_version = var.shrls_version
-    }
-  }
-}
-
-resource "nomad_job" "actualbudget" {
-  jobspec = file("${path.module}/jobspecs/actualbudget/app.hcl")
-}
-
-resource "nomad_job" "autoscaler" {
-  jobspec = file("${path.module}/jobspecs/autoscaler/autoscaler.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.autoscaler_version
     }
   }
 }

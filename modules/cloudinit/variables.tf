@@ -7,3 +7,4 @@ variable "server" {
 
 # For terraform automation
 variable "resource" {}
+variable "workspace" {}

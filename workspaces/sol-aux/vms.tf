@@ -8,10 +8,11 @@ module "vm-sol-aux" {
   is_server = "false"
 
   cpu = 2
-  memory = 4096
+  memory = 1024
   proxmox_ssh_user = var.proxmox_ssh_user
   proxmox_ssh_password = var.proxmox_ssh_password
   template_name = data.tfe_outputs.prod_home.values.sol_template_id
 
   tailscale_tailnet_name = var.tailscale_tailnet_name
+  workspace = "sol-aux"
 }

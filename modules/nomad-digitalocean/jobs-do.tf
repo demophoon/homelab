@@ -1,5 +1,5 @@
 resource "nomad_job" "traefik_digitalocean" {
-  jobspec = file("${path.module}/jobspecs/traefik/traefik.hcl")
+  jobspec = file("${path.module}/jobspecs/traefik/traefik-do.hcl")
   hcl2 {
     vars = {
       image_version = var.traefik_version
@@ -29,4 +29,8 @@ resource "nomad_job" "resume-do" {
       region = "digitalocean"
     }
   }
+}
+
+resource "nomad_job" "vaultwarden-do" {
+  jobspec = file("${path.module}/jobspecs/vaultwarden/vaultwarden.hcl")
 }

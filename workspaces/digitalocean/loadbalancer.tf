@@ -1,4 +1,6 @@
 resource "digitalocean_loadbalancer" "public" {
+  count = local.has_load_balancer ? 1 : 0
+
   name   = "compute-lb"
   region = "sfo3"
 

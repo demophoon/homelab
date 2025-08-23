@@ -15,4 +15,5 @@ module "vm-auxiliary-1" {
   template_name = data.tfe_outputs.prod_home.values.beryllium_template_id
 
   tailscale_tailnet_name = var.tailscale_tailnet_name
+  workspace = "proxmox-aux"
 }

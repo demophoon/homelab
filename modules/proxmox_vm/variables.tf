@@ -27,3 +27,4 @@ variable "join_nodes" {
 variable "resource" {
   default = ""
 }
+variable "workspace" { }

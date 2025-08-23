@@ -158,7 +158,11 @@ main() {
   write_nomad_certificate
   write_nomad_token
 %{if include_media}  mount_nfs%{endif}
+%{if is_server}
   systemctl restart vault
+%{ else }
+  systemctl stop vault
+%{ endif }
   systemctl restart nomad
   systemctl restart dnsmasq
 }

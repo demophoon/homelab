@@ -23,6 +23,7 @@ module "ci-data" {
   nomad_region = "digitalocean"
   nomad_provider = "virtual"
   server = var.is_server
+  workspace = var.workspace
 }
 
 

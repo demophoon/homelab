@@ -10,6 +10,7 @@ locals {
     {
       region      = var.nomad_region
       provider    = var.nomad_provider
+      workspace   = var.workspace
       is_server   = var.server
       include_mounts = var.nomad_region == "cascadia" ? true : false
       include_keepalived = var.nomad_region == "cascadia" ? true : false

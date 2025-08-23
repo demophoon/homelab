@@ -1,22 +1,15 @@
-datacenter = "${region}"
+datacenter = "cascadia"
 data_dir  = "/opt/nomad"
 
-%{if region == "cascadia"}
 region = "global"
-%{else}
-region = "${region}"
-%{endif}
 
-bind_addr = "{{ GetInterfaceIP \"tailscale0\" }}"
+bind_addr = "{{ GetPrivateInterfaces | exclude `type` `IPv6` | include `name` `tailscale0` | attr `address` }}"
 
+%{ if is_server }
 server {
   enabled = ${is_server}
-  %{if region == "cascadia"}
-  bootstrap_expect = 3
-  %{else}
-  bootstrap_expect = 1
-  %{endif}
 }
+%{ endif }
 
 client {
   enabled       = true
@@ -26,6 +19,7 @@ client {
   meta {
     provider = "${provider}"
     region = "${region}"
+    workspace = "${workspace}"
   }
 
   host_volume "docker-sock-ro" {

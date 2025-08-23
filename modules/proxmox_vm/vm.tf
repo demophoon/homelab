@@ -23,6 +23,7 @@ module "ci-data" {
   nomad_provider = "virtual"
   server = var.is_server
   resource = var.resource
+  workspace = var.workspace
 }
 
 resource "proxmox_virtual_environment_file" "cloud_config" {
