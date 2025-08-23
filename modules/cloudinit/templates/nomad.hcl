@@ -130,21 +130,6 @@ vault {
   enabled = true
   address = "https://active.vault.service.consul.demophoon.com:8200"
   create_from_role = "nomad-cluster"
-
-  default_identity {
-    aud = ["vault.io"]
-    env = false
-    file = false
-    ttl = "1h"
-  }
-}
-
-keyring "transit" {
-  active = true
-  name   = "example"
-
-  key_name   = "nomad-server"
-  mount_path = "transit/"
 }
 
 telemetry {
