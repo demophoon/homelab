@@ -14,7 +14,7 @@ module "nomad-jobs" {
 
   nextcloud_version = "31.0.7" # image: nextcloud
 
-  syncthing_version = "1.30.0" # image: syncthing/syncthing
+  syncthing_version = "2.0.11" # image: syncthing/syncthing
 
   vikunja_version = "0.24.6" #image: vikunja/vikunja
 
