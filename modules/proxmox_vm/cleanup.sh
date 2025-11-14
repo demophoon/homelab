@@ -9,12 +9,6 @@ is_vault_active() {
   consul catalog services -node="${node}" -tags | grep vault | grep -q active
 }
 
-if is_vault_active "$node"; then
-  echo "!! Vault is active on $node"
-  echo "!!"
-  echo "!! Seal the vault on this node before continuing."
-  exit 1
-fi
 
 if [ -n "$node_id" ]; then
   echo "Draining node..."

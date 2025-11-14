@@ -19,6 +19,7 @@ module "ci-data" {
   source = "../cloudinit"
 
   hostname = random_pet.server_name.id
+  pv_name = var.proxmox_node_prefix
   nomad_region = "cascadia"
   nomad_provider = "virtual"
   server = var.is_server
@@ -34,6 +35,19 @@ resource "proxmox_virtual_environment_file" "cloud_config" {
   source_raw {
     data = module.ci-data.config
     file_name = "${random_pet.server_name.id}.cloud-config.yaml"
+  }
+}
+
+
+resource "proxmox_virtual_environment_vm" "data_vm" {
+  node_name = var.proxmox_node_name
+  started = false
+  on_boot = false
+
+  disk {
+    datastore_id = "local-lvm"
+    interface    = "scsi0"
+    size         = 32
   }
 }
 
@@ -81,6 +95,19 @@ resource "proxmox_virtual_environment_vm" "vm" {
     file_format = "qcow2"
     file_id = var.template_name
     size = 64
+  }
+
+  dynamic "disk" {
+    for_each = { for idx, val in proxmox_virtual_environment_vm.data_vm.disk : idx => val }
+    iterator = data_disk
+    content {
+      datastore_id      = data_disk.value["datastore_id"]
+      path_in_datastore = data_disk.value["path_in_datastore"]
+      file_format       = data_disk.value["file_format"]
+      size              = data_disk.value["size"]
+      # assign from scsi1 and up
+      interface         = "scsi${data_disk.key + 1}"
+    }
   }
 
   #clone {

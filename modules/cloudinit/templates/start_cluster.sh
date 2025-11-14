@@ -7,11 +7,20 @@ export mount_flags="rw,relatime,vers=4.2,rsize=65536,wsize=65536,hard,timeo=600,
 export mount_srv="truenas.service.consul.demophoon.com"
 export mount_srv="192.168.1.163"
 
+mount_pv() {
+  if [ -e /dev/sda1 ]; then
+    mkdir -p /mnt/${pv_name}
+    mount -t ext4 /dev/sda1 /mnt/${pv_name}
+  fi
+}
+
 mount_nfs() {
   mkdir -p /mnt/nfs
   mkdir -p /mnt/media
   mount -t nfs -o "$mount_flags" "$mount_srv:/mnt/dank0/andromeda" /mnt/nfs
   mount -t nfs -o "$mount_flags" "$mount_srv:/mnt/dank0/media" /mnt/media
+
+  mount_pv
 }
 %{endif}
 
