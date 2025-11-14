@@ -80,6 +80,6 @@ job "minio" {
   }
 
   vault {
-    role = "minio"
+    policies = ["minio"]
   }
 }

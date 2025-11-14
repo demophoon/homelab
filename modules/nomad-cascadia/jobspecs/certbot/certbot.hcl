@@ -112,6 +112,6 @@ EOF
   }
 
   vault {
-    role = "certbot"
+    policies = ["certbot"]
   }
 }

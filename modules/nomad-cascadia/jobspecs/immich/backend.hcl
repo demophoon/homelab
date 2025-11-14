@@ -75,6 +75,6 @@ job "immich-backend" {
   }
 
   vault {
-    role = "immich"
+    policies = ["immich"]
   }
 }

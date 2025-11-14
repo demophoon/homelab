@@ -196,7 +196,7 @@ job "authentik-app" {
   }
 
   vault {
-    role = "authentik"
+    policies = ["authentik"]
   }
 }
 

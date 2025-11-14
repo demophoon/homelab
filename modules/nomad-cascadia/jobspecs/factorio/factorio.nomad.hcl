@@ -1,0 +1,50 @@
+variable "image_version" {
+  type = string
+  default = "2.0.72"
+}
+
+job "factorio" {
+  datacenters = ["cascadia"]
+  group "server" {
+    volume "server" {
+      type            = "host"
+      source          = "proxmox"
+    }
+
+    network {
+      port "srv" { to = 34197 }
+   }
+
+    task "factorio" {
+      driver = "docker"
+
+      volume_mount {
+        volume      = "server"
+        destination = "/server"
+      }
+
+      config {
+        image = "factoriotools/factorio:${var.image_version}"
+        ports = ["srv"]
+        volumes = [
+          "/mnt/proxmox/factorio-spaceage:/factorio",
+        ]
+      }
+
+      resources {
+        cpu = 1600
+        memory = 256
+        memory_max = 4096
+      }
+      service {
+        name = "factorio"
+        port = "srv"
+        tags = [
+          "traefik.enable=true",
+          "traefik.udp.routers.factorio-srv.entrypoints=factorio",
+        ]
+      }
+    }
+  }
+
+}

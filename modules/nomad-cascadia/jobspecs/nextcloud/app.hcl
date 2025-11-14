@@ -159,6 +159,6 @@ MAIL_DOMAIN="brittg.com"
   }
 
   vault {
-    role = "nextcloud"
+    policies = ["nextcloud"]
   }
 }

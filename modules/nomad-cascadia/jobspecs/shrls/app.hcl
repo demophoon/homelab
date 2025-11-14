@@ -153,7 +153,7 @@ EOF
   }
 
       vault {
-	role = "shrls"
+	policies = ["shrls"]
       }
     }
   }

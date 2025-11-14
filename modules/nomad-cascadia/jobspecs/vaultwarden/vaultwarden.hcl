@@ -81,6 +81,6 @@ job "vaultwarden" {
   }
 
   vault {
-    role = "vaultwarden"
+    policies = ["vaultwarden"]
   }
 }

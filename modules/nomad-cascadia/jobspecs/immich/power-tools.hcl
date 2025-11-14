@@ -56,6 +56,6 @@ EOF
   }
 
   vault {
-    role = "immich"
+    policies = ["immich"]
   }
 }

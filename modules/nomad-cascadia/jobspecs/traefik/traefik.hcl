@@ -22,6 +22,8 @@ job "traefik" {
       port "valheim2" { static = 2457 }
       port "valheim3" { static = 2458 }
 
+      port "minecraft" { static = 25565 }
+
       port "factorio" { static = 34197 }
 
       port "otel" { static = 4318 }
@@ -51,12 +53,13 @@ job "traefik" {
           "valheim",
           "valheim2",
           "valheim3",
+          "minecraft",
           "factorio",
           "otel",
         ]
       }
       resources {
-        cpu = 100
+        cpu = 200
         memory = 128
         memory_max = 512
       }
@@ -90,6 +93,11 @@ job "traefik" {
       }
 
       service {
+        name = "traefik-minecraft"
+        port = "minecraft"
+      }
+
+      service {
         name = "traefik-otel"
         port = "otel"
       }
@@ -112,6 +120,7 @@ entryPoints:
     address: ':8082'
   insecure:
     address: ':80'
+    reusePort: true
     http:
       redirections:
         entryPoint:
@@ -119,6 +128,7 @@ entryPoints:
           scheme: "https"
   secure:
     address: ':443'
+    reusePort: true
     forwardedHeaders:
       trustedIPs:
         - '192.168.1.0/24'
@@ -132,11 +142,18 @@ entryPoints:
   waypoint:
     address: ':9701'
   valheim:
+    reusePort: true
     address: ':2456/udp'
   valheim2:
+    reusePort: true
     address: ':2457/udp'
   valheim3:
+    reusePort: true
     address: ':2458/udp'
+
+  minecraft:
+    reusePort: true
+    address: ':25565/tcp'
 
   empyrion0:
     address: ':30000/udp'
@@ -150,6 +167,7 @@ entryPoints:
     address: ':30004/udp'
 
   factorio:
+    reusePort: true
     address: ':34197/udp'
 
   synapse:
@@ -404,6 +422,6 @@ middlewares:
   }
 
   vault {
-    role = "traefik"
+    policies = ["traefik"]
   }
 }

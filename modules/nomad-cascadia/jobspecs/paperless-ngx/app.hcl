@@ -117,6 +117,6 @@ job "paperless" {
   }
 
   vault {
-    role = "paperless"
+    policies = ["paperless"]
   }
 }

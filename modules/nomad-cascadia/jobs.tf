@@ -149,36 +149,35 @@ resource "nomad_job" "authentik_app" {
     }
   }
 }
-
-resource "nomad_job" "paperless-ngx" {
-  jobspec = file("${path.module}/jobspecs/paperless-ngx/app.hcl")
-}
-resource "nomad_job" "paperless-ngx-db" {
-  jobspec = file("${path.module}/jobspecs/paperless-ngx/backend.hcl")
-}
-
-resource "nomad_job" "openwebui" {
-  jobspec = file("${path.module}/jobspecs/openwebui/app.hcl")
-}
-
-
 resource "nomad_job" "changedetection" {
   jobspec = file("${path.module}/jobspecs/changedetection/app.hcl")
 }
 
-resource "nomad_job" "lgtm" {
-  jobspec = file("${path.module}/jobspecs/lgtm/app.hcl")
-}
-
-resource "nomad_job" "calibre" {
-  jobspec = file("${path.module}/jobspecs/calibre/calibre.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.calibre_version
-    }
-  }
-}
-
 resource "nomad_job" "static" {
   jobspec = file("${path.module}/jobspecs/static/static.hcl")
+}
+
+resource "nomad_job" "transmission" {
+  jobspec = file("${path.module}/jobspecs/transmission/transmission.hcl")
+}
+resource "nomad_job" "arrs" {
+  jobspec = file("${path.module}/jobspecs/arr/apps.hcl")
+}
+resource "nomad_job" "bliss" {
+  jobspec = file("${path.module}/jobspecs/bliss/app.hcl")
+}
+resource "nomad_job" "jellyfin" {
+  jobspec = file("${path.module}/jobspecs/jellyfin/jellyfin.hcl")
+}
+
+resource "nomad_job" "valheim" {
+  jobspec = file("${path.module}/jobspecs/valheim/valheim.nomad.hcl")
+}
+
+resource "nomad_job" "factorio" {
+  jobspec = file("${path.module}/jobspecs/factorio/factorio.nomad.hcl")
+}
+
+resource "nomad_job" "minecraft" {
+  jobspec = file("${path.module}/jobspecs/minecraft/minecraft.nomad.hcl")
 }

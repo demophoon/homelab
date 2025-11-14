@@ -83,7 +83,7 @@ job "authentik-backend" {
   }
 
   vault {
-    role = "authentik"
+    policies = ["authentik"]
   }
 }
 

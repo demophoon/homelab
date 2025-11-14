@@ -64,6 +64,6 @@ job "openui" {
   }
 
   vault {
-    role = "openwebui"
+    policies = ["openwebui"]
   }
 }

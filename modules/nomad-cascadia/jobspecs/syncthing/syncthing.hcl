@@ -35,7 +35,6 @@ job "syncthing" {
 
             config {
                 image = "syncthing/syncthing:${var.image_version}"
-                image_pull_timeout = "15m"
                 ports = ["app", "http"]
             }
             volume_mount {

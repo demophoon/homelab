@@ -96,6 +96,6 @@ job "registry-cache" {
   }
 
   vault {
-    role = "registry-cache"
+    policies = ["registry-cache"]
   }
 }

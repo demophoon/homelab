@@ -17,7 +17,7 @@ job "podgrab" {
         image = "akhilrex/podgrab:latest"
         ports = ["app"]
         volumes = [
-          "/mnt/nfs/podgrab/assets:/assets",
+          "/mnt/media/Podcasts:/assets",
           "/mnt/nfs/podgrab/config:/config",
         ]
       }
@@ -42,6 +42,16 @@ job "podgrab" {
           "traefik.enable=true",
           "traefik.http.routers.podgrab.rule=host(`podcast.brittg.com`)",
           "traefik.http.routers.podgrab.middlewares=authentik",
+        ]
+      }
+
+      service {
+        name = "podgrab-internal"
+        port = "app"
+        tags = [
+          "traefik.enable=true",
+          "internal=true",
+          "traefik.http.routers.podgrab-internal.rule=host(`podcast.internal.demophoon.com`)",
         ]
       }
     }

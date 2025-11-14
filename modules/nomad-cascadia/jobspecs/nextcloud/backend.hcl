@@ -130,6 +130,6 @@ job "nextcloud-backend" {
   }
 
   vault {
-    role = "nextcloud"
+    policies = ["nextcloud"]
   }
 }

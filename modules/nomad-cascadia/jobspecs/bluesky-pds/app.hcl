@@ -90,6 +90,6 @@ job "bluesky-pds" {
   }
 
   vault {
-    role = "bluesky"
+    policies = ["bluesky"]
   }
 }

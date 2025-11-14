@@ -5,7 +5,7 @@ module "vm-sol" {
   proxmox_node_prefix = "sol"
   proxmox_node_name = "sol"
   proxmox_host = "192.168.1.220"
-  is_server = "false"
+  is_server = "true"
 
   cpu = 4
   memory = 12288

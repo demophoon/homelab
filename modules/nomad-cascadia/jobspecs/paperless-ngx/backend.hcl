@@ -46,6 +46,6 @@ job "paperless-backend" {
   }
 
   vault {
-    role = "paperless"
+    policies = ["paperless"]
   }
 }
