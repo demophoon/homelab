@@ -102,7 +102,7 @@ job "infrastructure-maintenance-terraform" {
         #image = "registry.internal.demophoon.com/demophoon/terraform:0.1.0"
         image = "ttl.sh/demophoon/terraform:1h"
         args = [
-          "plan",
+          "apply",
         ]
       }
 
