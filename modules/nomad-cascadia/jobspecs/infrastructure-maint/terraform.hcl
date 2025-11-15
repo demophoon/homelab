@@ -43,6 +43,12 @@ job "infrastructure-maintenance-terraform" {
 
           NOMAD_ADDR="https://nomad.service.consul.demophoon.com:4646"
           NOMAD_CACERT="/local/ca.crt"
+
+          VAULT_ADDR="https://active.vault.service.consul.demophoon.com:8200"
+          VAULT_CACERT="/local/ca.crt"
+
+          CONSUL_HTTP_ADDR="https://consul.service.consul.demophoon.com:8501"
+          CONSUL_CACERT="/local/ca.crt"
         EOH
       }
 
