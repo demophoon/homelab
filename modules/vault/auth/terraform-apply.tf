@@ -81,5 +81,20 @@ resource "vault_policy" "terraform-apply" {
     path "gcp/roleset/dns-admin/key" {
       capabilities = ["read", "create"]
     }
+
+    # Read CA certificates for infrastructure services
+    path "proxmox/config/ca" {
+      capabilities = ["read"]
+    }
+
+    # Stow secrets for new VM instances
+    path "kv/data/infra/*/nomad_server" {
+      capabilities = ["read", "list", "create", "update"]
+    }
+
+    # Provision approle for VM instances
+    path "auth/approle/role/vm_instance/secret-id-accessor/lookup" {
+      capabilities = ["read", "list", "create", "update"]
+    }
   EOF
 }
