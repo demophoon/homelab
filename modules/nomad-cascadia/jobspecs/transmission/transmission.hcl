@@ -32,9 +32,12 @@ job "transmission" {
 
         {{ with secret "kv/apps/transmission/openvpn" }}
         OPENVPN_CONFIG   = "{{ .Data.data.config }}"
+        LOCAL_NETWORK = "{{ .Data.data.local_network }}"
+        {{ end }}
+
+        {{ with secret "kv/apps/vpn" }}
         OPENVPN_USERNAME = "{{ .Data.data.username }}"
         OPENVPN_PASSWORD = "{{ .Data.data.password }}"
-        LOCAL_NETWORK = "{{ .Data.data.local_network }}"
         {{ end }}
 
         WEBPROXY_ENABLED = "false"
