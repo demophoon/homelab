@@ -1,6 +1,5 @@
 job "transmission" {
   datacenters = ["cascadia"]
-  node_pool = "nas"
 
   group "transmission" {
     count = 1

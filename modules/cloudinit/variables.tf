@@ -5,7 +5,9 @@ variable "server" {
   default = false
 }
 
-variable "pv_name" {}
+variable "pv_name" {
+  default = ""
+}
 
 # For terraform automation
 variable "resource" {}
