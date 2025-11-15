@@ -8,6 +8,5 @@ terraform {
 }
 
 provider "nomad" {
-  address = "https://nomad-ui.internal.demophoon.com"
   region = "global"
 }

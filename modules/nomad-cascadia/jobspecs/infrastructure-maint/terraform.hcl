@@ -41,9 +41,7 @@ job "infrastructure-maintenance-terraform" {
           TF_CLI_CONFIG_FILE="/secrets/tfc-config"
           GOOGLE_APPLICATION_CREDENTIALS="/secrets/sa.json"
 
-          {{ range service "http.nomad" }}
-          NOMAD_ADDR = "https://{{ .Address }}:{{ .Port }}"
-          {{ end }}
+          NOMAD_ADDR="https://nomad.service.consul.demophoon.com:4646"
         EOH
       }
 
