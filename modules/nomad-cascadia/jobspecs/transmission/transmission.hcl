@@ -30,7 +30,7 @@ job "transmission" {
         data = <<EOF
         OPENVPN_PROVIDER = "CUSTOM"
 
-        {{ with secret "kv/data/apps/transmission/openvpn" }}
+        {{ with secret "kv/apps/transmission/openvpn" }}
         OPENVPN_CONFIG   = "{{ .Data.data.config }}"
         OPENVPN_USERNAME = "{{ .Data.data.username }}"
         OPENVPN_PASSWORD = "{{ .Data.data.password }}"
