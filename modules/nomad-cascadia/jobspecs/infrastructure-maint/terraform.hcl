@@ -15,64 +15,13 @@ job "infrastructure-maintenance-terraform" {
   group "terraform-apply" {
     count = 1
 
-    ephemeral_disk {
-      migrate = true
-      sticky  = true
-      size    = 500
+    restart {
+      attempts = 0
+      mode     = "fail"
     }
 
-    task "clone" {
-      driver = "docker"
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      env {
-        TF_CLI_CONFIG_FILE = "${NOMAD_SECRETS_DIR}/tfc-config"
-      }
-
-      template {
-        destination = "${NOMAD_SECRETS_DIR}/tfc-config"
-        data = <<-EOH
-        {
-          "credentials": {
-            "app.terraform.io": {
-              {{ with secret "env/infra/tfc" }}
-              "token": "{{ .Data.data.token }}"
-              {{ end }}
-            }
-          }
-        }
-        EOH
-      }
-
-      template {
-        destination = "${NOMAD_TASK_DIR}/clone.sh"
-        perms = 700
-        data = <<-EOH
-          apk add --no-cache git
-          apk add --no-cache terraform
-          git clone https://github.com/demophoon/homelab ${NOMAD_TASK_DIR}/homelab
-          cd ${NOMAD_TASK_DIR}/homelab/workspaces/${NOMAD_META_APPLY_WORKSPACE}
-          terraform init -upgrade
-        EOH
-      }
-
-      config {
-        image = "alpine:latest"
-        command = "sh"
-        args = [
-          "-c",
-          "${NOMAD_TASK_DIR}/clone.sh",
-        ]
-      }
-
-      resources {
-        cpu = 128
-        memory = 128
-        memory_max = 512
-      }
+    ephemeral_disk {
+      size    = 500
     }
 
     task "apply" {
@@ -82,13 +31,19 @@ job "infrastructure-maintenance-terraform" {
         destination = "${NOMAD_SECRETS_DIR}/env"
         env = true
         data = <<-EOH
-          {{ with secret "env/infra/terraform" }}
+          GIT_REPO_URL = "https://github.com/demophoon/homelab"
+
+          {{ with secret "kv/env/infra/terraform" }}
             {{ range $k, $v := .Data.data }}
               {{ $k }} = "{{ $v }}"
             {{ end }}
           {{ end }}
-          TF_CLI_CONFIG_FILE="${NOMAD_SECRETS_DIR}/tfc-config"
-          GOOGLE_APPLICATION_CREDENTIALS="${NOMAD_SECRETS_DIR}/sa.json"
+          TF_CLI_CONFIG_FILE="/secrets/tfc-config"
+          GOOGLE_APPLICATION_CREDENTIALS="/secrets/sa.json"
+
+          {{ range service "http.nomad" }}
+          NOMAD_ADDR = "https://{{ .Address }}:{{ .Port }}"
+          {{ end }}
         EOH
       }
 
@@ -98,7 +53,7 @@ job "infrastructure-maintenance-terraform" {
         {
           "credentials": {
             "app.terraform.io": {
-              {{ with secret "env/infra/tfc" }}
+              {{ with secret "kv/env/infra/tfc" }}
               "token": "{{ .Data.data.token }}"
               {{ end }}
             }
@@ -118,8 +73,8 @@ job "infrastructure-maintenance-terraform" {
       }
 
       config {
-        image = "hashicorp/terraform:latest"
-        work_dir = "${NOMAD_TASK_DIR}/homelab/workspaces/${NOMAD_META_APPLY_WORKSPACE}"
+        #image = "registry.internal.demophoon.com/demophoon/terraform:0.1.0"
+        image = "ttl.sh/demophoon/terraform:1h"
         args = [
           "plan",
         ]
