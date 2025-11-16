@@ -87,6 +87,21 @@ job "paperless" {
           path = "/"
         }
       }
+
+      vault {
+        policies = ["paperless"]
+      }
+
+      identity {
+        name        = "paperless"
+        aud         = ["infrastructure.demophoon.com"]
+        file        = true
+        ttl         = "1h"
+
+        # Send a HUP signal when the token file is updated
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+      }
     }
   }
 

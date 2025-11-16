@@ -184,3 +184,10 @@ resource "nomad_job" "factorio" {
 resource "nomad_job" "minecraft" {
   jobspec = file("${path.module}/jobspecs/minecraft/minecraft.nomad.hcl")
 }
+
+resource "nomad_job" "paperless-ngx" {
+  jobspec = file("${path.module}/jobspecs/paperless-ngx/app.hcl")
+}
+resource "nomad_job" "paperless-ngx-db" {
+  jobspec = file("${path.module}/jobspecs/paperless-ngx/backend.hcl")
+}
