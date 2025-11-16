@@ -105,8 +105,7 @@ job "infrastructure-maintenance-terraform" {
       }
 
       config {
-        #image = "registry.internal.demophoon.com/demophoon/terraform:0.1.0"
-        image = "ttl.sh/demophoon/terraform:1h"
+        image = "nexus.internal.demophoon.com/docker-internal/terraform:0.1.0"
         args = [
           "apply",
         ]
