@@ -33,6 +33,9 @@ resource "nomad_job" "registry-cache" {
 resource "nomad_job" "registry" {
   jobspec = file("${path.module}/jobspecs/registry/registry.hcl")
 }
+resource "nomad_job" "nexus" {
+  jobspec = file("${path.module}/jobspecs/nexus/registry.hcl")
+}
 
 resource "nomad_job" "minio" {
   jobspec = file("${path.module}/jobspecs/minio/minio.hcl")
