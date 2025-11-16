@@ -3,6 +3,11 @@ job "infrastructure-maintenance-terraform" {
 
   type = "batch"
 
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
+
   parameterized {
     meta_required = ["APPLY_WORKSPACE"]
     payload       = "forbidden"
@@ -105,7 +110,7 @@ job "infrastructure-maintenance-terraform" {
       }
 
       config {
-        image = "nexus.internal.demophoon.com/docker-internal/terraform:0.1.0"
+        image = "nexus.internal.demophoon.com/docker-internal/terraform:0.1.1"
         args = [
           "apply",
         ]
