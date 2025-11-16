@@ -1,7 +1,6 @@
 resource "vault_jwt_auth_backend" "jwt-nomad" {
   path            = "jwt-nomad"
-  //jwks_url        = "https://nomad.service.consul.demophoon.com:4646/.well-known/jwks.json"
-  jwks_url        = "https://nomad-ui.internal.demophoon.com/.well-known/jwks.json"
+  jwks_url        = "https://nomad.service.consul.demophoon.com:4646/.well-known/jwks.json"
   default_role    = "nomad-workloads"
   disable_remount = false
 }
