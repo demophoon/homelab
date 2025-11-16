@@ -87,14 +87,33 @@ resource "vault_policy" "terraform-apply" {
       capabilities = ["read"]
     }
 
-    # Stow secrets for new VM instances
-    path "kv/data/infra/*/nomad_server" {
-      capabilities = ["read", "list", "create", "update"]
+    # Stow/Manage secrets for new VM instances
+    path "kv/metadata/infra/+/nomad_server" {
+      capabilities = ["read", "list", "create", "update", "delete"]
+    }
+    path "kv/data/infra/+/nomad_server" {
+      capabilities = ["read", "list", "create", "update", "delete"]
     }
 
     # Provision approle for VM instances
     path "auth/approle/role/vm_instance/secret-id-accessor/lookup" {
-      capabilities = ["read", "list", "create", "update"]
+      capabilities = ["read", "list", "create", "update", "delete"]
+    }
+    path "auth/approle/role/vm_instance/secret-id-accessor/destroy" {
+      capabilities = ["read", "list", "create", "update", "delete"]
+    }
+    path "auth/approle/role/vm_instance/secret-id" {
+      capabilities = ["read", "list", "create", "update", "delete"]
+    }
+
+    # Create certificates for VM instances
+    path "pki/issue/backplane" {
+      capabilities = ["create", "update", "delete"]
+    }
+
+    # Create Nomad Tokens
+    path "auth/token/create" {
+      capabilities = ["read", "create", "update", "delete", "sudo"]
     }
   EOF
 }

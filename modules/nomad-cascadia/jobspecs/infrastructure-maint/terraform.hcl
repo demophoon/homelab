@@ -121,10 +121,23 @@ job "infrastructure-maintenance-terraform" {
         memory = 128
         memory_max = 512
       }
-    }
-  }
 
-  vault {
-    policies = ["terraform-apply"]
+      vault {
+        role = "terraform-apply"
+        policies = ["terraform-apply"]
+      }
+
+      identity {
+        name        = "example"
+        aud         = ["infrastructure.demophoon.com"]
+        file        = true
+        ttl         = "1h"
+
+        # Send a HUP signal when the token file is updated
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+      }
+
+    }
   }
 }
