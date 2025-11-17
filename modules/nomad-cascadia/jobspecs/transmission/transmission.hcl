@@ -88,10 +88,16 @@ job "transmission" {
           "traefik.http.routers.transmission-internal.rule=Host(`transmission.internal.demophoon.com`)",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["transmission"]
+      vault {
+        role = "transmission"
+        policies = ["nomad-workloads"]
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }
