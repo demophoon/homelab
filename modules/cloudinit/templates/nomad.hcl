@@ -149,8 +149,8 @@ vault {
   jwt_auth_backend_path = "jwt-nomad"
   default_identity {
     aud  = ["demophoon.com"]
-    env = false
-    file = true
+    env = true
+    file = false
     ttl  = "1h"
   }
 }
