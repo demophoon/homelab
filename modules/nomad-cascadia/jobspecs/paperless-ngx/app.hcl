@@ -89,18 +89,13 @@ job "paperless" {
       }
 
       vault {
-        policies = ["paperless"]
+        role = "paperless"
+        policies = ["nomad-workloads"]
       }
-
       identity {
-        name        = "paperless"
-        aud         = ["infrastructure.demophoon.com"]
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
         file        = true
-        ttl         = "1h"
-
-        # Send a HUP signal when the token file is updated
-        change_mode   = "signal"
-        change_signal = "SIGHUP"
       }
     }
   }
@@ -129,9 +124,5 @@ job "paperless" {
         port = "broker"
       }
     }
-  }
-
-  vault {
-    policies = ["paperless"]
   }
 }
