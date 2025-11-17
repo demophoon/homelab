@@ -90,7 +90,6 @@ job "paperless" {
 
       vault {
         role = "paperless"
-        policies = ["nomad-workloads"]
       }
       identity {
         name        = "vault_default"
