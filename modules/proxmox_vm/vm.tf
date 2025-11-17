@@ -55,7 +55,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
   lifecycle {
     ignore_changes = [
       id,
-      ipv6_addresses,
       mac_addresses,
       network_interface_names,
       vm_id,
