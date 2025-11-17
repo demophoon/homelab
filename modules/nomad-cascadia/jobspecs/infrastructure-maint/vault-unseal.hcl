@@ -55,10 +55,15 @@ job "infrastructure-maintenance-vault" {
         memory = 32
         memory_max = 64
       }
-    }
-  }
 
-  vault {
-    policies = ["unsealer"]
+      vault {
+        role = "unsealer"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["infrastructure.demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

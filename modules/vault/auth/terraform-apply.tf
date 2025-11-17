@@ -3,7 +3,7 @@ resource "vault_jwt_auth_backend_role" "terraform-apply" {
   role_name = "terraform-apply"
   token_policies = ["terraform-apply"]
 
-  bound_audiences = ["demophoon.com"]
+  bound_audiences = local.infrastructure_aud
   user_claim = "/nomad_job_id"
   role_type = "jwt"
 
