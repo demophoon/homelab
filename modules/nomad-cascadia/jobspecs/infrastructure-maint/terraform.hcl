@@ -117,9 +117,9 @@ job "infrastructure-maintenance-terraform" {
       }
 
       resources {
-        cpu = 128
-        memory = 128
-        memory_max = 512
+        cpu = 200
+        memory = 256
+        memory_max = 1024
       }
 
       vault {
