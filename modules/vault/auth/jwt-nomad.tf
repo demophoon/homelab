@@ -10,7 +10,7 @@ resource "vault_jwt_auth_backend_role" "nomad-workloads" {
   role_name = "nomad-workloads"
   token_policies = ["nomad-workloads"]
 
-  bound_audiences = ["vault.io"]
+  bound_audiences = ["demophoon.com"]
   user_claim = "/nomad_job_id"
   role_type = "jwt"
 

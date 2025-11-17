@@ -144,7 +144,15 @@ consul {
 vault {
   enabled = true
   address = "https://active.vault.service.consul.demophoon.com:8200"
-  create_from_role = "nomad-cluster"
+  create_from_role = "nomad-workloads"
+
+  jwt_auth_backend_path = "jwt-nomad"
+  default_identity {
+    aud  = ["demophoon.com"]
+    env = false
+    file = true
+    ttl  = "1h"
+  }
 }
 
 telemetry {
