@@ -124,18 +124,13 @@ job "infrastructure-maintenance-terraform" {
 
       vault {
         role = "terraform-apply"
-        policies = ["terraform-apply"]
       }
 
       identity {
-        name        = "example"
-        aud         = ["infrastructure.demophoon.com"]
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
         file        = true
-        ttl         = "1h"
-
-        # Send a HUP signal when the token file is updated
-        change_mode   = "signal"
-        change_signal = "SIGHUP"
+        ttl         = "15m"
       }
 
     }
