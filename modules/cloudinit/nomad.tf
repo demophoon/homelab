@@ -1,9 +1,3 @@
-resource "vault_token" "nomad_token" {
-  policies = ["nomad-server"]
-  period = "2160h"
-  no_parent = true
-}
-
 locals {
   nomad_config = templatefile(
     "${path.module}/templates/nomad.hcl",

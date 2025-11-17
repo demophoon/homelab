@@ -143,15 +143,6 @@ write_nomad_certificate() {(with_vault
   cat /opt/nomad/certs/issued.json | jq -r .data.private_key > /opt/nomad/certs/priv.key
 )}
 
-write_nomad_token() {(with_vault
-  nomad_token=$(vault kv get -mount="kv" -field token "infra/${hostname}/nomad_server")
-  if [ -n "$${nomad_token}" ]; then
-    echo "VAULT_TOKEN=$${nomad_token}" >> /etc/nomad.d/nomad.env
-  else
-    echo "Unable to get nomad token"
-  fi
-)}
-
 main() {
   if ! is_consul_connected; then
     connect_to_consul
@@ -165,7 +156,6 @@ main() {
   write_vault_certificate
   write_consul_certificate
   write_nomad_certificate
-  write_nomad_token
 %{if include_media}  mount_nfs%{endif}
 %{if is_server}
   systemctl restart vault
