@@ -8,6 +8,13 @@ job "traefik" {
   region = "global"
   priority = 100
 
+  update {
+    auto_revert  = true
+    health_check = "task_states"
+    stagger      = "30s"
+    max_parallel = 1
+  }
+
   type = "system"
 
   group "web" {
@@ -27,6 +34,8 @@ job "traefik" {
       port "factorio" { static = 34197 }
 
       port "otel" { static = 4318 }
+
+      port "internal" { static = 8082 }
     }
 
     task "traefik" {
@@ -107,11 +116,26 @@ job "traefik" {
         port = "factorio"
       }
 
+      service {
+        name = "traefik-internal"
+        port = "internal"
+        check {
+          name     = "traefik-internal-health"
+          type     = "http"
+          interval = "5s"
+          timeout  = "1s"
+          path     = "/ping"
+        }
+      }
+
       # Configuration
       template {
         data = <<-EOF
 api:
   dashboard: true
+
+ping:
+  entryPoint: "internal"
 
 entryPoints:
   traefik:
@@ -418,10 +442,15 @@ middlewares:
         perms = "600"
         change_mode = "noop"
       }
-    }
-  }
 
-  vault {
-    policies = ["traefik"]
+      vault {
+        role = "traefik"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }
