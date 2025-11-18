@@ -115,5 +115,10 @@ resource "vault_policy" "terraform-apply" {
     path "auth/token/create" {
       capabilities = ["read", "create", "update", "delete", "sudo"]
     }
+
+    # Tuning nomad cluster
+    path "sys/mounts/nomad/tune" {
+      capabilities = ["read", "list", "create", "update"]
+    }
   EOF
 }
