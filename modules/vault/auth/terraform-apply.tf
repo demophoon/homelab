@@ -83,7 +83,7 @@ resource "vault_policy" "terraform-apply" {
     }
 
     # Read CA certificates for infrastructure services
-    path "proxmox/config/ca" {
+    path "pki/cert/ca_chain" {
       capabilities = ["read"]
     }
 
