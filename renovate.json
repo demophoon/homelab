@@ -17,5 +17,8 @@
       ],
       "datasourceTemplate": "docker"
     }
+  ],
+  "ignorePaths": [
+    "docker/**"
   ]
 }
