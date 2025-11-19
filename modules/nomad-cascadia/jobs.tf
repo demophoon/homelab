@@ -26,10 +26,6 @@ resource "nomad_job" "homeassistant-backend" {
   jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-backend.hcl")
 }
 
-resource "nomad_job" "registry-cache" {
-  jobspec = file("${path.module}/jobspecs/registry-cache/cache.hcl")
-}
-
 resource "nomad_job" "registry" {
   jobspec = file("${path.module}/jobspecs/registry/registry.hcl")
 }
