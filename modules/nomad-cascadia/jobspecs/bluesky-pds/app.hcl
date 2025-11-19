@@ -86,10 +86,16 @@ job "bluesky-pds" {
           "traefik.http.routers.bluesky-pds.rule=(host(`brittg.com`) && pathprefix(`/xrpc`)) || host(`demophoon.brittg.com`)",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["bluesky"]
+
+      vault {
+        role = "bluesky"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

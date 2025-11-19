@@ -60,10 +60,14 @@ job "openui" {
         ]
       }
 
+      vault {
+        role = "openwebui"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
     }
-  }
-
-  vault {
-    policies = ["openwebui"]
   }
 }

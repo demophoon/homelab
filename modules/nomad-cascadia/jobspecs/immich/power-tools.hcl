@@ -52,10 +52,15 @@ EOF
           "traefik.http.routers.immich-powertools.rule=host(`immich-tools.internal.demophoon.com`)",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["immich"]
+      vault {
+        role = "immich"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

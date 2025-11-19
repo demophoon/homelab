@@ -108,10 +108,15 @@ EOF
         cpu = 256
         memory = 128
       }
-    }
-  }
 
-  vault {
-    policies = ["certbot"]
+      vault {
+        role = "certbot"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["infrastructure.demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

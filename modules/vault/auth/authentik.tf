@@ -3,7 +3,7 @@ resource "vault_jwt_auth_backend_role" "authentik" {
   role_name = "authentik"
   token_policies = ["authentik"]
 
-  bound_audiences = ["vault.io"]
+  bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
   role_type = "jwt"
 

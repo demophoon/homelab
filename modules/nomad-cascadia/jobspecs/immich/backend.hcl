@@ -42,6 +42,15 @@ job "immich-backend" {
         name = "immich-postgres"
         port = "postgres"
       }
+
+      vault {
+        role = "immich"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
     }
   }
 
@@ -72,9 +81,5 @@ job "immich-backend" {
         }
       }
     }
-  }
-
-  vault {
-    policies = ["immich"]
   }
 }

@@ -3,7 +3,7 @@ resource "vault_jwt_auth_backend_role" "minio" {
   role_name = "minio"
   token_policies = ["minio"]
 
-  bound_audiences = ["vault.io"]
+  bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
   role_type = "jwt"
 

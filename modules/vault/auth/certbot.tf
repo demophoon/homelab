@@ -3,7 +3,7 @@ resource "vault_jwt_auth_backend_role" "certbot" {
   role_name = "certbot"
   token_policies = ["certbot"]
 
-  bound_audiences = ["vault.io"]
+  bound_audiences = local.infrastructure_aud
   user_claim = "/nomad_job_id"
   role_type = "jwt"
 

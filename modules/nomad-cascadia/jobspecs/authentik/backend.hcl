@@ -48,6 +48,15 @@ job "authentik-backend" {
           timeout   = "2s"
         }
       }
+
+      vault {
+        role = "authentik"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
     }
 
     task "redis" {
@@ -80,10 +89,6 @@ job "authentik-backend" {
         }
       }
     }
-  }
-
-  vault {
-    policies = ["authentik"]
   }
 }
 

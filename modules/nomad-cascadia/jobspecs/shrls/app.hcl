@@ -153,7 +153,12 @@ EOF
   }
 
       vault {
-	policies = ["shrls"]
+        role = "shrls"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
       }
     }
   }

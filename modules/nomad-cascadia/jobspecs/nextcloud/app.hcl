@@ -155,10 +155,15 @@ MAIL_DOMAIN="brittg.com"
           "traefik.http.routers.nextcloud.middlewares=nextcloud-chain",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["nextcloud"]
+      vault {
+        role = "nextcloud"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

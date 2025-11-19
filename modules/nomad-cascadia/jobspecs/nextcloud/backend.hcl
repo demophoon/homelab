@@ -63,6 +63,15 @@ job "nextcloud-backend" {
         name = "nextcloud-db"
         port = "db"
       }
+
+      vault {
+        role = "nextcloud"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
     }
   }
 
@@ -127,9 +136,5 @@ job "nextcloud-backend" {
         "internal=true",
       ]
     }
-  }
-
-  vault {
-    policies = ["nextcloud"]
   }
 }

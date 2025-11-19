@@ -42,10 +42,15 @@ job "paperless-backend" {
         name = "paperless-ngx-db"
         port = "db"
       }
-    }
-  }
 
-  vault {
-    policies = ["paperless"]
+      vault {
+        role = "paperless"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

@@ -76,10 +76,15 @@ job "minio" {
           "traefik.http.routers.minio.rule=host(`s3.brittg.com`) || host(`s3.internal.demophoon.com`)",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["minio"]
+      vault {
+        role = "minio"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }

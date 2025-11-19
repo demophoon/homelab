@@ -85,10 +85,15 @@ job "valheim" {
         ]
       }
 
+      vault {
+        role = "valheim"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+        ttl         = "1h"
+      }
     }
-  }
-
-  vault {
-    policies = ["valheim"]
   }
 }

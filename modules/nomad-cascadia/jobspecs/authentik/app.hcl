@@ -84,6 +84,15 @@ job "authentik-app" {
           "traefik.http.routers.authentik-server.rule=host(`sso.brittg.com`)",
         ]
       }
+
+      vault {
+        role = "authentik"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
     }
   }
 
@@ -126,6 +135,15 @@ job "authentik-app" {
           "traefik.http.middlewares.authentik.forwardauth.trustForwardHeader=true",
           "traefik.http.middlewares.authentik.forwardauth.authResponseHeaders=X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid,X-authentik-jwt,X-authentik-meta-jwks,X-authentik-meta-outpost,X-authentik-meta-provider,X-authentik-meta-app,X-authentik-meta-version",
         ]
+      }
+
+      vault {
+        role = "authentik"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
       }
     }
   }
@@ -192,11 +210,16 @@ job "authentik-app" {
           {{ end }}
         EOF
       }
-    }
-  }
 
-  vault {
-    policies = ["authentik"]
+      vault {
+        role = "authentik"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }
 

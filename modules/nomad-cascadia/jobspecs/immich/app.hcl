@@ -136,10 +136,15 @@ EOF
           "traefik.http.routers.immich-frontend-internal.rule=host(`photos.internal.demophoon.com`)",
         ]
       }
-    }
-  }
 
-  vault {
-    policies = ["immich"]
+      vault {
+        role = "immich"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["demophoon.com"]
+        file        = true
+      }
+    }
   }
 }
