@@ -3,7 +3,7 @@ module "nomad-jobs" {
 
   autoscaler_version = "0.4.8" # image: hashicorp/nomad-autoscaler
 
-  traefik_version = "v3.6.1" # image: traefik
+  traefik_version = "v3.6.2" # image: traefik
 
   immich_version = "v2.2.3" # image: ghcr.io/immich-app/immich-server
 
@@ -22,7 +22,7 @@ module "nomad-jobs" {
 
   shrls_version = "0.2.2"
 
-  authentik_version = "2025.10.1" # image: ghcr.io/goauthentik/server
+  authentik_version = "2025.10.2" # image: ghcr.io/goauthentik/server
 
   calibre_version = "V3.0.4" # image: crocodilestick/calibre-web-automated
 }
