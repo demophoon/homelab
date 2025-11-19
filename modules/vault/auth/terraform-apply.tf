@@ -87,6 +87,11 @@ resource "vault_policy" "terraform-apply" {
       capabilities = ["read"]
     }
 
+    # Get ssh certificate for VM access
+    path "proxmox/config/ca" {
+      capabilities = ["read"]
+    }
+
     # Stow/Manage secrets for new VM instances
     path "kv/metadata/infra/+/nomad_server" {
       capabilities = ["read", "list", "create", "update", "delete"]
