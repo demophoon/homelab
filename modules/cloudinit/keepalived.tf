@@ -1,6 +1,12 @@
+locals {
+  keepalive_priority = contains([
+    "proxmox",
+    "proxmox-aux"
+  ], var.workspace)
+}
 resource "random_integer" "vrrp_priority" {
-  min = 1
-  max = 255
+  min = local.keepalive_priority ? 1 : 127
+  max = local.keepalive_priority ? 128 : 254
   keepers = {
     vm = var.hostname
   }
