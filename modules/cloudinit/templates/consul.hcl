@@ -18,10 +18,7 @@ node_meta {
 }
 
 tls {
-  defaults {
-    verify_incoming = true
-    verify_outgoing = true
-    verify_server_hostname = true
+  https {
     cert_file = "/opt/consul/certs/cert.pem"
     key_file = "/opt/consul/certs/priv.key"
   }
