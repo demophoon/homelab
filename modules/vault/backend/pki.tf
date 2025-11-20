@@ -11,4 +11,3 @@ resource "vault_mount" "pki" {
     seal_wrap                    = false
     type                         = "pki"
 }
-
