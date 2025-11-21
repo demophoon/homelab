@@ -42,7 +42,7 @@ job "arrs" {
 
       volume_mount {
         volume = "lidarr-config"
-        destination = "/config"
+        destination = "/lidarr/etc"
       }
       volume_mount {
         volume = "media"
