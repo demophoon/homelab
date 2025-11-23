@@ -86,10 +86,16 @@ resource "vault_policy" "terraform-apply" {
     path "pki/cert/ca_chain" {
       capabilities = ["read"]
     }
+    path "pki/roles/+" {
+      capabilities = ["read", "list"]
+    }
 
     # Get ssh certificate for VM access
     path "proxmox/config/ca" {
       capabilities = ["read"]
+    }
+    path "proxmox/roles/+" {
+      capabilities = ["read", "list"]
     }
 
     # Stow/Manage secrets for new VM instances
