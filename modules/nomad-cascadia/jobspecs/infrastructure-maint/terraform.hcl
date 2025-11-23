@@ -8,6 +8,12 @@ job "infrastructure-maintenance-terraform" {
     value     = "cascadia"
   }
 
+  constraint {
+    attribute = "${meta.workspace}"
+    operator  = "!="
+    value     = "${NOMAD_META_APPLY_WORKSPACE}"
+  }
+
   parameterized {
     meta_required = ["APPLY_WORKSPACE"]
     payload       = "forbidden"
