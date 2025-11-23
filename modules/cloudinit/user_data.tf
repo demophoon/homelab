@@ -5,6 +5,8 @@ locals {
       hostname = var.hostname
       ts_key   = module.ts.tailscale_key
 
+      backplane_ca      = var.backplane_certificate
+      backplane_ca_b64  = base64encode(var.backplane_certificate)
       ssh_ca            = base64encode(data.vault_kv_secret.ssh_ca.data.public_key)
       sshd_config       = base64encode(file("${path.module}/templates/sshd_config"))
       nomad_config      = base64encode(local.nomad_config)

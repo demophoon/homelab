@@ -25,6 +25,7 @@ module "ci-data" {
   server = var.is_server
   resource = var.resource
   workspace = var.workspace
+  backplane_certificate = var.backplane_certificate
 }
 
 resource "proxmox_virtual_environment_file" "cloud_config" {

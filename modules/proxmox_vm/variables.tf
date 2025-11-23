@@ -28,3 +28,5 @@ variable "resource" {
   default = ""
 }
 variable "workspace" { }
+
+variable "backplane_certificate" { }

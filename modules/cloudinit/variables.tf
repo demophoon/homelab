@@ -12,3 +12,5 @@ variable "pv_name" {
 # For terraform automation
 variable "resource" {}
 variable "workspace" {}
+
+variable "backplane_certificate" {}

@@ -30,3 +30,8 @@ output "sol_template_id" {
   #value = proxmox_virtual_environment_download_file.sol_ubuntu_2404_noble_img.id
   value = "local:iso/noble-server-cloudimg-amd64.img"
 }
+
+output "backplane_certificate" {
+  description = "Vault PKI Backplane Certificate"
+  value       = module.vault.backplane_certificate
+}
