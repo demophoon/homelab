@@ -11,3 +11,26 @@ resource "vault_mount" "proxmox" {
     seal_wrap                    = false
     type                         = "ssh"
 }
+
+resource "vault_ssh_secret_backend_ca" "proxmox_ca" {
+    backend              = vault_mount.proxmox.path
+    key_type             = "ssh-rsa"
+    generate_signing_key = true
+}
+
+resource "vault_ssh_secret_backend_role" "admin" {
+    name                    = "admin"
+    backend                 = vault_mount.proxmox.path
+    key_type                = "ca"
+    allow_user_certificates = true
+    allow_host_certificates = false
+
+    allowed_domains          = "*"
+    allowed_extensions       = "permit-pty,permit-port-forwarding"
+    allowed_users            = "britt"
+
+    default_extensions       = {
+        permit-pty = ""
+    }
+    default_user             = "britt"
+}
