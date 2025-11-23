@@ -57,7 +57,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
     ignore_changes = [
       id,
       mac_addresses,
-      network_interface_names,
       vm_id,
       cpu,
       initialization,
