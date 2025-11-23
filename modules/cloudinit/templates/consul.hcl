@@ -18,16 +18,25 @@ node_meta {
 }
 
 tls {
+  defaults {
+    ca_file   = "/opt/cluster/certs/backplane_ca.pem"
+    cert_file = "/opt/cluster/certs/consul/cert.pem"
+    key_file  = "/opt/cluster/certs/consul/priv.key"
+
+    verify_incoming        = false
+    verify_outgoing        = false
+    verify_server_hostname = false
+  }
   https {
-    cert_file = "/opt/consul/certs/cert.pem"
-    key_file = "/opt/consul/certs/priv.key"
+    verify_incoming = false
   }
 }
 
 addresses {
-  dns = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
-  http = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
-  grpc = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
+  dns      = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
+  http     = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
+  grpc     = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
+  grpc_tls = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
 }
 
 domain = "consul.demophoon.com."
@@ -39,6 +48,7 @@ connect {
 ports {
   https = 8501
   grpc = 8502
+  grpc_tls = 8503
 }
 
 telemetry {

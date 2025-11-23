@@ -33,6 +33,23 @@ resource "vault_pki_secret_backend_root_cert" "backplane" {
   ]
 }
 
+# Node mTLS
+resource "vault_pki_secret_backend_role" "mtls" {
+  backend = vault_mount.pki.path
+  name = "infrastructure-mtls"
+  ttl  = 2592000 # 30 days
+
+  issuer_ref = vault_pki_secret_backend_root_cert.backplane.issuer_id
+
+  allow_ip_sans    = true
+  allowed_domains  = [
+    "{{identity.entity.metadata.hostname}}.infrastructure.demophoon.com",
+    "{{identity.entity.metadata.hostname}}.consul.demophoon.com",
+    "{{identity.entity.metadata.hostname}}.dc1.consul.demophoon.com",
+  ]
+  allow_subdomains = false
+}
+
 # Server role certificates
 resource "vault_pki_secret_backend_role" "server_infrastructure" {
   backend = vault_mount.pki.path
