@@ -27,4 +27,6 @@ module "vm-do" {
   gcp_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_demophoon_com
   size = each.value.size
   is_server = each.value.server
+
+  backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
 }

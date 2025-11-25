@@ -24,6 +24,7 @@ module "ci-data" {
   nomad_provider = "virtual"
   server = var.is_server
   workspace = var.workspace
+  backplane_certificate = var.backplane_certificate
 }
 
 
@@ -38,6 +39,7 @@ resource "digitalocean_droplet" "web" {
   user_data = module.ci-data.config
 
   lifecycle {
+    create_before_destroy = true
     replace_triggered_by = [
       null_resource.created_at,
     ]

@@ -9,3 +9,5 @@ variable "join_nodes" {
 }
 variable "resource" {}
 variable "workspace" {}
+
+variable "backplane_certificate" { }
