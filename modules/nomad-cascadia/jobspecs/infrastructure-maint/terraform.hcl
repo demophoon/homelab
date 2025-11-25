@@ -117,7 +117,6 @@ job "infrastructure-maintenance-terraform" {
       identity {
         name        = "vault_default"
         aud         = ["infrastructure.demophoon.com"]
-        file        = true
         ttl         = "15m"
       }
 

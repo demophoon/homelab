@@ -59,7 +59,7 @@ EOF
       identity {
         name        = "vault_default"
         aud         = ["demophoon.com"]
-        file        = true
+        ttl         = "1h"
       }
     }
   }
