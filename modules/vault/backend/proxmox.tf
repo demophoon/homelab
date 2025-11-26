@@ -34,3 +34,23 @@ resource "vault_ssh_secret_backend_role" "admin" {
     }
     default_user             = "britt"
 }
+
+resource "vault_ssh_secret_backend_role" "ssh-user" {
+    name                    = "ssh-user"
+    backend                 = vault_mount.proxmox.path
+    key_type                = "ca"
+    allow_user_certificates = true
+    allow_host_certificates = false
+
+    allowed_domains          = "*"
+    allowed_extensions       = "permit-pty,permit-port-forwarding"
+
+    default_extensions       = {
+        permit-pty = ""
+    }
+
+    default_user_template  = true
+    default_user           = "{{ identity.entity.aliases.auth_oidc_5c9f32f5.metadata.ssh_username }}"
+    allowed_users_template = true
+    allowed_users          = "{{ identity.entity.aliases.auth_oidc_5c9f32f5.metadata.ssh_username }}"
+}
