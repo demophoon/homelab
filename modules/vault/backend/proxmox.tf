@@ -42,6 +42,9 @@ resource "vault_ssh_secret_backend_role" "ssh-user" {
     allow_user_certificates = true
     allow_host_certificates = false
 
+    ttl                     = "30m"
+    max_ttl                 = "1d"
+
     allowed_domains          = "*"
     allowed_extensions       = "permit-pty,permit-port-forwarding"
 
