@@ -4,11 +4,22 @@
 # This includes helpers for downloading the vault binary if it is not already installed.
 
 is_vault_installed() {
-    command -v vault >/dev/null 2>&1
+  return 1
+  command -v vault >/dev/null 2>&1
 }
 
 is_vault_downloaded() {
-    [[ -x "${HOME}/.local/bin/vault" ]]
+  [[ -x "${HOME}/.local/bin/vault" ]]
+}
+
+_vault() {
+  if is_vault_installed; then
+    vault "$@"
+  elif is_vault_downloaded; then
+    "${HOME}/.local/bin/vault" "$@"
+  else
+    download_vault && _vault "$@"
+  fi
 }
 
 download_vault() {
@@ -27,7 +38,8 @@ download_vault() {
   arch_type=$(uname -m)
 
   case "$arch_type" in
-    x86_64) arch_type="amd64" ;;
+    x86_64)  arch_type="amd64" ;;
+    arm64)   arch_type="arm64" ;;
     aarch64) arch_type="arm64" ;;
     *) echo "Unsupported architecture: $arch_type" >&2; return 1 ;;
   esac
@@ -40,8 +52,8 @@ download_vault() {
 
   unzip -q "$vault_zip" -d "$temp_dir"
 
-  sudo mv "${temp_dir}/vault" "${HOME}/.local/bin/"
-  sudo chmod +x "${HOME}/.local/bin/vault"
+  mv "${temp_dir}/vault" "${HOME}/.local/bin/"
+  chmod +x "${HOME}/.local/bin/vault"
 
   rm -rf "${temp_dir:?}"
 }
@@ -65,8 +77,8 @@ get_ssh_key() {
 sign_key() {
   local vault_addr="https://vault-ui.internal.demophoon.com"
 
-  if ! vault token lookup -format=yaml | grep -q 'id: hvs.'; then
-    VAULT_ADDR="${vault_addr}" vault login -method=oidc -no-print role=ssh-user
+  if ! _vault token lookup -format=yaml | grep -q 'id: hvs.'; then
+    VAULT_ADDR="${vault_addr}" _vault login -method=oidc -no-print role=ssh-user
   fi
 
   local key
@@ -77,11 +89,11 @@ sign_key() {
     echo "No SSH public key found in ~/.ssh/"
     exit 1
   fi
-  VAULT_ADDR="${vault_addr}" vault write -field=signed_key proxmox/sign/ssh-user public_key=@"${key}" ttl="30m" > "${cert}"
+  VAULT_ADDR="${vault_addr}" _vault write -field=signed_key proxmox/sign/ssh-user public_key=@"${key}" ttl="30m" > "${cert}"
   ssh-keygen -L -f "${cert}" | grep Valid: | xargs
 
   local ca
-  ca=$(VAULT_ADDR="${vault_addr}" vault read -field=public_key "proxmox/config/ca")
+  ca=$(VAULT_ADDR="${vault_addr}" _vault read -field=public_key "proxmox/config/ca")
 
   if ! grep -Fq "@cert-authority * ${ca}" "${HOME}/.ssh/known_hosts"; then
     echo "@cert-authority * ${ca}" >> "${HOME}/.ssh/known_hosts"
@@ -89,9 +101,4 @@ sign_key() {
   fi
 }
 
-main() {
-  download_vault
-  sign_key
-}
-
-main
+sign_key
