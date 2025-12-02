@@ -32,12 +32,6 @@ job "registry" {
     task "registry" {
       driver = "docker"
 
-      env {
-        #REGISTRY_AUTH = "htpasswd"
-        #REGISTRY_AUTH_HTPASSWD_PATH = "/auth/htpasswd"
-        #REGISTRY_AUTH_HTPASSWD_REALM = "demophoon.registry"
-      }
-
       volume_mount {
         volume = "data"
         destination = "/var/lib/registry"
