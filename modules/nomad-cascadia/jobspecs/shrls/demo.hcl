@@ -4,8 +4,7 @@ variable "image_version" {
 }
 
 job "shrls-demo" {
-  datacenters = ["digitalocean"]
-  region = "digitalocean"
+  datacenters = ["cascadia"]
   priority = 60
   type = "batch"
 
