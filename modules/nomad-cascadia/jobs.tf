@@ -159,6 +159,9 @@ resource "nomad_job" "static" {
 resource "nomad_job" "transmission" {
   jobspec = file("${path.module}/jobspecs/transmission/transmission.hcl")
 }
+resource "nomad_job" "nzbget" {
+  jobspec = file("${path.module}/jobspecs/nzbget/nzbget.hcl")
+}
 resource "nomad_job" "arrs" {
   jobspec = file("${path.module}/jobspecs/arr/apps.hcl")
 }
