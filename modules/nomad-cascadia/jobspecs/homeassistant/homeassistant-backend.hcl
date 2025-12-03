@@ -3,9 +3,15 @@ job "homeassistant-backend" {
   priority = 100
 
   affinity {
-    attribute = "${meta.provider}"
-    value     = "metal"
-    weight    = 50
+    attribute = "${unique.consul.name}"
+    operator  = "regexp"
+    value     = "^proxmox-.*"
+    weight    = 100
+  }
+
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
   }
 
   group "appdaemon" {

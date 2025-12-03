@@ -16,16 +16,15 @@ job "homeassistant-app" {
   priority = 100
 
   affinity {
-    attribute = "${meta.provider}"
-    value     = "metal"
-    weight    = 100
-  }
-
-  affinity {
     attribute = "${unique.consul.name}"
     operator  = "regexp"
     value     = "^proxmox-.*"
     weight    = 100
+  }
+
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
   }
 
   group "homeassistant" {
