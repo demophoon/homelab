@@ -77,6 +77,11 @@ resource "vault_policy" "terraform-apply" {
       capabilities = ["read", "list", "create", "update"]
     }
 
+    # Manage Vault Identity Groups
+    path "/identity/group/id/+" {
+      capabilities = ["read", "list", "create", "update"]
+    }
+
     # Manage google dns
     path "gcp/roleset/dns-admin/key" {
       capabilities = ["read", "create"]
