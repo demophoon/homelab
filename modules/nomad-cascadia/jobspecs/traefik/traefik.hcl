@@ -138,10 +138,13 @@ ping:
   entryPoint: "internal"
 
 entryPoints:
+{{{- if env "meta.region" | eq "cascadia" }}}
   traefik:
     address: ':8081'
   internal:
     address: ':8082'
+{{{- end }}}
+
   insecure:
     address: ':80'
     reusePort: true
@@ -163,8 +166,6 @@ entryPoints:
   ssh:
     address: ':2222'
 
-  waypoint:
-    address: ':9701'
   valheim:
     reusePort: true
     address: ':2456/udp'
@@ -179,26 +180,9 @@ entryPoints:
     reusePort: true
     address: ':25565/tcp'
 
-  empyrion0:
-    address: ':30000/udp'
-  empyrion1:
-    address: ':30001/udp'
-  empyrion2:
-    address: ':30002/udp'
-  empyrion3:
-    address: ':30003/udp'
-  empyrion4:
-    address: ':30004/udp'
-
   factorio:
     reusePort: true
     address: ':34197/udp'
-
-  synapse:
-    address: ':8448'
-
-  vault:
-    address: ':4200'
 
 providers:
   providersThrottleDuration: 2s
@@ -256,6 +240,7 @@ tracing:
 
       template {
         data = <<-EOF
+{{- if env "meta.region" | eq "cascadia" }}
 http:
   serversTransports:
     vault-transport:
@@ -381,6 +366,7 @@ http:
         serversTransport: nomad-transport
         servers:
           - url: "https://192.168.1.220:8006"
+{{- end }}
 
 middlewares:
   {{- with secret "kv/data/apps/traefik/oauth" }}
