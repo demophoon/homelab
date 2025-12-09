@@ -3,12 +3,12 @@ module "nomad-jobs" {
 
   autoscaler_version = "0.4.8" # image: hashicorp/nomad-autoscaler
 
-  traefik_version = "v3.6.2" # image: traefik
+  traefik_version = "v3.6.4" # image: traefik
 
   immich_version = "v2.3.1" # image: ghcr.io/immich-app/immich-server
 
-  homeassistant_version = "2025.12.0" # image: homeassistant/home-assistant
-  zigbee2mqtt_version = "2.7.0" # image: koenkk/zigbee2mqtt
+  homeassistant_version = "2025.12.2" # image: homeassistant/home-assistant
+  zigbee2mqtt_version = "2.7.1" # image: koenkk/zigbee2mqtt
 
   vaultwarden_version = "1.34.3" # image: vaultwarden/server
 
