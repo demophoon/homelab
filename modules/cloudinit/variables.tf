@@ -14,3 +14,7 @@ variable "resource" {}
 variable "workspace" {}
 
 variable "backplane_certificate" {}
+
+variable "use_miren" {
+  default = false
+}

@@ -19,6 +19,8 @@ locals {
 
       include_keepalived = var.nomad_region == "cascadia" ? true : false
       advertise_routes   = var.nomad_region == "cascadia" ? true : false
+
+      use_miren = var.use_miren
     }
   )
 }

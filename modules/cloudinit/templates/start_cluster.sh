@@ -14,6 +14,13 @@ mount_pv() {
   fi
 }
 
+install_miren() {
+  miren_tmp="$(mktemp -d)"
+  curl -Lo "${miren_tmp}/miren.zip" https://api.miren.cloud/assets/release/miren/latest/miren-linux-amd64.zip
+  unzip "${miren_tmp}/miren.zip" -d "${miren_tmp}"
+  mv "${miren_tmp}/miren" /usr/local/bin/miren
+}
+
 mount_nfs() {
   mkdir -p /mnt/nfs
   mkdir -p /mnt/media
@@ -164,6 +171,11 @@ main() {
 %{ endif }
   systemctl restart nomad
   systemctl restart dnsmasq
+
+%{if use_miren}
+  systemctl stop nomad
+  install_miren
+%{endif}
 }
 
 main
