@@ -16,9 +16,9 @@ mount_pv() {
 
 install_miren() {
   miren_tmp="$(mktemp -d)"
-  curl -Lo "${miren_tmp}/miren.zip" https://api.miren.cloud/assets/release/miren/latest/miren-linux-amd64.zip
-  unzip "${miren_tmp}/miren.zip" -d "${miren_tmp}"
-  mv "${miren_tmp}/miren" /usr/local/bin/miren
+  curl -Lo "$miren_tmp/miren.zip" https://api.miren.cloud/assets/release/miren/latest/miren-linux-amd64.zip
+  unzip "$miren_tmp/miren.zip" -d "$miren_tmp"
+  mv "$miren_tmp/miren" /usr/local/bin/miren
 }
 
 mount_nfs() {
