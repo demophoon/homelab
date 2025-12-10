@@ -26,6 +26,8 @@ module "ci-data" {
   resource = var.resource
   workspace = var.workspace
   backplane_certificate = var.backplane_certificate
+
+  use_miren = var.use_miren
 }
 
 resource "proxmox_virtual_environment_file" "cloud_config" {

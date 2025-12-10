@@ -16,6 +16,8 @@ module "vm-nuc-2" {
   tailscale_tailnet_name = var.tailscale_tailnet_name
   workspace = "nuc-aux"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+
+  use_miren = true
 }
 
 module "vm-nuc-3" {
@@ -36,4 +38,6 @@ module "vm-nuc-3" {
   tailscale_tailnet_name = var.tailscale_tailnet_name
   workspace = "nuc-aux"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+
+  use_miren = true
 }
