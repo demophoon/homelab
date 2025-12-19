@@ -53,7 +53,9 @@ variable "authentik_version" {
   default = "2024.12.2"
 }
 
-variable "calibre_version" { }
+variable "calibre_version" {
+  default = "v3.1.4"
+}
 
 variable "juicefs_version" {
   default = "v0.27.0"

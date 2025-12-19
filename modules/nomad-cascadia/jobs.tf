@@ -190,3 +190,12 @@ resource "nomad_job" "paperless-ngx" {
 resource "nomad_job" "paperless-ngx-db" {
   jobspec = file("${path.module}/jobspecs/paperless-ngx/backend.hcl")
 }
+
+resource "nomad_job" "calibre" {
+  jobspec = file("${path.module}/jobspecs/calibre/calibre.hcl")
+  hcl2 {
+    vars = {
+      image_version = var.calibre_version
+    }
+  }
+}
