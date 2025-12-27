@@ -57,7 +57,7 @@ job "jellyfin" {
       resources {
         cpu = 512
         memory = 1024
-        memory_max = 6144
+        memory_max = 8192
       }
       service {
         name = "jellyfin-nas"
