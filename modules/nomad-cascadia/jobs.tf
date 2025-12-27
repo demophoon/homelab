@@ -199,3 +199,10 @@ resource "nomad_job" "calibre" {
     }
   }
 }
+
+resource "nomad_job" "postgres-nas" {
+  jobspec = file("${path.module}/jobspecs/postgres/postgres.hcl")
+}
+resource "nomad_job" "linkwarden" {
+  jobspec = file("${path.module}/jobspecs/linkwarden/linkwarden.hcl")
+}
