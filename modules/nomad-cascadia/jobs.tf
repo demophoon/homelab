@@ -191,18 +191,13 @@ resource "nomad_job" "paperless-ngx-db" {
   jobspec = file("${path.module}/jobspecs/paperless-ngx/backend.hcl")
 }
 
-resource "nomad_job" "calibre" {
-  jobspec = file("${path.module}/jobspecs/calibre/calibre.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.calibre_version
-    }
-  }
-}
-
 resource "nomad_job" "postgres-nas" {
   jobspec = file("${path.module}/jobspecs/postgres/postgres.hcl")
 }
 resource "nomad_job" "linkwarden" {
   jobspec = file("${path.module}/jobspecs/linkwarden/linkwarden.hcl")
+}
+
+resource "nomad_job" "mariadb-nas" {
+  jobspec = file("${path.module}/jobspecs/mariadb/mariadb.hcl")
 }
