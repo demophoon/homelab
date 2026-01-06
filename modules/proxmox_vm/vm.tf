@@ -28,6 +28,8 @@ module "ci-data" {
   backplane_certificate = var.backplane_certificate
 
   use_miren = var.use_miren
+
+  register_reprovision = var.register_reprovision
 }
 
 resource "proxmox_virtual_environment_file" "cloud_config" {

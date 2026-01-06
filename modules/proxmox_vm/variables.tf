@@ -34,3 +34,8 @@ variable "backplane_certificate" { }
 variable "use_miren" {
   default = false
 }
+
+variable "register_reprovision" {
+  description = "Registers a Nomad job which will reprovision this machine automatically on a schedule"
+  default = false
+}

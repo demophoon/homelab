@@ -16,4 +16,6 @@ module "vm-nuc" {
   tailscale_tailnet_name = var.tailscale_tailnet_name
   workspace = "nuc"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+
+  register_reprovision = true
 }
