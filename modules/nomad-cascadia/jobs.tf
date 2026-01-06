@@ -204,3 +204,11 @@ resource "nomad_job" "mariadb-nas" {
 resource "nomad_job" "booklore" {
   jobspec = file("${path.module}/jobspecs/booklore/booklore.hcl")
 }
+
+resource "nomad_job" "donetick" {
+  jobspec = file("${path.module}/jobspecs/donetick/donetick.hcl")
+}
+
+resource "nomad_job" "koffan" {
+  jobspec = file("${path.module}/jobspecs/koffan/koffan.hcl")
+}
