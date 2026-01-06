@@ -41,6 +41,8 @@ job "valheim" {
           SERVER_PUBLIC="true"
           ADMINLIST_IDS="76561198024471694"
 
+          BEPINEX="true"
+
           {{ with secret "kv/data/apps/valheim" }}
           SERVER_PASS="{{ .Data.data.password }}"
           {{ end }}
