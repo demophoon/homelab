@@ -55,8 +55,8 @@ job "valheim" {
 
       resources {
         cpu = 2000
-        memory = 256
-        memory_max = 4096
+        memory = 4096
+        memory_max = 8192
       }
       service {
         name = "valheim-2456"
