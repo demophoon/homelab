@@ -37,7 +37,7 @@ resource "vault_pki_secret_backend_root_cert" "backplane" {
 resource "vault_pki_secret_backend_role" "mtls" {
   backend = vault_mount.pki.path
   name = "infrastructure-mtls"
-  ttl  = 2592000 # 30 days
+  ttl  = 7776000 # 90 days
 
   issuer_ref = vault_pki_secret_backend_root_cert.backplane.issuer_id
 
