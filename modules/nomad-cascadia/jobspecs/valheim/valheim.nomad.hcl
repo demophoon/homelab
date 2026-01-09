@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "sha-951992b"
+  default = "sha-9220bdc"
 }
 
 job "valheim" {
@@ -15,6 +15,7 @@ job "valheim" {
       port "srv" { to = 2456 }
       port "srv2" { to = 2457 }
       port "http" { to = 80 }
+      port "map" { to = 3000 }
     }
 
     task "valheim" {
@@ -26,8 +27,8 @@ job "valheim" {
       }
 
       config {
-        image = "lloesche/valheim-server:${var.image_version}"
-        ports = ["srv", "srv2", "http"]
+        image = "ghcr.io/community-valheim-tools/valheim-server:${var.image_version}"
+        ports = ["srv", "srv2", "http", "map"]
         volumes = [
           "/mnt/proxmox-aux-1/valheim/data:/opt/valheim",
           "/mnt/proxmox-aux-1/valheim/config:/config",
@@ -84,6 +85,15 @@ job "valheim" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.valheim-status.rule=host(`valheim.brittg.com`)",
+        ]
+      }
+
+      service {
+        name = "valheim-map"
+        port = "map"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.valheim-map.rule=host(`valheim-map.brittg.com`)",
         ]
       }
 
