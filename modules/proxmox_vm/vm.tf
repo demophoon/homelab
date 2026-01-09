@@ -30,6 +30,7 @@ module "ci-data" {
   use_miren = var.use_miren
 
   register_reprovision = var.register_reprovision
+  reprovision_dow      = var.reprovision_dow
 }
 
 resource "proxmox_virtual_environment_file" "cloud_config" {

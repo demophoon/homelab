@@ -29,4 +29,6 @@ module "vm-do" {
   is_server = each.value.server
 
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+  register_reprovision = true
+  reprovision_dow      = 0
 }

@@ -25,6 +25,9 @@ module "ci-data" {
   server = var.is_server
   workspace = var.workspace
   backplane_certificate = var.backplane_certificate
+
+  register_reprovision = var.register_reprovision
+  reprovision_dow      = var.reprovision_dow
 }
 
 
