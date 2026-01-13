@@ -1,6 +1,7 @@
 variable "image_version" {
   type = string
-  default = "v0.1.64"
+  //default = "v0.1.64"
+  default = "dev"
 }
 
 job "donetick" {
@@ -26,7 +27,7 @@ job "donetick" {
       }
 
       config {
-        image = "donetick/donetick:${var.image_version}"
+        image = "registry.internal.demophoon.com/donetick/donetick:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/proxmox-aux-1/donetick/data:/donetick-data",
