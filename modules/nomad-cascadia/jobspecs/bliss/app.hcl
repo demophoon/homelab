@@ -43,7 +43,7 @@ job "bliss" {
       }
 
       resources {
-        cpu = 4096
+        cpu = 1000
         memory = 1024
         memory_max = 4096
       }
