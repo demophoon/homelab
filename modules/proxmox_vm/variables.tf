@@ -19,6 +19,10 @@ variable "cpu" {
 variable "memory" {
   default = 16384
 }
+variable "persistant_disk" {
+  description = "Number of GB to reserve in a virtual disk which follows automatically mounts to vms created by this workspace"
+  default = 32
+}
 
 variable "join_nodes" {
   default = []

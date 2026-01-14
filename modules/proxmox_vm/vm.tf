@@ -53,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "data_vm" {
   disk {
     datastore_id = "local-lvm"
     interface    = "scsi0"
-    size         = 32
+    size         = var.persistant_disk
   }
 }
 
