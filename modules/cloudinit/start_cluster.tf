@@ -14,6 +14,8 @@ locals {
       secret_id     = module.approle.secret_id
       pv_name       = var.pv_name
 
+      truenas_ip    = var.truenas_ip
+
       use_miren = var.use_miren
     }
   )

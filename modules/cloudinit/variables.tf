@@ -5,6 +5,10 @@ variable "server" {
   default = false
 }
 
+variable "truenas_ip" {
+  default = "192.168.1.231"
+}
+
 variable "pv_name" {
   default = ""
 }

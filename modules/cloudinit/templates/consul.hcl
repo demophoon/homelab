@@ -69,7 +69,7 @@ services {
 services {
   name = "truenas"
   id = "truenas"
-  address = "192.168.1.163"
+  address = "${truenas_ip}"
   port = 443
   tags = [
     "internal=true",
@@ -77,7 +77,7 @@ services {
   check = {
     id = "api"
     name = "UI"
-    http = "https://192.168.1.163"
+    http = "https://${truenas_ip}"
     tls_skip_verify = true
     method = "GET"
     interval = "10s"
@@ -88,7 +88,7 @@ services {
 services {
   name = "plex"
   id = "plex"
-  address = "192.168.1.163"
+  address = "${truenas_ip}"
   port = 32400
   tags = [
     "traefik.enable=true",
@@ -99,7 +99,7 @@ services {
 services {
   name = "media"
   id = "media"
-  address = "192.168.1.163"
+  address = "${truenas_ip}"
   port = 15055
   tags = [
     "traefik.enable=true",

@@ -12,6 +12,7 @@ locals {
       is_server        = var.server
       include_services = var.nomad_region == "cascadia" ? true : false
       resource         = var.resource
+      truenas_ip       = var.truenas_ip
     }
   )
 }

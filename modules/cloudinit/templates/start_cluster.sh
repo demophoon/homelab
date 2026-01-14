@@ -5,7 +5,7 @@ set -o pipefail
 %{if include_media}
 export mount_flags="rw,relatime,vers=4.2,rsize=65536,wsize=65536,hard,timeo=600,retrans=2,sec=sys,local_lock=none"
 export mount_srv="truenas.service.consul.demophoon.com"
-export mount_srv="192.168.1.231"
+export mount_srv="${truenas_ip}"
 
 mount_pv() {
   if [ -e /dev/sda1 ]; then
