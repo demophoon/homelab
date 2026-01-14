@@ -14,3 +14,7 @@ terraform {
     }
   }
 }
+
+provider "proxmox" {
+  endpoint = "https://${var.proxmox_host}:8006/"
+}
