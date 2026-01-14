@@ -33,3 +33,8 @@ terraform {
   #  region = "us-west-001"
   #}
 }
+
+provider "proxmox" {
+  alias = "proxmox-lynx"
+  endpoint = "https://192.168.1.149:8006/"
+}

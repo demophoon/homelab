@@ -45,3 +45,16 @@ resource "proxmox_virtual_environment_download_file" "sol_ubuntu_2404_noble_img"
   #checksum_algorithm = "sha256"
   overwrite          = false
 }
+
+resource "proxmox_virtual_environment_download_file" "lynx_ubuntu_2404_noble_img" {
+  provider           = proxmox.proxmox-lynx
+
+  content_type       = "iso"
+  datastore_id       = "local"
+  node_name          = "lynx"
+  file_name          = var.ubuntu_image.file_name
+  url                = var.ubuntu_image.url
+  #checksum           = var.ubuntu_image.sha256
+  #checksum_algorithm = "sha256"
+  overwrite          = false
+}
