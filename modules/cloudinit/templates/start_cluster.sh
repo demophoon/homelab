@@ -11,6 +11,10 @@ mount_pv() {
   if [ -e /dev/sda1 ]; then
     mkdir -p /mnt/${pv_name}
     mount -t ext4 /dev/sda1 /mnt/${pv_name}
+  elif [ -e /dev/sda ]; then
+    parted -a none /dev/sda --script 'mklabel gpt mkpart ${pv_name} ext4 0 100% resizepart 1 100% quit'
+    mkfs.ext4 /dev/sda1
+    mount_pv
   fi
 }
 
