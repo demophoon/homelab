@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.16.1"
+  default = "v1.18.3"
 }
 job "booklore" {
   datacenters = ["cascadia"]
