@@ -37,6 +37,14 @@ job "postgres" {
         memory = 512
       }
 
+      service {
+        name = "postgres-nas"
+        port = "db"
+        tags = [
+          "traefik.enable=false",
+        ]
+      }
+
       vault {
         role = "postgres-nas"
       }
