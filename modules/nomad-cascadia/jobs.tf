@@ -212,3 +212,19 @@ resource "nomad_job" "donetick" {
 resource "nomad_job" "koffan" {
   jobspec = file("${path.module}/jobspecs/koffan/koffan.hcl")
 }
+
+resource "nomad_job" "technitium" {
+  jobspec = file("${path.module}/jobspecs/technitium/technitium.hcl")
+}
+
+resource "nomad_job" "ittools" {
+  jobspec = file("${path.module}/jobspecs/ittools/ittools.hcl")
+}
+
+resource "nomad_job" "forgejo" {
+  jobspec = file("${path.module}/jobspecs/forgejo/forgejo.hcl")
+}
+
+resource "nomad_job" "miniflux" {
+  jobspec = file("${path.module}/jobspecs/miniflux/miniflux.hcl")
+}
