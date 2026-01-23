@@ -1,11 +1,15 @@
 variable "image_version" {
   type = string
-  default = "0.50.5" # image: ghcr.io/dgtlmoon/changedetection.io
+  default = "0.52.5" # image: ghcr.io/dgtlmoon/changedetection.io
 }
 
 job "changedetection" {
   datacenters = ["cascadia"]
-  region = "global"
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
+
   group "app" {
     network {
       port "app" { to = 5000 }
