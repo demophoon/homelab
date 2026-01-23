@@ -12,7 +12,7 @@ job "minecraft" {
   group "server" {
     volume "server" {
       type            = "host"
-      source          = "proxmox"
+      source          = "lynx-aux-1"
     }
 
     network {
@@ -73,7 +73,7 @@ job "minecraft" {
         image = "itzg/minecraft-server:${var.image_version}-${var.image_flavor}"
         ports = ["srv"]
         volumes = [
-          "/mnt/proxmox/minecraft/data:/data",
+          "/mnt/lynx-aux-1/minecraft/data:/data",
         ]
       }
 

@@ -1,5 +1,5 @@
 data "tailscale_devices" "proxmox" {
-  name_prefix = "proxmox-"
+  name_prefix = "lynx-"
 }
 
 resource "google_dns_record_set" "demophoon-ts" {

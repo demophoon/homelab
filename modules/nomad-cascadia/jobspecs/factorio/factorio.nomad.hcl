@@ -8,7 +8,7 @@ job "factorio" {
   group "server" {
     volume "server" {
       type            = "host"
-      source          = "proxmox"
+      source          = "lynx-aux-1"
     }
 
     network {
@@ -27,7 +27,7 @@ job "factorio" {
         image = "factoriotools/factorio:${var.image_version}"
         ports = ["srv"]
         volumes = [
-          "/mnt/proxmox/factorio-spaceage:/factorio",
+          "/mnt/lynx-aux-1/factorio-spaceage:/factorio",
         ]
       }
 

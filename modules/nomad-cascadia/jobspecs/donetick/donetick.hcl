@@ -11,7 +11,7 @@ job "donetick" {
 
     volume "server" {
       type            = "host"
-      source          = "proxmox-aux-1"
+      source          = "lynx"
     }
 
     network {
@@ -30,8 +30,8 @@ job "donetick" {
         image = "registry.internal.demophoon.com/donetick/donetick:${var.image_version}"
         ports = ["app"]
         volumes = [
-          "/mnt/proxmox-aux-1/donetick/data:/donetick-data",
-          "/mnt/proxmox-aux-1/donetick/assets:/app/assets",
+          "/mnt/lynx/donetick/data:/donetick-data",
+          "/mnt/lynx/donetick/assets:/app/assets",
         ]
       }
 

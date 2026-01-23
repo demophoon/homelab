@@ -11,7 +11,7 @@ job "nexus" {
 
     volume "persistance" {
       type            = "host"
-      source          = "proxmox"
+      source          = "lynx-aux-1"
     }
 
     task "registry" {
@@ -31,7 +31,7 @@ job "nexus" {
         image = "sonatype/nexus3"
         ports = ["app"]
         volumes = [
-          "/mnt/proxmox/nexus/data:/nexus-data",
+          "/mnt/lynx-aux-1/nexus/data:/nexus-data",
         ]
       }
 

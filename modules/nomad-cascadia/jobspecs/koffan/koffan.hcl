@@ -10,7 +10,7 @@ job "koffan" {
 
     volume "server" {
       type            = "host"
-      source          = "proxmox"
+      source          = "lynx-aux-1"
     }
 
     network {
@@ -29,7 +29,7 @@ job "koffan" {
         image = "ghcr.io/pansalut/koffan:${var.image_version}"
         ports = ["app"]
         volumes = [
-          "/mnt/proxmox/koffan/data:/data",
+          "/mnt/lynx-aux-1/koffan/data:/data",
         ]
       }
 

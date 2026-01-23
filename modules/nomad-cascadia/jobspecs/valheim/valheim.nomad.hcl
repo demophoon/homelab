@@ -8,7 +8,7 @@ job "valheim" {
   group "server" {
     volume "server" {
       type            = "host"
-      source          = "proxmox-aux-1"
+      source          = "lynx"
     }
 
     network {
@@ -30,8 +30,8 @@ job "valheim" {
         image = "ghcr.io/community-valheim-tools/valheim-server:${var.image_version}"
         ports = ["srv", "srv2", "http", "map"]
         volumes = [
-          "/mnt/proxmox-aux-1/valheim/data:/opt/valheim",
-          "/mnt/proxmox-aux-1/valheim/config:/config",
+          "/mnt/lynx/valheim/data:/opt/valheim",
+          "/mnt/lynx/valheim/config:/config",
         ]
       }
 
