@@ -40,7 +40,7 @@ job "donetick" {
           DT_ENV=selfhosted
 
           DT_IS_DONE_TICK_DOT_COM=false
-          DT_IS_USER_CREATION_DISABLED=true
+          DT_IS_USER_CREATION_DISABLED=false
 
           DT_NAME="ADH DoneTick"
           DT_SERVER_PORT=2021
@@ -59,17 +59,6 @@ job "donetick" {
 
           {{ with secret "kv/data/apps/donetick/app" }}
             DT_JWT_SECRET="{{ .Data.data.jwt_secret }}"
-          {{ end }}
-
-          {{ with secret "kv/data/apps/donetick/oidc" }}
-            DT_OAUTH2_NAME="Authentik"
-            DT_OAUTH2_CLIENT_ID="{{ .Data.data.client_id }}"
-            DT_OAUTH2_CLIENT_SECRET="{{ .Data.data.client_secret }}"
-
-            DT_OAUTH2_REDIRECT_URL="https://donetick.brittg.com/auth/oauth2"
-            DT_OAUTH2_AUTH_URL="https://sso.brittg.com/application/o/authorize/"
-            DT_OAUTH2_TOKEN_URL="https://sso.brittg.com/application/o/token/"
-            DT_OAUTH2_USER_INFO_URL="https://sso.brittg.com/application/o/userinfo/"
           {{ end }}
         EOT
         destination = "secrets/config"
