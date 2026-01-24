@@ -1,7 +1,7 @@
 resource "vault_jwt_auth_backend_role" "authentik" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "authentik"
-  token_policies = ["authentik"]
+  token_policies = ["authentik", "smtp-ro"]
 
   bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
@@ -23,9 +23,6 @@ resource "vault_policy" "authentik" {
   name = "authentik"
   policy = <<EOF
 path "kv/data/apps/authentik/*" {
-  capabilities = ["read"]
-}
-path "kv/data/apps/smtp" {
   capabilities = ["read"]
 }
   EOF

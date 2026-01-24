@@ -1,7 +1,7 @@
 resource "vault_jwt_auth_backend_role" "nextcloud" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "nextcloud"
-  token_policies = ["nextcloud"]
+  token_policies = ["nextcloud", "smtp-ro"]
 
   bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
@@ -23,9 +23,6 @@ resource "vault_policy" "nextcloud" {
   name = "nextcloud"
   policy = <<EOF
 path "kv/data/apps/nextcloud/*" {
-  capabilities = ["read"]
-}
-path "kv/data/apps/smtp" {
   capabilities = ["read"]
 }
 

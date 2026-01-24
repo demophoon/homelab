@@ -1,7 +1,7 @@
 resource "vault_jwt_auth_backend_role" "vaultwarden" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "vaultwarden"
-  token_policies = ["vaultwarden"]
+  token_policies = ["vaultwarden", "smtp-ro"]
 
   bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
@@ -23,9 +23,6 @@ resource "vault_policy" "vaultwarden" {
   name = "vaultwarden"
   policy = <<EOF
 path "kv/data/apps/vaultwarden/app" {
-  capabilities = ["read"]
-}
-path "kv/data/apps/smtp" {
   capabilities = ["read"]
 }
   EOF

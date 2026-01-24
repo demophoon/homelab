@@ -1,7 +1,7 @@
 resource "vault_jwt_auth_backend_role" "bluesky" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "bluesky"
-  token_policies = ["bluesky"]
+  token_policies = ["bluesky", "smtp-ro"]
 
   bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
@@ -23,9 +23,6 @@ resource "vault_policy" "bluesky" {
   name = "bluesky"
   policy = <<EOF
 path "kv/data/apps/bluesky" {
-  capabilities = ["read"]
-}
-path "kv/data/apps/smtp" {
   capabilities = ["read"]
 }
   EOF
