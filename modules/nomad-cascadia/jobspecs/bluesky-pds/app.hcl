@@ -11,11 +11,16 @@
 #      - /pds/pds.env
 variable "image_version" {
   type = string
-  default = "0.4" # image: ghcr.io/bluesky-social/pds
+  default = "0.4.204" # image: ghcr.io/bluesky-social/pds
 }
 
 job "bluesky-pds" {
   datacenters = ["cascadia"]
+
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
 
   group "pds" {
     count = 1
@@ -60,6 +65,15 @@ job "bluesky-pds" {
           PDS_REPORT_SERVICE_DID="did:plc:ar7c4by46qjdydhdevvrndac"
           PDS_CRAWLERS="https://bsky.network"
 
+          PDS_OAUTH_PROVIDER_NAME="Demophoon's self hosted PDS"
+          PDS_OAUTH_PROVIDER_LOGO=
+          PDS_OAUTH_PROVIDER_PRIMARY_COLOR="#28caff"
+          PDS_OAUTH_PROVIDER_ERROR_COLOR=
+          PDS_OAUTH_PROVIDER_HOME_LINK=
+          PDS_OAUTH_PROVIDER_TOS_LINK=
+          PDS_OAUTH_PROVIDER_POLICY_LINK=
+          PDS_OAUTH_PROVIDER_SUPPORT_LINK=
+
           LOG_ENABLED=true
 
           {{ with secret "kv/apps/smtp" }}
@@ -82,8 +96,24 @@ job "bluesky-pds" {
           # Enable Traefik
           "traefik.enable=true",
 
+          "traefik.http.services.bluesky-pds.loadbalancer.passhostheader=false",
+
           # AT Protocol PDS
-          "traefik.http.routers.bluesky-pds.rule=(host(`brittg.com`) && pathprefix(`/xrpc`)) || host(`demophoon.brittg.com`)",
+          "traefik.http.routers.bluesky-pds-bare.rule=host(`demophoon.brittg.com`)",
+
+          "traefik.http.routers.bluesky-pds-well-known.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/.well-known/oauth-protected-resource`) || pathprefix(`/.well-known/atproto-did`))",
+          "traefik.http.routers.bluesky-pds-xrpc.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/xrpc`))",
+          "traefik.http.routers.bluesky-pds-oauth.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/oauth`))",
+
+          "traefik.http.middlewares.pds-headers.headers.customrequestheaders.X-Forwarded-Host=demophoon.brittg.com",
+
+          "traefik.http.routers.bluesky-pds-well-known.middlewares=pds-headers",
+          "traefik.http.routers.bluesky-pds-xrpc.middlewares=pds-headers",
+          "traefik.http.routers.bluesky-pds-oauth.middlewares=pds-headers",
+
+          "traefik.http.routers.bluesky-pds-well-known.service=bluesky-pds",
+          "traefik.http.routers.bluesky-pds-xrpc.service=bluesky-pds",
+          "traefik.http.routers.bluesky-pds-oauth.service=bluesky-pds",
         ]
       }
 

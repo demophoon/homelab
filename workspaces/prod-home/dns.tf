@@ -234,6 +234,26 @@ resource "google_dns_record_set" "brittg-dmarc" {
   ]
 }
 
+resource "google_dns_record_set" "brittg-root-did" {
+  name         = "_atproto.brittg.com."
+  type         = "TXT"
+  ttl          = 300
+  managed_zone = google_dns_managed_zone.brittg_com.name
+  rrdatas = [
+    "did=did:plc:evt37vxklh6vllnuevsemdcy",
+  ]
+}
+
+resource "google_dns_record_set" "demophoon-brittg-root-did" {
+  name         = "_atproto.demophoon.brittg.com."
+  type         = "TXT"
+  ttl          = 300
+  managed_zone = google_dns_managed_zone.brittg_com.name
+  rrdatas = [
+    "did=did:plc:evt37vxklh6vllnuevsemdcy",
+  ]
+}
+
 resource "google_dns_record_set" "brittslittlesliceofheaven-root-txt" {
   name         = "brittslittlesliceofheaven.org."
   type         = "TXT"
