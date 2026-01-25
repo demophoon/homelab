@@ -6,6 +6,11 @@ variable "image_version" {
 job "linkwarden" {
   datacenters = ["cascadia"]
 
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
+
   group "app" {
     network {
       port "http" { to = 3000 }

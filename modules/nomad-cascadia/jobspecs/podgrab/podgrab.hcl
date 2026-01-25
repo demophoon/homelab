@@ -3,6 +3,11 @@
 job "podgrab" {
   datacenters = ["cascadia"]
 
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
+
   group "podgrab" {
     count = 1
 

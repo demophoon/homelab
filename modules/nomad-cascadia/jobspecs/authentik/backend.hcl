@@ -2,6 +2,11 @@ job "authentik-backend" {
   datacenters = ["cascadia"]
   region = "global"
 
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
+  }
+
   group "persistance" {
     count = 1
     network {
