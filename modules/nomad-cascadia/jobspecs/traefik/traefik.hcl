@@ -416,7 +416,8 @@ middlewares:
         EOF
         destination = "secrets/certs/cert.pem"
         perms = "600"
-        change_mode = "noop"
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
       }
       template {
         data = <<-EOF
