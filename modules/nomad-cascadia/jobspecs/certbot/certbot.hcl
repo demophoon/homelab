@@ -80,6 +80,14 @@ EOF
         destination = "secrets/sa.json"
         perms = "600"
       }
+      vault {
+        role = "certbot"
+      }
+      identity {
+        name        = "vault_default"
+        aud         = ["infrastructure.demophoon.com"]
+        ttl         = "15m"
+      }
     }
 
     task "post-process" {
