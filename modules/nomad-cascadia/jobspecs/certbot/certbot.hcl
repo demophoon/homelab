@@ -29,6 +29,8 @@ job "certbot" {
         args = [
           "certonly",
           #"--dry-run", "--test-cert",
+          "--non-interactive",
+
           "--config", "/local/config.ini",
           "--deploy-hook", "/local/deploy.sh",
 
