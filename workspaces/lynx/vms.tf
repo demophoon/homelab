@@ -18,4 +18,7 @@ module "vm-lynx" {
   tailscale_tailnet_name = var.tailscale_tailnet_name
   workspace = "lynx-primary"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+
+  register_reprovision = true
+  reprovision_dow      = 2
 }

@@ -16,4 +16,7 @@ module "vm-sol" {
   tailscale_tailnet_name = var.tailscale_tailnet_name
   workspace = "sol"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
+
+  register_reprovision = true
+  reprovision_dow      = 1
 }
