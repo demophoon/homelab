@@ -1,7 +1,7 @@
 locals {
   keepalive_priority = contains([
-    "proxmox",
-    "proxmox-aux"
+    "lynx",
+    "lynx-secondary",
   ], var.workspace)
 }
 resource "random_integer" "vrrp_priority" {
