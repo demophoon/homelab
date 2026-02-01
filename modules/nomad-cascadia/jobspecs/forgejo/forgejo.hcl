@@ -25,7 +25,7 @@ job "forgejo" {
       config {
         image = "codeberg.org/forgejo/forgejo:${var.image_version}"
         image_pull_timeout = "15m"
-        ports = ["app"]
+        ports = ["app", "ssh"]
         volumes = [
           "/mnt/nfs/forgejo/data:/data",
           "/etc/localtime:/etc/localtime:ro",
@@ -53,6 +53,16 @@ job "forgejo" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.forgejo-app.rule=Host(`git.brittg.com`)",
+        ]
+      }
+
+      service {
+        name = "forgejo-ssh"
+        port = "ssh"
+        tags = [
+          "traefik.enable=true",
+          "traefik.tcp.routers.forgejo-ssh.rule=HostSNI(`*`)",
+          "traefik.tcp.routers.forgejo-ssh.entrypoints=ssh",
         ]
       }
 
