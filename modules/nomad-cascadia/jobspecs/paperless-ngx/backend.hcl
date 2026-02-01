@@ -1,11 +1,9 @@
 job "paperless-backend" {
   datacenters = ["cascadia"]
 
-  affinity {
-    attribute = "${unique.consul.name}"
-    operator  = "regexp"
-    value     = "^proxmox-.*"
-    weight    = 100
+  constraint {
+    attribute = "${meta.region}"
+    value     = "cascadia"
   }
 
   group "postgres" {
