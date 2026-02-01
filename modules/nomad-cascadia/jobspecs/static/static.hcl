@@ -65,6 +65,11 @@ job "static" {
           "traefik.http.routers.pico8.rule=host(`pico-8.brittg.com`)",
           "traefik.http.routers.pico8.middlewares=pico8-static",
           "traefik.http.middlewares.pico8-static.addPrefix.prefix=/pico-8",
+
+          # ddbbb.brittg.com
+          "traefik.http.routers.ddbbb.rule=host(`ddbbb.brittg.com`)",
+          "traefik.http.routers.ddbbb.middlewares=ddbbb-static",
+          "traefik.http.middlewares.ddbbb-static.addPrefix.prefix=/ddbbb",
         ]
       }
     }
