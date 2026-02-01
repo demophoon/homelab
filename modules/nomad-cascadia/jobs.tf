@@ -239,3 +239,11 @@ resource "nomad_job" "nextcloud-backend" {
 resource "nomad_job" "nextcloud-app" {
   jobspec = file("${path.module}/jobspecs/nextcloud/app.hcl")
 }
+
+resource "nomad_job" "vikunja" {
+  jobspec = file("${path.module}/jobspecs/vikunja/vikunja.hcl")
+}
+
+resource "nomad_job" "memos" {
+  jobspec = file("${path.module}/jobspecs/memos/memos.hcl")
+}
