@@ -33,34 +33,4 @@ job "nextcloud-backend" {
       }
     }
   }
-
-  group "image-processing" {
-    count = 0
-    network {
-      port "imaginary" {
-        to = 8088
-      }
-    }
-    task "imaginary" {
-      driver = "docker"
-      config {
-        image = "h2non/imaginary"
-        ports = ["imaginary"]
-      }
-      env {
-        PORT = "8088"
-      }
-      resources {
-        cpu = 1024
-        memory = 1024
-      }
-    }
-    service {
-      name = "nextcloud-imaginary"
-      port = "imaginary"
-      tags = [
-        "internal=true",
-      ]
-    }
-  }
 }

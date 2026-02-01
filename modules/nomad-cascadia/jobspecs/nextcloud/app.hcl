@@ -1,10 +1,11 @@
 variable "image_version" {
   type = string
-  default = "27.1.3"
+  default = "32.0.5"
 }
 
 job "nextcloud-app" {
   datacenters = ["cascadia"]
+  node_pool = "nas"
 
     # Application
   group "app" {
@@ -14,52 +15,34 @@ job "nextcloud-app" {
       port "app" { to = 80 }
     }
 
-    task "restore-config" {
-      lifecycle {
-        hook = "prestart"
-        sidecar = false
-      }
-
-      driver = "docker"
-
-      config {
-        image = "servercontainers/rsync:latest"
-        command = "sh"
-        args = [
-          "-c",
-          "rsync --info=progress2 --exclude '/nfs/data/' -a /nfs/ /local-server",
-        ]
-        volumes = [
-          "/mnt/nfs/nextcloud-global:/nfs",
-          "/opt/nextcloud:/local-server",
-        ]
-      }
-    }
-
-    task "backup-config" {
-      lifecycle {
-        hook = "poststop"
-        sidecar = false
-      }
-
-      driver = "docker"
-
-      config {
-        image = "servercontainers/rsync:latest"
-        command = "sh"
-        args = [
-          "-c",
-          "rsync --info=progress2 --exclude '/local-server/data/' -a /local-server/ /nfs",
-        ]
-        volumes = [
-          "/mnt/nfs/nextcloud-global:/nfs",
-          "/opt/nextcloud:/local-server",
-        ]
-      }
-    }
-
     task "nextcloud" {
       driver = "docker"
+
+      action "maintenance-mode-on" {
+        command = "/var/www/html/occ"
+        args = [
+          "maintenance:mode",
+          "--on",
+        ]
+      }
+
+      action "maintenance-mode-off" {
+        command = "/var/www/html/occ"
+        args = [
+          "maintenance:mode",
+          "--off",
+        ]
+      }
+
+      action "maintenance-window-set" {
+        command = "/var/www/html/occ"
+        args = [
+          "config:system:set",
+          "maintenance_window_start",
+          "--value", "1",
+          "--type", "integer",
+        ]
+      }
 
       action "files-scan" {
         command = "/var/www/html/occ"
@@ -69,51 +52,71 @@ job "nextcloud-app" {
         ]
       }
 
+      action "add-missing-indicies" {
+        command = "/var/www/html/occ"
+        args = [
+          "db:add-missing-indices",
+        ]
+      }
+
+      action "mimetype-migrations" {
+        command = "/var/www/html/occ"
+        args = [
+          "maintenance:repair",
+          "--include-expensive",
+        ]
+      }
+
       config {
         image = "nextcloud:${var.image_version}"
         image_pull_timeout = "15m"
         ports = ["app"]
         volumes = [
-          "/opt/nextcloud:/var/www/html",
-          "/mnt/nfs/nextcloud-global/data:/var/www/html/data",
+          "/mnt/dank0/andromeda/nextcloud-global/html:/var/www/html",
         ]
       }
 
       template {
-         data = <<EOF
-{{ with secret "kv/apps/nextcloud/app" }}
-NEXTCLOUD_ADMIN_USER="{{ .Data.data.username }}"
-NEXTCLOUD_ADMIN_PASSWORD="{{ .Data.data.password }}"
-{{ end }}
+        data = <<EOF
+          {{ with secret "kv/apps/nextcloud/app" }}
+          NEXTCLOUD_ADMIN_USER="{{ .Data.data.username }}"
+          NEXTCLOUD_ADMIN_PASSWORD="{{ .Data.data.password }}"
+          {{ end }}
 
-POSTGRES_DB="nextcloud"
-POSTGRES_HOST="192.168.1.163:15432"
-POSTGRES_PORT="15432"
-{{ with secret "postgres/static-creds/nextcloud-admin" }}
-POSTGRES_USER="{{ .Data.username }}"
-POSTGRES_PASSWORD="{{ .Data.password }}"
-{{ end }}
+          {{- range service "postgres-nas" }}
+          POSTGRES_HOST="{{ .Address }}:{{ .Port }}"
+          {{ end }}
 
-{{- range service "nextcloud-redis" }}
-REDIS_HOST={{ .Address }}
-REDIS_HOST_PORT={{ .Port }}
-{{ end }}
+          {{ with secret "kv/apps/nextcloud/postgres" }}
+          POSTGRES_DB="{{ .Data.data.database }}"
+          POSTGRES_USER="{{ .Data.data.username }}"
+          POSTGRES_PASSWORD="{{ .Data.data.password }}"
+          {{ end }}
 
-TRUSTED_PROXIES="{{- range service "traefik" }}{{ .Address }} {{ end }}"
+          {{- range service "nextcloud-redis" }}
+          REDIS_HOST={{ .Address }}
+          REDIS_HOST_PORT={{ .Port }}
+          {{ end }}
 
-{{ with secret "kv/apps/smtp" }}
-SMTP_HOST="{{ .Data.data.host }}"
-SMTP_PORT={{ .Data.data.port }}
-SMTP_SECURE="ssl"
-SMTP_NAME="{{ .Data.data.username }}"
-SMTP_PASSWORD="{{ .Data.data.password }}"
-{{ end }}
+          NEXTCLOUD_TRUSTED_DOMAINS="cloud.brittg.com"
+          TRUSTED_PROXIES="{{- range service "traefik" }}{{ .Address }} {{ end }}"
 
-MAIL_FROM_ADDRESS="nextcloud-notifications"
-MAIL_DOMAIN="brittg.com"
-         EOF
-         destination = "/local/config.env"
-         env = true
+          {{ with secret "kv/apps/smtp" }}
+          SMTP_HOST="{{ .Data.data.host }}"
+          SMTP_PORT={{ .Data.data.port }}
+          SMTP_SECURE="ssl"
+          SMTP_NAME="{{ .Data.data.username }}"
+          SMTP_PASSWORD="{{ .Data.data.password }}"
+          {{ end }}
+
+          MAIL_FROM_ADDRESS="nextcloud-notifications"
+          MAIL_DOMAIN="brittg.com"
+
+          OVERWRITEPROTOCOL="https"
+          ALLOW_LOCAL_REMOTE_SERVERS="true"
+        EOF
+        destination = "/secrets/config.env"
+        env = true
       }
 
       resources {
@@ -123,17 +126,7 @@ MAIL_DOMAIN="brittg.com"
       }
 
       service {
-        name = "nextcloud-internal"
-        port = "app"
-        tags = [
-          "traefik.enable=true",
-          "internal=true",
-          "traefik.http.routers.nextcloud-internal.rule=Host(`cloud.internal.demophoon.com`)",
-        ]
-      }
-
-      service {
-        name = "${TASK}"
+        name = "nextcloud-app"
         port = "app"
         tags = [
           "traefik.enable=true",
@@ -146,12 +139,9 @@ MAIL_DOMAIN="brittg.com"
           "traefik.http.middlewares.nextcloud-nodeinfo.replacepathregex.regex=^\\.well-known/nodeinfo",
           "traefik.http.middlewares.nextcloud-nodeinfo.replacepathregex.replacement=/nextcloud/index.php/.well-known/nodeinfo",
 
-          "traefik.http.middlewares.nextcloud-redirect.redirectregex.regex=^https?://cloud\\..*\\.demophoon\\.com/(.*)",
-          "traefik.http.middlewares.nextcloud-redirect.redirectregex.replacement=https://cloud.brittg.com/$${1}",
+          "traefik.http.middlewares.nextcloud-chain.chain.middlewares=nextcloud-webfinger,nextcloud-nodeinfo,nextcloud-wellknown",
 
-          "traefik.http.middlewares.nextcloud-chain.chain.middlewares=nextcloud-webfinger,nextcloud-nodeinfo,nextcloud-wellknown,nextcloud-redirect",
-
-          "traefik.http.routers.nextcloud.rule=Host(`cloud.brittg.com`) || Host(`cloud.services.demophoon.com`)",
+          "traefik.http.routers.nextcloud.rule=Host(`cloud.brittg.com`)",
           "traefik.http.routers.nextcloud.middlewares=nextcloud-chain",
         ]
       }

@@ -232,3 +232,10 @@ resource "nomad_job" "miniflux" {
 resource "nomad_job" "uptimekuma" {
   jobspec = file("${path.module}/jobspecs/uptimekuma/uptimekuma.hcl")
 }
+
+resource "nomad_job" "nextcloud-backend" {
+  jobspec = file("${path.module}/jobspecs/nextcloud/backend.hcl")
+}
+resource "nomad_job" "nextcloud-app" {
+  jobspec = file("${path.module}/jobspecs/nextcloud/app.hcl")
+}
