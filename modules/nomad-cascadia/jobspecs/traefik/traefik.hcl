@@ -7,6 +7,13 @@ job "traefik" {
   datacenters = ["cascadia"]
   region = "global"
   priority = 100
+  node_pool = "all"
+
+  constraint {
+    attribute = "${meta.machine}"
+    operator  = "!="
+    value     = "truenas"
+  }
 
   update {
     auto_revert  = true

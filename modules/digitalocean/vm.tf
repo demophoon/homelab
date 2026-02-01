@@ -22,6 +22,7 @@ module "ci-data" {
   hostname = random_pet.server_name.id
   nomad_region = "digitalocean"
   nomad_provider = "virtual"
+  node_pool = "ingress"
   server = var.is_server
   workspace = var.workspace
   backplane_certificate = var.backplane_certificate

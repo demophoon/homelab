@@ -22,6 +22,7 @@ module "ci-data" {
   pv_name = var.proxmox_node_prefix
   nomad_region = "cascadia"
   nomad_provider = "virtual"
+  node_pool = var.node_pool
   server = var.is_server
   resource = var.resource
   workspace = var.workspace

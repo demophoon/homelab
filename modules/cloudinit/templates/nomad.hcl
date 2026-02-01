@@ -16,6 +16,8 @@ client {
   network_interface = "tailscale0"
 
   node_class = "ephemeral"
+  node_pool = "${node_pool}"
+
   meta {
     provider = "${provider}"
     region = "${region}"

@@ -1,6 +1,9 @@
 variable "hostname" {}
 variable "nomad_region" {}
 variable "nomad_provider" {}
+variable "node_pool" {
+  default = "default"
+}
 variable "server" {
   default = false
 }

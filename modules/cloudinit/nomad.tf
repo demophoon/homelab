@@ -10,6 +10,7 @@ locals {
       include_keepalived = var.nomad_region == "cascadia" ? true : false
 
       pv_name    = var.pv_name
+      node_pool  = var.node_pool
     }
   )
 }

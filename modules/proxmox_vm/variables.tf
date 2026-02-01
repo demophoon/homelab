@@ -47,3 +47,8 @@ variable "reprovision_dow" {
   description = "Day of week to schedule reprovisioning on (0-6, Sunday-Saturday)"
   default     = 3
 }
+
+variable "node_pool" {
+  description = "Nomad node pool to assign this VM to"
+  default = "default"
+}
