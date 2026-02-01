@@ -22,7 +22,7 @@ module "nomad-jobs" {
 
   shrls_version = "0.2.2"
 
-  authentik_version = "2025.12.1" # image: ghcr.io/goauthentik/server
+  authentik_version = "2025.12.2" # image: ghcr.io/goauthentik/server
 
   calibre_version = "V3.0.4" # image: crocodilestick/calibre-web-automated
 }
