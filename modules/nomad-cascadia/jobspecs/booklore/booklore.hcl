@@ -5,11 +5,6 @@ variable "image_version" {
 job "booklore" {
   datacenters = ["cascadia"]
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "booklore" {
     network {
       port "app" { to = 6000 }

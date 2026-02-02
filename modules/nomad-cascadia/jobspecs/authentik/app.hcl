@@ -11,11 +11,6 @@ job "authentik-app" {
   datacenters = ["cascadia"]
   region = "global"
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "app" {
     count = 1
     network {

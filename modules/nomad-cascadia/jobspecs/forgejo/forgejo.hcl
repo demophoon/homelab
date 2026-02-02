@@ -6,11 +6,6 @@ variable "image_version" {
 job "forgejo" {
   datacenters = ["cascadia"]
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "app" {
     count = 1
 

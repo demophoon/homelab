@@ -1,5 +1,6 @@
 job "miniflux" {
   datacenters = ["cascadia"]
+  node_pool   = "all"
 
   group "miniflux" {
     count = 1

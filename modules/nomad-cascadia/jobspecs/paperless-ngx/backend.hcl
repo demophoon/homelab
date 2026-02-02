@@ -1,11 +1,6 @@
 job "paperless-backend" {
   datacenters = ["cascadia"]
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "postgres" {
     count = 1
     network {

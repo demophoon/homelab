@@ -5,13 +5,8 @@ job "homeassistant-backend" {
   affinity {
     attribute = "${unique.consul.name}"
     operator  = "regexp"
-    value     = "^proxmox-.*"
+    value     = "^lynx-.*"
     weight    = 100
-  }
-
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
   }
 
   group "appdaemon" {

@@ -6,11 +6,6 @@ variable "image_version" {
 job "lgtm" {
   datacenters = ["cascadia"]
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "lgtm" {
     network {
       port "grafana" { to = 3000 }

@@ -5,6 +5,7 @@ variable "image_version" {
 
 job "shrls-demo" {
   datacenters = ["cascadia"]
+  node_pool = "all"
   priority = 60
   type = "batch"
 

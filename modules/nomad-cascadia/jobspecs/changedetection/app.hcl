@@ -5,10 +5,6 @@ variable "image_version" {
 
 job "changedetection" {
   datacenters = ["cascadia"]
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
 
   group "app" {
     network {

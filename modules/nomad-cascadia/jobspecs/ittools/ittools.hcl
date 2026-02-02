@@ -5,6 +5,7 @@ variable "image_version" {
 
 job "it-tools" {
   datacenters = ["cascadia"]
+  node_pool = "all"
 
   group "it-tools" {
 

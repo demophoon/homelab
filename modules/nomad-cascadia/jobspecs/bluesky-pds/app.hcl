@@ -17,11 +17,6 @@ variable "image_version" {
 job "bluesky-pds" {
   datacenters = ["cascadia"]
 
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
-
   group "pds" {
     count = 1
 

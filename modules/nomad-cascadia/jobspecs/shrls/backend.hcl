@@ -1,10 +1,6 @@
 job "shrls-backend" {
   datacenters = ["cascadia"]
   priority = 60
-  constraint {
-    attribute = "${meta.region}"
-    value     = "cascadia"
-  }
 
   group "mongodb" {
     count = 1

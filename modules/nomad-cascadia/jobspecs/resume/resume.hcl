@@ -8,6 +8,7 @@ variable "region" {
 
 job "resume" {
   datacenters = ["digitalocean", "cascadia"]
+  node_pool = "all"
   region = var.region
 
   spread {
