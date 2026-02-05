@@ -5,16 +5,16 @@ module "nomad-jobs" {
 
   traefik_version = "v3.6.7" # image: traefik
 
-  immich_version = "v2.5.2" # image: ghcr.io/immich-app/immich-server
+  immich_version = "v2.5.3" # image: ghcr.io/immich-app/immich-server
 
-  homeassistant_version = "2026.1.3" # image: homeassistant/home-assistant
-  zigbee2mqtt_version = "2.7.2" # image: koenkk/zigbee2mqtt
+  homeassistant_version = "2026.2.0" # image: homeassistant/home-assistant
+  zigbee2mqtt_version = "2.8.0" # image: koenkk/zigbee2mqtt
 
   vaultwarden_version = "1.35.2" # image: vaultwarden/server
 
   nextcloud_version = "32.0.5" # image: nextcloud
 
-  syncthing_version = "2.0.13" # image: syncthing/syncthing
+  syncthing_version = "2.0.14" # image: syncthing/syncthing
 
   vikunja_version = "0.24.6" #image: vikunja/vikunja
 
@@ -22,7 +22,7 @@ module "nomad-jobs" {
 
   shrls_version = "0.2.2"
 
-  authentik_version = "2025.12.2" # image: ghcr.io/goauthentik/server
+  authentik_version = "2025.12.3" # image: ghcr.io/goauthentik/server
 
   calibre_version = "V3.0.4" # image: crocodilestick/calibre-web-automated
 }
