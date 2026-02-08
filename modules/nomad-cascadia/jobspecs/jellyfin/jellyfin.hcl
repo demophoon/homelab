@@ -25,6 +25,7 @@ job "jellyfin" {
 
     task "jellyfin" {
       driver = "docker"
+      user = "1000"
 
       env {
         JELLYFIN_PublishedServerUrl = "https://jellyfin.brittg.com"
