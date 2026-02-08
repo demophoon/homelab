@@ -35,10 +35,6 @@ job "jellyfin" {
         image = "jellyfin/jellyfin:latest"
         image_pull_timeout = "15m"
         ports = ["app"]
-
-        volumes = [
-          "/tmp/jellyfin-cache:/cache",
-        ]
       }
 
       volume_mount {
