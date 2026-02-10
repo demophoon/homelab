@@ -16,9 +16,14 @@ module "vm-lynx" {
   template_name = data.tfe_outputs.prod_home.values.lynx_template_id
 
   tailscale_tailnet_name = var.tailscale_tailnet_name
-  workspace = "lynx-primary"
+  workspace = "lynx"
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
 
   register_reprovision = true
   reprovision_dow      = 2
+}
+
+module "lynx-reprovision" {
+  source = "../../modules/reprovisioner"
+  workspace = "lynx"
 }
