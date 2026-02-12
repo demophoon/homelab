@@ -58,6 +58,7 @@ job "uptime-kuma" {
           "traefik.enable=true",
           "internal=true",
           "traefik.http.routers.uptime-kuma.rule=host(`status.internal.demophoon.com`)",
+          "traefik.http.routers.uptime-kuma-ts.rule=host(`status.ts.demophoon.com`)",
         ]
       }
       service {
