@@ -1,7 +1,10 @@
 resource "vault_jwt_auth_backend_role" "terraform-apply" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "terraform-apply"
-  token_policies = ["terraform-apply"]
+  token_policies = [
+    "terraform-apply",
+    "rw-postgres-nas",
+  ]
 
   bound_audiences = local.infrastructure_aud
   user_claim = "/nomad_job_id"
@@ -22,7 +25,10 @@ resource "vault_jwt_auth_backend_role" "terraform-apply" {
 resource "vault_jwt_auth_backend_role" "terraform-reprovision" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "terraform-reprovision"
-  token_policies = ["terraform-apply"]
+  token_policies = [
+    "terraform-apply",
+    "rw-postgres-nas",
+  ]
 
   bound_audiences = local.infrastructure_aud
   user_claim = "/nomad_job_id"

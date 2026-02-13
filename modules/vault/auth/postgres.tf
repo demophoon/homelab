@@ -1,7 +1,7 @@
 resource "vault_jwt_auth_backend_role" "postgres-nas" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "postgres-nas"
-  token_policies = ["postgres-nas"]
+  token_policies = ["ro-postgres-nas"]
 
   bound_audiences = local.default_aud
   user_claim = "/nomad_job_id"
@@ -20,10 +20,19 @@ resource "vault_jwt_auth_backend_role" "postgres-nas" {
 }
 
 resource "vault_policy" "postgres-nas" {
-  name = "postgres-nas"
+  name = "ro-postgres-nas"
   policy = <<EOF
 path "kv/data/apps/postgres-nas" {
   capabilities = ["read"]
+}
+  EOF
+}
+
+resource "vault_policy" "postgres-nas-manage" {
+  name = "rw-postgres-nas"
+  policy = <<EOF
+path "kv/data/apps/postgres-nas" {
+  capabilities = ["read", "create", "update", "delete"]
 }
   EOF
 }
