@@ -3,7 +3,7 @@ job "transmission" {
   node_pool = "nas"
 
   group "transmission" {
-    count = 1
+    count = 0
 
     network {
       port "transmission" { static = 9091 }
