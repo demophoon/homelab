@@ -167,5 +167,10 @@ resource "vault_policy" "terraform-apply" {
     path "sys/mounts/nomad/tune" {
       capabilities = ["read", "list", "create", "update"]
     }
+
+    # Update database credentials for applications
+    path "postgres/config/cube" {
+      capabilities = ["read", "list", "create", "update"]
+    }
   EOF
 }
