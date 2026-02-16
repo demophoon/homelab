@@ -247,3 +247,7 @@ resource "nomad_job" "vikunja" {
 resource "nomad_job" "memos" {
   jobspec = file("${path.module}/jobspecs/memos/memos.hcl")
 }
+
+resource "nomad_job" "continuwuity" {
+  jobspec = file("${path.module}/jobspecs/continuwuity/server.hcl")
+}
