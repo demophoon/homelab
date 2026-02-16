@@ -2,7 +2,7 @@ resource "vault_jwt_auth_backend_role" "linkwarden" {
   backend = vault_jwt_auth_backend.jwt-nomad.path
   role_name = "linkwarden"
   token_policies = [
-    "postgres-nas",
+    "ro-postgres-nas",
     "linkwarden",
   ]
 
