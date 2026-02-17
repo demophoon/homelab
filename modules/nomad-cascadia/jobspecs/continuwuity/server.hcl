@@ -56,7 +56,7 @@ job "continuwuity" {
 
       resources {
         cpu = 400
-        memory = 512
+        memory = 1024
         memory_max = 4096
       }
       service {
