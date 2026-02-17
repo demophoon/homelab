@@ -1,7 +1,3 @@
-#    ulimits: # Continuwuity uses quite a few file descriptors, and on some systems it defaults to 1024, so you can tell docker to increase it
-#      nofile:
-#        soft: 1048567
-#        hard: 1048567
 variable "image_version" {
   type = string
   default = "v0.5.5"
@@ -52,6 +48,7 @@ job "continuwuity" {
           CONTINUWUITY_ALLOW_CHECK_FOR_UPDATES=true
           CONTINUWUITY_TRUSTED_SERVERS=["matrix.org"]
           CONTINUWUITY_ADDRESS=0.0.0.0
+          CONTINUWUITY_WELL_KNOWN="{client=https://matrix.brittg.com, server=matrix.brittg.com:443}"
         EOT
         destination = "secrets/config"
         env = true
@@ -68,6 +65,10 @@ job "continuwuity" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.continuwuity.rule=Host(`matrix.brittg.com`) || (Host(`brittg.com`) && PathPrefix(`/.well-known/matrix`))",
+          "traefik.http.routers.to-continuwuity.middlewares=matrix-cors-headers",
+          "traefik.http.middlewares.matrix-cors-headers.headers.accessControlAllowOriginList=*",
+          "traefik.http.middlewares.matrix-cors-headers.headers.accessControlAllowHeaders=Origin, X-Requested-With, Content-Type, Accept, Authorization",
+          "traefik.http.middlewares.matrix-cors-headers.headers.accessControlAllowMethods=GET, POST, PUT, DELETE, OPTIONS",
         ]
       }
 
