@@ -32,3 +32,8 @@ module "vm-do" {
   register_reprovision = true
   reprovision_dow      = 0
 }
+
+module "digitalocean-reprovision" {
+  source = "../../modules/reprovisioner"
+  workspace = "digitalocean"
+}
