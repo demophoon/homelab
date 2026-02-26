@@ -12,7 +12,7 @@ module "nomad-jobs" {
 
   vaultwarden_version = "1.35.4" # image: vaultwarden/server
 
-  nextcloud_version = "32.0.6" # image: nextcloud
+  nextcloud_version = "33.0.0" # image: nextcloud
 
   syncthing_version = "2.0.14" # image: syncthing/syncthing
 
