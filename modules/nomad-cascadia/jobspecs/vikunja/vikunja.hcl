@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "1.0.0"
+  default = "1.0.0" # image: vikunja/vikunja
 }
 
 job "vikunja-app" {

@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.18.3"
+  default = "v1.18.3" # image: ghcr.io/booklore-app/booklore
 }
 job "booklore" {
   datacenters = ["cascadia"]

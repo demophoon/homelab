@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "sha-9220bdc"
+  default = "sha-9220bdc" # image: ghcr.io/community-valheim-tools/valheim-server
 }
 
 job "valheim" {

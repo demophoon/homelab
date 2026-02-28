@@ -1,3 +1,7 @@
+variable "image_version" {
+  type = string
+  default = "2.2.17" # image: ghcr.io/miniflux/miniflux
+}
 job "miniflux" {
   datacenters = ["cascadia"]
   node_pool   = "all"
@@ -12,7 +16,7 @@ job "miniflux" {
     task "app" {
       driver = "docker"
       config {
-        image = "ghcr.io/miniflux/miniflux"
+        image = "ghcr.io/miniflux/miniflux:${var.image_version}"
         ports = ["app"]
       }
 

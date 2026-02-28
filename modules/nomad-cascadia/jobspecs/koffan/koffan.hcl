@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.2.1"
+  default = "v1.2.1" # image: ghcr.io/pansalut/koffan
 }
 
 job "koffan" {

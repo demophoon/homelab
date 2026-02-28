@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "1.27.12"
+  default = "1.27.12" # image: syncthing/syncthing
 }
 
 job "syncthing" {
