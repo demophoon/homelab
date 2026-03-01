@@ -8,7 +8,7 @@ module "nomad-jobs" {
   immich_version = "v2.5.6" # image: ghcr.io/immich-app/immich-server
 
   homeassistant_version = "2026.2.3" # image: homeassistant/home-assistant
-  zigbee2mqtt_version = "2.8.0" # image: koenkk/zigbee2mqtt
+  zigbee2mqtt_version = "2.9.0" # image: koenkk/zigbee2mqtt
 
   vaultwarden_version = "1.35.4" # image: vaultwarden/server
 
