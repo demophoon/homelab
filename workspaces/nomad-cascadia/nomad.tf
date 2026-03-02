@@ -16,7 +16,7 @@ module "nomad-jobs" {
 
   syncthing_version = "2.0.14" # image: syncthing/syncthing
 
-  vikunja_version = "1.1.0" #image: vikunja/vikunja
+  vikunja_version = "2.1.0" #image: vikunja/vikunja
 
   resume_version = "2024.05.13-0-14-g049aec3"
 
