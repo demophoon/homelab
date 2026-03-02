@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.97.0"
+      version = "0.97.1"
     }
     truenas = {
       source = "dariusbakunas/truenas"
@@ -14,7 +14,7 @@ terraform {
     }
     google = {
       source = "hashicorp/google"
-      version = "7.20.0"
+      version = "7.21.0"
     }
   }
 
