@@ -4,7 +4,7 @@ job "certbot" {
   type = "batch"
 
   periodic {
-    cron             = "0 0 0 1 * * *"
+    cron             = "0 5 */5 * *"
     prohibit_overlap = true
   }
 
@@ -30,6 +30,8 @@ job "certbot" {
           "certonly",
           #"--dry-run", "--test-cert",
           "--non-interactive",
+
+          "--preferred-profile", "shortlived",
 
           "--config", "/local/config.ini",
           "--deploy-hook", "/local/deploy.sh",
