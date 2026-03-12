@@ -434,8 +434,8 @@ middlewares:
         EOF
         destination = "secrets/certs/key.pem"
         perms = "600"
+        change_mode   = "signal"
         change_signal = "SIGHUP"
-        change_mode = "noop"
       }
 
       vault {
