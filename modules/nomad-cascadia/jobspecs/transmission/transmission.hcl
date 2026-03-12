@@ -3,7 +3,11 @@ job "transmission" {
   node_pool = "nas"
 
   group "transmission" {
-    count = 0
+    scaling {
+      enabled = true
+      min     = 0
+      max     = 1
+    }
 
     network {
       port "transmission" { static = 9091 }
