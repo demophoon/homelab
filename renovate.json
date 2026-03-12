@@ -10,7 +10,7 @@
       "managerFilePatterns": [
         "/workspaces/nomad-digitalocean/nomad.tf/",
         "/workspaces/nomad-cascadia/nomad.tf/",
-        "/modules/nomad/jobspecs/.*\\.hcl/"
+        "/modules/nomad-cascadia/jobspecs/.*\\.hcl/"
       ],
       "matchStrings": [
         ".*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
