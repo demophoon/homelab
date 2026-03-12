@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v2.13.2" # image: ghcr.io/linkwarden/linkwarden
+  default = "v2.13.5" # image: ghcr.io/linkwarden/linkwarden
 }
 
 job "linkwarden" {

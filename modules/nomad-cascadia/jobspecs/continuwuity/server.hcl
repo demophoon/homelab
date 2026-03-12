@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v0.5.5" # image: forgejo.ellis.link/continuwuation/continuwuity
+  default = "v0.5.6" # image: forgejo.ellis.link/continuwuation/continuwuity
 }
 
 job "continuwuity" {

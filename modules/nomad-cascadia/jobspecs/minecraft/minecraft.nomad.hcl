@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "2025.10.5" # image: itzg/minecraft-server
+  default = "2025.12.1" # image: itzg/minecraft-server
 }
 variable "image_flavor" {
   type = string

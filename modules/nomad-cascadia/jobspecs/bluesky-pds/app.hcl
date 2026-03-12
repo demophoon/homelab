@@ -11,7 +11,7 @@
 #      - /pds/pds.env
 variable "image_version" {
   type = string
-  default = "0.4.204" # image: ghcr.io/bluesky-social/pds
+  default = "0.4.208" # image: ghcr.io/bluesky-social/pds
 }
 
 job "bluesky-pds" {

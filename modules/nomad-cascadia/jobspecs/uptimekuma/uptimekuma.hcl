@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "2.0.2" # image: louislam/uptime-kuma
+  default = "2.2.1" # image: louislam/uptime-kuma
 }
 
 job "uptime-kuma" {
