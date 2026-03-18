@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "2.2.17" # image: ghcr.io/miniflux/miniflux
+  default = "2.2.18" # image: ghcr.io/miniflux/miniflux
 }
 job "miniflux" {
   datacenters = ["cascadia"]
