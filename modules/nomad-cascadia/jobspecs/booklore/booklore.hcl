@@ -34,7 +34,7 @@ job "booklore" {
       }
 
       config {
-        image = "ghcr.io/booklore-app/booklore:${var.image_version}"
+        image = "registry.services.demophoon.com/booklore/booklore:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/nfs/booklore/data:/app/data",
