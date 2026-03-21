@@ -251,3 +251,7 @@ resource "nomad_job" "memos" {
 resource "nomad_job" "continuwuity" {
   jobspec = file("${path.module}/jobspecs/continuwuity/server.hcl")
 }
+
+resource "nomad_job" "actualbudget" {
+  jobspec = file("${path.module}/jobspecs/actualbudget/app.hcl")
+}

@@ -1,3 +1,8 @@
+variable "image_version" {
+  type    = string
+  default = "26.3.0" # image: actualbudget/actual-server
+}
+
 job "actualbudget-app" {
   datacenters = ["cascadia"]
   group "app" {
@@ -9,7 +14,7 @@ job "actualbudget-app" {
       driver = "docker"
 
       config {
-        image = "docker.io/actualbudget/actual-server:24.2.0-alpine" # image: actualbudget/actual-server
+        image = "docker.io/actualbudget/actual-server:${var.image_version}-alpine"
         ports = ["app"]
         volumes = [
           "/mnt/nfs/actualbudget:/data",
