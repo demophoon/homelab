@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v2.2.0" # image: ghcr.io/booklore-app/booklore
+  default = "v2.3.0" # image: grimmory/grimmory
 }
 job "booklore" {
   datacenters = ["cascadia"]
@@ -34,7 +34,7 @@ job "booklore" {
       }
 
       config {
-        image = "registry.services.demophoon.com/booklore/booklore:${var.image_version}"
+        image = "grimmory/grimmory:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/nfs/booklore/data:/app/data",
