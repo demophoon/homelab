@@ -1,3 +1,8 @@
+variable "image_version" {
+  type    = string
+  default = "0.1.1"
+}
+
 job "infrastructure-maintenance-terraform" {
   datacenters = ["cascadia"]
 
@@ -98,7 +103,7 @@ job "infrastructure-maintenance-terraform" {
       }
 
       config {
-        image = "registry.services.demophoon.com/demophoon/terraform:0.1.1"
+        image = "registry.services.demophoon.com/demophoon/terraform:${var.image_version}"
         args = [
           "apply",
         ]
