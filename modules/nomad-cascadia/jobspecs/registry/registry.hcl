@@ -27,9 +27,62 @@ job "registry" {
     }
     network {
       port "registry" { to = 5000 }
+      port "registry-internal" { to = 5000 }
     }
 
-    task "registry" {
+    task "registry-public" {
+      driver = "docker"
+
+      volume_mount {
+        volume = "data"
+        destination = "/var/lib/registry"
+        read_only = true
+      }
+      volume_mount {
+        volume = "certs"
+        destination = "/certs"
+        read_only = true
+      }
+      volume_mount {
+        volume = "auth"
+        destination = "/auth"
+        read_only = true
+      }
+
+      config {
+        image = "registry:2"
+        image_pull_timeout = "15m"
+        ports = ["registry"]
+      }
+
+      resources {
+        cpu = 256
+        memory = 128
+        memory_max = 512
+      }
+
+      env {
+        REGISTRY_STORAGE_MAINTENANCE_READONLY = "{\"enabled\":true}"
+      }
+
+      service {
+        name = "registry"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.registry.rule=Host(`registry.services.demophoon.com`)",
+        ]
+
+        port = "registry"
+        check {
+          type        = "tcp"
+          port        = "registry"
+          interval    = "10s"
+          timeout     = "3s"
+        }
+      }
+    }
+
+    task "registry-internal" {
       driver = "docker"
 
       volume_mount {
@@ -48,7 +101,7 @@ job "registry" {
       config {
         image = "registry:2"
         image_pull_timeout = "15m"
-        ports = ["registry"]
+        ports = ["registry-internal"]
       }
 
       resources {
@@ -58,15 +111,17 @@ job "registry" {
       }
 
       service {
-        name = "${TASK}"
+        name = "registry-internal"
         tags = [
-          "traefik.enable=true"
+          "traefik.enable=true",
+          "internal=true",
+          "traefik.http.routers.registry-internal.rule=Host(`registry.internal.demophoon.com`)",
         ]
 
-        port = "registry"
+        port = "registry-internal"
         check {
           type        = "tcp"
-          port        = "registry"
+          port        = "registry-internal"
           interval    = "10s"
           timeout     = "3s"
         }
