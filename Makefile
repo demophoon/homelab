@@ -9,5 +9,3 @@ build:
 push: build
 	docker push registry.internal.demophoon.com/demophoon/terraform:${version}
 	docker push registry.internal.demophoon.com/demophoon/terraform:latest
-
-	nomad var put -force nomad/jobs/infrastructure-maintenance-terraform image_version=${version}
