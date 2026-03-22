@@ -8,7 +8,15 @@ terraform {
 }
 
 resource "tailscale_tailnet_key" "ts_key" {
-  reusable      = true
+  reusable      = false
   ephemeral     = true
   preauthorized = true
+  tags          = compact(
+    concat(
+      [
+        "tag:terraform_provisioned"
+      ],
+      var.additional_tags,
+    )
+  )
 }
