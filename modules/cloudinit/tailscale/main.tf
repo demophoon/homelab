@@ -14,7 +14,7 @@ resource "tailscale_tailnet_key" "ts_key" {
   tags          = compact(
     concat(
       [
-        "tag:terraform_provisioned"
+        "tag:terraform-provisioned"
       ],
       var.additional_tags,
     )

@@ -1,9 +1,9 @@
 locals {
-  consul_server_tag = var.server ? "tag:consul_server" : null
-  nomad_server_tag = var.server ? "tag:nomad_server" : null
-  vault_server_tag = var.server ? "tag:vault_server" : null
+  consul_server_tag = var.server ? "tag:consul-server" : null
+  nomad_server_tag = var.server ? "tag:nomad-server" : null
+  vault_server_tag = var.server ? "tag:vault-server" : null
 
-  nomad_client_tag = !var.use_miren ? "tag:nomad_client" : null
+  nomad_client_tag = !var.use_miren ? "tag:nomad-client" : null
   miren_tag = var.use_miren ? "tag:miren" : null
 
   ingress_tag = var.node_pool == "ingress" ? "tag:ingress" : null
