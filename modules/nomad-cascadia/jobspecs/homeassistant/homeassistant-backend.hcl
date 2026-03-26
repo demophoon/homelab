@@ -11,7 +11,12 @@ job "homeassistant-backend" {
 
   group "appdaemon" {
     count = 1
-    restart { mode = "delay" }
+    restart {
+      attempts = 10
+      mode = "delay"
+      delay = "1m"
+      interval = "10m"
+    }
 
     volume "appdaemon" {
       type = "host"
