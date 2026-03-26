@@ -28,6 +28,9 @@ resource "nomad_job" "homeassistant-app" {
 resource "nomad_job" "homeassistant-backend" {
   jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-backend.hcl")
 }
+resource "nomad_job" "homeassistant-studio" {
+  jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-studio.hcl")
+}
 
 resource "nomad_job" "registry" {
   jobspec = file("${path.module}/jobspecs/registry/registry.hcl")
