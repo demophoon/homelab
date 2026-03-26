@@ -7,6 +7,12 @@ terraform {
   }
 }
 
+resource "null_resource" "created_at" {
+  triggers = {
+    timestamp = timestamp()
+  }
+}
+
 resource "tailscale_tailnet_key" "ts_key" {
   reusable      = false
   ephemeral     = true
@@ -19,4 +25,10 @@ resource "tailscale_tailnet_key" "ts_key" {
       var.additional_tags,
     )
   )
+
+  lifecycle {
+    replace_triggered_by = [
+      null_resource.created_at,
+    ]
+  }
 }
