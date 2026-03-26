@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "latest"
+  default = "2026.1.4" # image: ghcr.io/sharevb/it-tools
 }
 
 job "it-tools" {
@@ -10,13 +10,13 @@ job "it-tools" {
   group "it-tools" {
 
     network {
-      port "app" { to = 80 }
+      port "app" { to = 8080 }
     }
 
     task "app" {
       driver = "docker"
       config {
-        image = "ghcr.io/corentinth/it-tools:${var.image_version}"
+        image = "ghcr.io/sharevb/it-tools:${var.image_version}"
         ports = ["app"]
       }
       resources {
