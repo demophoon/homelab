@@ -21,3 +21,6 @@ if [ -n "$node_id" ]; then
 else
   echo "Nothing to do."
 fi
+
+# Wait for vault to be active again
+sleep 10
