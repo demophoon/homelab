@@ -15,6 +15,10 @@ job "traefik" {
     value     = "truenas"
   }
 
+  spread {
+    attribute = "${node.datacenter}"
+  }
+
   update {
     auto_revert  = true
     health_check = "task_states"
@@ -22,10 +26,8 @@ job "traefik" {
     max_parallel = 1
   }
 
-  type = "system"
-
   group "web" {
-    count = 1
+    count = 3
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }
@@ -43,6 +45,10 @@ job "traefik" {
       port "otel" { static = 4318 }
 
       port "internal" { static = 8082 }
+    }
+
+    disconnect {
+      stop_on_client_after = "12h"
     }
 
     task "traefik" {
