@@ -4,6 +4,8 @@ module "approle" {
 }
 
 locals {
+  do_pv = var.nomad_region == "digitalocean" ? true : false
+
   start_cluster_sh = templatefile(
     "${path.module}/templates/start_cluster.sh",
     {
@@ -12,6 +14,7 @@ locals {
       hostname      = var.hostname
       role_id       = module.approle.provision_role_id
       secret_id     = module.approle.secret_id
+      do_pv         = local.do_pv
       pv_name       = var.pv_name
 
       truenas_ip    = var.truenas_ip

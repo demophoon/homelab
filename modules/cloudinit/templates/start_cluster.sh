@@ -2,6 +2,15 @@
 set -x
 set -o pipefail
 
+%{if do_pv}
+mount_pv() {
+  if [ -e /dev/disk/by-label/${pv_name} ]; then
+    mkdir -p /mnt/${pv_name}
+    mount -t ext4 /dev/disk/by-label/${pv_name} /mnt/${pv_name}
+  fi
+}
+%{endif}
+
 %{if include_media}
 export mount_flags="rw,relatime,vers=4.2,rsize=65536,wsize=65536,hard,timeo=600,retrans=2,sec=sys,local_lock=none"
 export mount_srv="truenas.service.consul.demophoon.com"
@@ -168,6 +177,7 @@ main() {
   write_consul_certificate
   write_nomad_certificate
 %{if include_media}  mount_nfs%{endif}
+%{if do_pv}  mount_pv%{endif}
 %{if is_server}
   systemctl restart vault
 %{ else }

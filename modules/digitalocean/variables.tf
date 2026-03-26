@@ -10,6 +10,16 @@ variable "join_nodes" {
 variable "resource" {}
 variable "workspace" {}
 
+variable "persistant_disk" {
+  description = "Number of GB to reserve in a virtual disk which follows automatically mounts to vms created by this workspace"
+  default = 0
+}
+
+variable "created_at" {
+  description = "Timestamp used to force VM recreation when needed"
+  default = null
+}
+
 variable "backplane_certificate" { }
 
 variable "register_reprovision" {

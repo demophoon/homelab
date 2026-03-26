@@ -1,12 +1,16 @@
 resource "null_resource" "created_at" {
   triggers = {
-    timestamp = "${timestamp()}"
+    timestamp = var.created_at != null ? var.created_at : timestamp()
   }
 }
 
 resource "random_pet" "server_name" {
   length = 1
   prefix = "do"
+
+  keepers = {
+    created_at = null_resource.created_at.id
+  }
 
   lifecycle {
     replace_triggered_by = [
@@ -29,6 +33,8 @@ module "ci-data" {
 
   register_reprovision = var.register_reprovision
   reprovision_dow      = var.reprovision_dow
+
+  pv_name = var.workspace
 }
 
 
@@ -37,9 +43,6 @@ resource "digitalocean_droplet" "web" {
   image     = "ubuntu-22-04-x64"
   region    = "sfo3"
   size      = var.size
-  #size      = "s-2vcpu-4gb-amd"
-  #size      = "s-1vcpu-1gb-amd"
-  #size      = "s-1vcpu-1gb-intel"
   user_data = module.ci-data.config
 
   lifecycle {
@@ -48,4 +51,22 @@ resource "digitalocean_droplet" "web" {
       null_resource.created_at,
     ]
   }
+}
+
+resource "digitalocean_volume" "data_disk" {
+  count             = var.persistant_disk > 0 ? 1 : 0
+
+  name              = "${var.workspace}-data"
+  region            = "sfo3"
+  size              = var.persistant_disk
+
+  initial_filesystem_type   = "ext4"
+  initial_filesystem_label  = var.workspace
+}
+
+resource "digitalocean_volume_attachment" "data_disk_attach" {
+  count = var.persistant_disk > 0 ? 1 : 0
+
+  droplet_id = digitalocean_droplet.web.id
+  volume_id  = digitalocean_volume.data_disk[0].id
 }

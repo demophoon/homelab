@@ -1,8 +1,8 @@
 module "vm-do" {
   for_each = {
     b = {
-      size = "s-2vcpu-2gb-intel"
-      #size = "s-1vcpu-1gb-intel"
+      size = "s-1vcpu-2gb"
+      #size = "s-2vcpu-2gb-intel"
       server = false
     }
 # Backups below
@@ -31,6 +31,8 @@ module "vm-do" {
   backplane_certificate = data.tfe_outputs.prod_home.values.backplane_certificate
   register_reprovision = true
   reprovision_dow      = 0
+
+  persistant_disk = 32
 }
 
 module "digitalocean-reprovision" {
