@@ -10,6 +10,9 @@ resource "nomad_job" "traefik_global" {
 resource "nomad_job" "certbot" {
   jobspec = file("${path.module}/jobspecs/certbot/certbot.hcl")
 }
+resource "nomad_job" "certbot-flawedfauna" {
+  jobspec = file("${path.module}/jobspecs/certbot/certbot-ff.hcl")
+}
 
 # Home Assistant
 resource "nomad_job" "homeassistant-app" {

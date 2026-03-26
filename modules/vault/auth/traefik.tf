@@ -25,6 +25,9 @@ resource "vault_policy" "traefik" {
 path "kv/data/traefik/certs/brittg-com" {
   capabilities = ["read"]
 }
+path "kv/data/traefik/certs/flawedfauna-com" {
+  capabilities = ["read"]
+}
 path "kv/data/apps/traefik/*" {
   capabilities = ["read"]
 }

@@ -13,6 +13,11 @@ output "google_dns_managed_zone_brittg_com" {
   value = google_dns_managed_zone.brittg_com.name
 }
 
+output "google_dns_managed_zone_flawedfauna_com" {
+  description = "Google DNS Managed Zone name for flawedfauna.com"
+  value = google_dns_managed_zone.flawedfauna_com.name
+}
+
 output "beryllium_template_id" {
   description = "vmid for beryllium"
   #value = proxmox_virtual_environment_download_file.beryllium_ubuntu_2404_noble_img.id

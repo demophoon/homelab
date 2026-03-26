@@ -414,8 +414,8 @@ middlewares:
           certificates:
             - certFile: "/secrets/certs/cert.pem"
               keyFile: "/secrets/certs/key.pem"
-              stores:
-                - "default"
+            - certFile: "/secrets/certs/ff-cert.pem"
+              keyFile: "/secrets/certs/ff-key.pem"
         EOF
         destination = "local/config/tls.yaml"
         change_mode = "noop"
@@ -439,6 +439,29 @@ middlewares:
           {{ end }}
         EOF
         destination = "secrets/certs/key.pem"
+        perms = "600"
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+      }
+
+      template {
+        data = <<-EOF
+          {{ with secret "kv/data/traefik/certs/flawedfauna-com" }}
+          {{ .Data.data.cert | base64Decode }}
+          {{ end }}
+        EOF
+        destination = "secrets/certs/ff-cert.pem"
+        perms = "600"
+        change_mode   = "signal"
+        change_signal = "SIGHUP"
+      }
+      template {
+        data = <<-EOF
+          {{ with secret "kv/data/traefik/certs/flawedfauna-com" }}
+          {{ .Data.data.key | base64Decode }}
+          {{ end }}
+        EOF
+        destination = "secrets/certs/ff-key.pem"
         perms = "600"
         change_mode   = "signal"
         change_signal = "SIGHUP"
