@@ -1,3 +1,8 @@
+variable "image_version" {
+  type    = string
+  default = "10.11.7" # image: jellyfin/jellyfin
+}
+
 job "jellyfin" {
   datacenters = ["cascadia"]
   node_pool = "nas"
@@ -32,7 +37,7 @@ job "jellyfin" {
       }
 
       config {
-        image = "jellyfin/jellyfin:latest"
+        image = "jellyfin/jellyfin:${var.image_version}"
         image_pull_timeout = "15m"
         ports = ["app"]
       }
