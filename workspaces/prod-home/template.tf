@@ -24,17 +24,6 @@ resource "proxmox_virtual_environment_download_file" "nuc_ubuntu_2404_noble_img"
   overwrite          = false
 }
 
-resource "proxmox_virtual_environment_download_file" "sol_ubuntu_2404_noble_img" {
-  content_type       = "iso"
-  datastore_id       = "local"
-  node_name          = "sol"
-  file_name          = var.ubuntu_image.file_name
-  url                = var.ubuntu_image.url
-  #checksum           = var.ubuntu_image.sha256
-  #checksum_algorithm = "sha256"
-  overwrite          = false
-}
-
 resource "proxmox_virtual_environment_download_file" "lynx_ubuntu_2404_noble_img" {
   provider           = proxmox.proxmox-lynx
 
