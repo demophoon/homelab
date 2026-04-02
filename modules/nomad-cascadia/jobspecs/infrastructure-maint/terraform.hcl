@@ -47,8 +47,6 @@ job "infrastructure-maintenance-terraform" {
         destination = "${NOMAD_SECRETS_DIR}/env"
         env = true
         data = <<-EOH
-          GIT_REPO_URL = "https://github.com/demophoon/homelab"
-
           {{ with secret "kv/env/infra/terraform" }}
             {{ range $k, $v := .Data.data }}
               {{ $k }} = "{{ $v }}"
@@ -100,6 +98,15 @@ job "infrastructure-maintenance-terraform" {
         EOF
         destination = "${NOMAD_SECRETS_DIR}/sa.json"
         perms = "600"
+      }
+
+      artifact {
+        source      = "git::https://git.brittg.com/demophoon/homelab"
+        destination = "local/repo"
+        options {
+          ref   = "main"
+          depth = 1
+        }
       }
 
       config {

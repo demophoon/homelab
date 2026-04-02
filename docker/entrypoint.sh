@@ -8,8 +8,6 @@ flags="-chdir=${tf_workspace_dir}"
 echo "Applying Terraform configuration in ${tf_workspace_dir}..."
 
 init() {
-  mkdir -p /local/repo
-  git clone "${GIT_REPO_URL}" "/local/repo"
   terraform "${flags}" init -upgrade
 }
 
