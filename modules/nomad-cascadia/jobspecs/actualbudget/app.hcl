@@ -26,12 +26,10 @@ job "actualbudget-app" {
         memory_max = 512
       }
       service {
-        name = "actualbudget"
+        name = "budget"
         port = "app"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.actualbudget.rule=host(`budget.internal.demophoon.com`)",
         ]
 
         check {
