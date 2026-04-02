@@ -34,6 +34,13 @@ job "nextcloud-app" {
         ]
       }
 
+      action "maintenance-upgrade" {
+        command = "/var/www/html/occ"
+        args = [
+          "upgrade",
+        ]
+      }
+
       action "maintenance-window-set" {
         command = "/var/www/html/occ"
         args = [
