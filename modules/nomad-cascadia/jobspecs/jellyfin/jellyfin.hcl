@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "10.11.7" # image: jellyfin/jellyfin
+  default = "10.11.8" # image: jellyfin/jellyfin
 }
 
 job "jellyfin" {
