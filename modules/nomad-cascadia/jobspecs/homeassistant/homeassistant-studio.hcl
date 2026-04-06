@@ -1,6 +1,6 @@
 variable "ha_version" {
   type = string
-  default = "2026.4.0" # image: ghcr.io/home-assistant/raspberrypi5-64-homeassistant
+  default = "2026.4.0" # image: homeassistant/home-assistant
 }
 
 job "homeassistant-studio" {
@@ -35,7 +35,7 @@ job "homeassistant-studio" {
 
       config {
         network_mode = "host"
-        image = "lscr.io/linuxserver/homeassistant:arm64v8-${var.ha_version}"
+        image = "homeassistant/home-assistant:${var.ha_version}"
         privileged = true
         volumes = [
           "/run/dbus:/run/dbus:ro",
