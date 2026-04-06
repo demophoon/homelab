@@ -14,6 +14,11 @@ job "traefik" {
     operator  = "!="
     value     = "truenas"
   }
+  constraint {
+    attribute = "${meta.machine}"
+    operator  = "!="
+    value     = "flawedfauna"
+  }
 
   spread {
     attribute = "${node.datacenter}"
