@@ -22,4 +22,17 @@ jobs:
           chmod +x /usr/local/bin/nomad
       - name: 'Dispatch ${{ matrix.workspace }}'
         run: |
-          nomad job dispatch -meta APPLY_WORKSPACE=${{ matrix.workspace }} infrastructure-maintenance-terraform
+          nomad job dispatch -meta APPLY_WORKSPACE=${{ matrix.workspace }} infrastructure-maintenance-terraform | tee nomad.output
+          while true; do
+            STATUS=$(nomad job status --short $(grep 'Dispatched Job ID' nomad.output | awk '{print $5}') | grep Status | awk '{print $3}')
+            if [[ "$STATUS" == "dead" ]]; then
+              echo "Job completed successfully."
+              break
+            elif [[ "$STATUS" == "running" ]]; then
+              echo "Current status: $STATUS. Waiting for completion..."
+              sleep 10
+            else
+              echo "Job failed."
+              exit 1
+            fi
+          done
