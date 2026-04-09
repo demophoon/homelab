@@ -8,10 +8,6 @@ jobs:
   prod-home:
     runs-on: docker
     strategy:
-      matrix:
-        workspace:
-          - "prod-home"
-          - "nomad-cascadia"
     steps:
       - name: Install Dependencies
         run: apt-get update && apt-get install -y unzip curl
@@ -20,19 +16,11 @@ jobs:
           curl -fsSL https://releases.hashicorp.com/nomad/1.11.2/nomad_1.11.2_linux_amd64.zip -o nomad.zip
           unzip nomad.zip -d /usr/local/bin/
           chmod +x /usr/local/bin/nomad
-      - name: 'Dispatch ${{ matrix.workspace }}'
-        run: |
-          nomad job dispatch -meta APPLY_WORKSPACE=${{ matrix.workspace }} infrastructure-maintenance-terraform | tee nomad.output
-          while true; do
-            STATUS=$(nomad job status --short $(grep 'Dispatched Job ID' nomad.output | awk '{print $5}') | grep Status | awk '{print $3}')
-            if [[ "$STATUS" == "dead" ]]; then
-              echo "Job completed successfully."
-              break
-            elif [[ "$STATUS" == "running" ]]; then
-              echo "Current status: $STATUS. Waiting for completion..."
-              sleep 10
-            else
-              echo "Job failed."
-              exit 1
-            fi
-          done
+      - id: prod-home
+        uses: ./.forgejo/dispatch-terraform
+        with:
+          workspace: prod-home
+      - id: nomad-cascadia
+        uses: ./.forgejo/dispatch-terraform
+        with:
+          workspace: nomad-cascadia
