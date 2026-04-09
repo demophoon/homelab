@@ -87,6 +87,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
       driver = "docker"
       config {
         image = "eclipse-mosquitto:1.6"
+        network_mode = "host"
         ports = ["mqtt-unencrypted"]
       }
       volume_mount {

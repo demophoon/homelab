@@ -11,9 +11,6 @@ job "homeassistant-studio" {
   group "homeassistant" {
     count = 1
     restart { mode = "delay" }
-    disconnect {
-      stop_on_client_after = "336h"
-    }
 
     network {
       port "homeassistant" {

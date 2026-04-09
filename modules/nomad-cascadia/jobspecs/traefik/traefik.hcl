@@ -15,9 +15,9 @@ job "traefik" {
     value     = "truenas"
   }
   constraint {
-    attribute = "${meta.machine}"
+    attribute = "${meta.region}"
     operator  = "!="
-    value     = "flawedfauna"
+    value     = "studio"
   }
 
   spread {
