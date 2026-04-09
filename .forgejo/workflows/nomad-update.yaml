@@ -7,6 +7,11 @@ env:
 jobs:
   prod-home:
     runs-on: docker
+    strategy:
+      matrix:
+        workspace:
+          - "prod-home"
+          - "nomad-cascadia"
     steps:
       - name: Install Dependencies
         run: apt-get update && apt-get install -y unzip curl
@@ -15,6 +20,6 @@ jobs:
           curl -fsSL https://releases.hashicorp.com/nomad/1.11.2/nomad_1.11.2_linux_amd64.zip -o nomad.zip
           unzip nomad.zip -d /usr/local/bin/
           chmod +x /usr/local/bin/nomad
-      - name: Dispatch prod-home
+      - name: 'Dispatch ${{ matrix.workspace }}'
         run: |
-          nomad job dispatch -meta APPLY_WORKSPACE=prod-home infrastructure-maintenance-terraform
+          nomad job dispatch -meta APPLY_WORKSPACE=${{ matrix.workspace }} infrastructure-maintenance-terraform
