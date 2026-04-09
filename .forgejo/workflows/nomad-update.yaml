@@ -1,0 +1,20 @@
+on: [push]
+
+env:
+  NOMAD_ADDR: https://nomad.service.consul.demophoon.com:4646
+  NOMAD_SKIP_VERIFY: "true"
+
+jobs:
+  prod-home:
+    runs-on: docker
+    steps:
+      - name: Install Dependencies
+        run: apt-get update && apt-get install -y unzip curl
+      - name: Install Nomad
+        run: |
+          curl -fsSL https://releases.hashicorp.com/nomad/1.11.2/nomad_1.11.2_linux_amd64.zip -o nomad.zip
+          unzip nomad.zip -d /usr/local/bin/
+          chmod +x /usr/local/bin/nomad
+      - name: Dispatch prod-home
+        run: |
+          nomad job dispatch -meta APPLY_WORKSPACE=prod-home infrastructure-maintenance-terraform
