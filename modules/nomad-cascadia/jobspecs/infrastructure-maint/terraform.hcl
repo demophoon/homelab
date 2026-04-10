@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "f2f5f0b-1775156717"
+  default = "5eb0b40-1775854178"
 }
 
 job "infrastructure-maintenance-terraform" {

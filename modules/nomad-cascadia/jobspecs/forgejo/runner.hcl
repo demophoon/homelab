@@ -1,3 +1,8 @@
+variable "dispatcher_version" {
+  type    = string
+  default = "5eb0b40-1775854178"
+}
+
 job "forgejo-runner" {
   region      = "global"
   datacenters = ["cascadia"]
@@ -96,7 +101,7 @@ runner:
   fetch_interval: 2s
   labels:
     - "host:host"
-    - "docker:docker://ubuntu:latest"
+    - "docker:docker://registry.service.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}"
 
 cache:
   enabled: true
@@ -122,7 +127,7 @@ GITEA_INSTANCE_URL=http://{{ range service "forgejo" }}{{ .Address }}:{{ .Port }
 GITEA_RUNNER_REGISTRATION_TOKEN={{ .Data.data.registration_token }}
 {{- end }}
 GITEA_RUNNER_NAME=runner-{{ env "NOMAD_ALLOC_INDEX" }}
-GITEA_RUNNER_LABELS=host:host,docker:docker://ubuntu:latest
+GITEA_RUNNER_LABELS=host:host,docker:docker://registry.service.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}
 EOF
         destination = "secrets/runner.env"
         env         = true
