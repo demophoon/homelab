@@ -1,4 +1,7 @@
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 env:
   NOMAD_ADDR: https://nomad.service.consul.demophoon.com:4646
