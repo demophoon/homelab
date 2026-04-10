@@ -3,7 +3,7 @@ variable "image_version" {
   default = "latest"
 }
 
-job {
+job "renovate" {
   region      = "global"
   datacenters = ["cascadia"]
   type        = "batch"
