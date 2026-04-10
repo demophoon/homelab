@@ -5,24 +5,16 @@ on:
 
 env:
   NOMAD_ADDR: https://nomad.service.consul.demophoon.com:4646
-  NOMAD_SKIP_VERIFY: "true"
 
 jobs:
   prod-home:
     runs-on: docker
     steps:
-      - name: Install Dependencies
-        run: apt-get update && apt-get install -y --no-install-recommends unzip curl nodejs npm
       - name: Check out the repository
         uses: actions/checkout@v4
         with:
           ref: main
           show-progress: true
-      - name: Install Nomad
-        run: |
-          curl -fsSL https://releases.hashicorp.com/nomad/1.11.2/nomad_1.11.2_linux_amd64.zip -o nomad.zip
-          unzip nomad.zip -d /usr/local/bin/
-          chmod +x /usr/local/bin/nomad
       - id: prod-home
         uses: ./.forgejo/actions/dispatch-terraform
         with:
