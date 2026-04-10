@@ -1,6 +1,6 @@
 variable "dispatcher_version" {
   type    = string
-  default = "5eb0b40-1775854178"
+  default = "dc15fa0-1775855159"
 }
 
 job "forgejo-runner" {
