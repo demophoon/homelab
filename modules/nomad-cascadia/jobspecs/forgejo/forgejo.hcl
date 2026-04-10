@@ -66,7 +66,7 @@ job "forgejo" {
            FORGEJO__mailer__SMTP_ADDR      = {{ .Data.data.host }}
            FORGEJO__mailer__SMTP_PORT      = {{ .Data.data.port }}
            FORGEJO__mailer__USER           = {{ .Data.data.username }}
-           FORGEJO__mailer__PASSWD         = `{{ .Data.data.password }}`
+           FORGEJO__mailer__PASSWD         = {{ .Data.data.password }}
            {{ end }}
 
            FORGEJO__openid__ENABLE_OPENID_SIGNIN = false
