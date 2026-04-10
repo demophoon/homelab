@@ -101,7 +101,7 @@ runner:
   fetch_interval: 2s
   labels:
     - "host:host"
-    - "docker:docker://registry.service.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}"
+    - "docker:docker://registry.services.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}"
 
 cache:
   enabled: true
@@ -127,7 +127,7 @@ GITEA_INSTANCE_URL=http://{{ range service "forgejo" }}{{ .Address }}:{{ .Port }
 GITEA_RUNNER_REGISTRATION_TOKEN={{ .Data.data.registration_token }}
 {{- end }}
 GITEA_RUNNER_NAME=runner-{{ env "NOMAD_ALLOC_INDEX" }}
-GITEA_RUNNER_LABELS=host:host,docker:docker://registry.service.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}
+GITEA_RUNNER_LABELS=host:host,docker:docker://registry.services.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}
 EOF
         destination = "secrets/runner.env"
         env         = true
