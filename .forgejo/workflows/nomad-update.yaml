@@ -10,7 +10,6 @@ env:
 jobs:
   prod-home:
     runs-on: docker
-    strategy:
     steps:
       - name: Install Dependencies
         run: apt-get update && apt-get install -y --no-install-recommends unzip curl nodejs npm
