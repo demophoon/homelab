@@ -17,6 +17,16 @@ job "forgejo" {
     task "forgejo" {
       driver = "docker"
 
+      vault {
+        role = "forgejo"
+      }
+
+      identity {
+        name = "vault_default"
+        ttl  = "15m"
+        aud  = ["demophoon.com"]
+      }
+
       config {
         image = "codeberg.org/forgejo/forgejo:${var.image_version}"
         image_pull_timeout = "15m"
@@ -31,9 +41,29 @@ job "forgejo" {
          data = <<EOF
            USER_UID=1000
            USER_GID=1000
+           FORGEJO_CUSTOM=/secret/forgejo/
          EOF
          destination = "/local/config.env"
          env = true
+      }
+
+      template {
+         data = <<EOF
+           [mailer]
+           ENABLED        = true
+           FROM           = forgejo+notifications@brittg.com
+           PROTOCOL       = smtps
+           {{ with secret "kv/apps/smtp" }}
+           SMTP_ADDR      = {{ .Data.data.host }}
+           SMTP_PORT      = {{ .Data.data.port }}
+           USER           = {{ .Data.data.username }}
+           PASSWD         = `{{ .Data.data.password }}`
+           {{ end }}
+
+           [openid]
+           ENABLE_OPENID_SIGNIN = false
+         EOF
+         destination = "/secret/forgejo/conf/app.ini"
       }
 
       resources {
