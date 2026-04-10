@@ -61,7 +61,7 @@ job "forgejo" {
 
            FORGEJO__mailer__ENABLED        = true
            FORGEJO__mailer__FROM           = forgejo+notifications@brittg.com
-           FORGEJO__mailer__PROTOCOL       = smtps
+           FORGEJO__mailer__PROTOCOL       = smtp+starttls
            {{ with secret "kv/apps/smtp" }}
            FORGEJO__mailer__SMTP_ADDR      = {{ .Data.data.host }}
            FORGEJO__mailer__SMTP_PORT      = {{ .Data.data.port }}
