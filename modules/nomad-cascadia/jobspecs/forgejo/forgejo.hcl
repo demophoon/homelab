@@ -41,7 +41,6 @@ job "forgejo" {
          data = <<EOF
            USER_UID=1000
            USER_GID=1000
-           FORGEJO_CUSTOM=/secret/forgejo/
          EOF
          destination = "/local/config.env"
          env = true
@@ -49,21 +48,31 @@ job "forgejo" {
 
       template {
          data = <<EOF
-           [mailer]
-           ENABLED        = true
-           FROM           = forgejo+notifications@brittg.com
-           PROTOCOL       = smtps
-           {{ with secret "kv/apps/smtp" }}
-           SMTP_ADDR      = {{ .Data.data.host }}
-           SMTP_PORT      = {{ .Data.data.port }}
-           USER           = {{ .Data.data.username }}
-           PASSWD         = `{{ .Data.data.password }}`
+           FORGEJO__database__DB_TYPE = postgres
+           FORGEJO__database__HOST = postgres-nas.service.consul.demophoon.com:5432
+           {{ with secret "kv/apps/forgejo/database" }}
+           FORGEJO__database__NAME = {{ .Data.data.database }}
+           FORGEJO__database__USER = {{ .Data.data.username }}
+           FORGEJO__database__PASSWD = {{ .Data.data.password }}
            {{ end }}
 
-           [openid]
-           ENABLE_OPENID_SIGNIN = false
+           FORGEJO__service__DISABLE_REGISTRATION = true
+           FORGEJO__service__NO_REPLY_ADDRESS = noreply@brittg.com
+
+           FORGEJO__mailer__ENABLED        = true
+           FORGEJO__mailer__FROM           = forgejo+notifications@brittg.com
+           FORGEJO__mailer__PROTOCOL       = smtps
+           {{ with secret "kv/apps/smtp" }}
+           FORGEJO__mailer__SMTP_ADDR      = {{ .Data.data.host }}
+           FORGEJO__mailer__SMTP_PORT      = {{ .Data.data.port }}
+           FORGEJO__mailer__USER           = {{ .Data.data.username }}
+           FORGEJO__mailer__PASSWD         = `{{ .Data.data.password }}`
+           {{ end }}
+
+           FORGEJO__openid__ENABLE_OPENID_SIGNIN = false
          EOF
-         destination = "/secret/forgejo/conf/app.ini"
+         env = true
+         destination = "/secret/config.env"
       }
 
       resources {
