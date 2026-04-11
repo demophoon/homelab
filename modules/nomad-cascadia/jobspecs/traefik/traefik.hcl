@@ -52,10 +52,6 @@ job "traefik" {
       port "internal" { static = 8082 }
     }
 
-    disconnect {
-      stop_on_client_after = "12h"
-    }
-
     task "traefik" {
       driver = "docker"
 
