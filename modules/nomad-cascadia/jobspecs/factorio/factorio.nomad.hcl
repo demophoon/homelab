@@ -27,7 +27,7 @@ job "factorio" {
         image = "factoriotools/factorio:${var.image_version}"
         ports = ["srv"]
         volumes = [
-          "/mnt/lynx-aux-1/factorio-spaceage:/factorio",
+          "/mnt/lynx-aux-1/factorio-FY26Q1:/factorio",
         ]
       }
 
