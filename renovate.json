@@ -21,7 +21,5 @@
   "ignorePaths": [
     "docker/**"
   ],
-  {
-    "prBodyNotes": ["@demophoon"]
-  }
+  "prBodyNotes": ["@demophoon"]
 }
