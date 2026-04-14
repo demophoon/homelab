@@ -57,9 +57,9 @@ job "forgejo" {
            {{ end }}
 
            FORGEJO__service__DISABLE_REGISTRATION = true
-           FORGEJO__service__NO_REPLY_ADDRESS = noreply@brittg.com
+           FORGEJO__service__NO_REPLY_ADDRESS = brittg.com
+           FORGEJO__service__ENABLE_NOTIFY_MAIL=true
 
-           ENABLE_NOTIFY_MAIL=true
            FORGEJO__mailer__ENABLED        = true
            FORGEJO__mailer__FROM           = forgejo+notifications@brittg.com
            FORGEJO__mailer__PROTOCOL       = smtp+starttls
