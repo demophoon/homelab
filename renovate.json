@@ -16,9 +16,12 @@
         ".*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
       ],
       "datasourceTemplate": "docker"
-    }
+      }
   ],
   "ignorePaths": [
     "docker/**"
-  ]
+  ],
+  {
+    "prBodyNotes": ["@demophoon"]
+  }
 }
