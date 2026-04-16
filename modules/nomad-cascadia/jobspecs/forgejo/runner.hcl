@@ -126,7 +126,6 @@ cache:
 container:
   network: host
   privileged: true
-  options: "--dns=8.8.8.8"
   valid_volumes:
     - /usr/local/share/ca-certificates
   docker_host: "-"
