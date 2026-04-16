@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "14.0.4" # image: code.forgejo.org/forgejo/forgejo
+  default = "15.0.0" # image: codeberg.org/forgejo/forgejo
 }
 
 job "forgejo" {

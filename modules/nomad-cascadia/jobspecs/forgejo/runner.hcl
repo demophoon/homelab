@@ -43,23 +43,18 @@ job "forgejo-runner" {
     service {
       name     = "forgejo-runner"
       task     = "forgejo-runner"
-
-      check {
-        name     = "runner-alive"
-        type     = "script"
-        command  = "/bin/sh"
-        args     = ["-c", "pgrep -f act_runner"]
-        interval = "30s"
-        timeout  = "5s"
-      }
     }
 
     # -------------------------------------------------------------------------
-    # Task: forgejo-runner
+    # Task: runner-credential-vendor
     # -------------------------------------------------------------------------
-
-    task "forgejo-runner" {
+    task "forgejo-prestart" {
       driver = "docker"
+
+      lifecycle {
+        hook    = "prestart"
+        sidecar = false
+      }
 
       vault {
         role = "forgejo-runner"
@@ -72,18 +67,39 @@ job "forgejo-runner" {
       }
 
       config {
-        image        = "gitea/act_runner:0.2.11"
-        network_mode = "host"
-        privileged   = true
+        image        = "alpine:3.18"
+        command      = "/local/runner_token.sh"
+      }
 
-        volumes = [
-          "/var/run/docker.sock:/var/run/docker.sock",
-          "local/config.yaml:/config.yaml:ro",
-          "/usr/local/share/ca-certificates:/usr/local/share/ca-certificates:ro",
-        ]
+      # --- Registration Token from Vault ---
+      # Use internal Forgejo address to bypass oauth2-proxy
+      template {
+        data = <<-EOF
+        #!/bin/sh
 
-        # Use daemon mode with config file
-        args = ["daemon", "--config", "/config.yaml"]
+        apk add --no-cache curl jq
+
+        {{ with secret "kv/apps/forgejo/runner" }}
+        curl -X 'POST' \
+          'https://git.brittg.com/api/v1/admin/actions/runners' \
+          -H 'accept: application/json' \
+          -H 'Authorization: Bearer {{ .Data.data.registration_token }}' \
+          -H 'Content-Type: application/json' \
+          -d '{
+          "name": "{{ env "NOMAD_ALLOC_NAME" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}",
+          "ephemeral": true
+        }' > /alloc/data/registration.json
+
+        jq -r '.token' /alloc/data/registration.json > /alloc/data/token
+        jq -r '.uuid' /alloc/data/registration.json > /alloc/data/uuid
+
+        cp /secrets/config.yaml /alloc/data/config.yaml
+        echo "      token: $(cat /alloc/data/token)" >> /alloc/data/config.yaml
+        echo "      uuid: $(cat /alloc/data/uuid)" >> /alloc/data/config.yaml
+        {{ end }}
+        EOF
+        destination = "local/runner_token.sh"
+        perms = "755"
       }
 
       # --- Runner Configuration ---
@@ -113,24 +129,40 @@ container:
   options: "--dns=8.8.8.8"
   valid_volumes:
     - /usr/local/share/ca-certificates
-  docker_host: unix:///var/run/docker.sock
+  docker_host: "-"
+
+server:
+  connections:
+    brittg:
+      url: https://git.brittg.com/
 EOF
-        destination = "local/config.yaml"
+        destination = "secrets/config.yaml"
       }
 
-      # --- Registration Token from Vault ---
-      # Use internal Forgejo address to bypass oauth2-proxy
-      template {
-        data = <<-EOF
-GITEA_INSTANCE_URL=http://{{ range service "forgejo" }}{{ .Address }}:{{ .Port }}{{ end }}
-{{- with secret "kv/apps/forgejo/runner" }}
-GITEA_RUNNER_REGISTRATION_TOKEN={{ .Data.data.registration_token }}
-{{- end }}
-GITEA_RUNNER_NAME=runner-{{ env "NOMAD_ALLOC_INDEX" }}
-GITEA_RUNNER_LABELS=host:host,docker:docker://registry.services.demophoon.com/demophoon/dispatcher:${var.dispatcher_version}
-EOF
-        destination = "secrets/runner.env"
-        env         = true
+
+    }
+
+    # -------------------------------------------------------------------------
+    # Task: forgejo-runner
+    # -------------------------------------------------------------------------
+
+    task "forgejo-runner" {
+      driver = "docker"
+
+      user = "root"
+
+      config {
+        image        = "code.forgejo.org/forgejo/runner:12"
+        network_mode = "host"
+        privileged   = true
+
+        volumes = [
+          "/var/run/docker.sock:/var/run/docker.sock",
+          #"local/config.yaml:/config.yaml:ro",
+          "/usr/local/share/ca-certificates:/usr/local/share/ca-certificates:ro",
+        ]
+
+        args = ["forgejo-runner", "one-job", "--wait", "--config", "/alloc/data/config.yaml"]
       }
 
       resources {
