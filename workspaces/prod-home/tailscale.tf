@@ -56,7 +56,8 @@ resource "tailscale_acl" "json" {
   acl = jsonencode({
     autoApprovers = {
       services = {
-	"svc:nomad" = ["tag:nomad-server"]
+	"svc:nomad"  = ["tag:nomad-server"],
+	"svc:consul" = ["tag:consul-server"],
       }
     },
     nodeAttrs = [
@@ -65,7 +66,7 @@ resource "tailscale_acl" "json" {
 	// for their own devices.
 	// Learn more at https://tailscale.com/kb/1223/tailscale-funnel/
 	target = ["autogroup:members"],
-	attr = ["funnel"],
+	attr   = ["funnel"],
       },
     ],
     ssh = [
