@@ -44,6 +44,10 @@ mount_nfs() {
 }
 %{endif}
 
+start_tailscale_services() {
+  tailscale serve --service=svc:nomad --tcp=4646 tcp://${hostname}.blue-bowfin.ts.net:4646
+}
+
 rm -f /etc/systemd/resolved.conf.d/DigitalOcean.conf
 
 is_consul_connected() {
@@ -185,6 +189,10 @@ main() {
 %{ endif }
   systemctl restart nomad
   systemctl restart dnsmasq
+
+%{if is_server}
+  start_tailscale_services
+%{ endif }
 
 %{if use_miren}
   systemctl stop nomad
