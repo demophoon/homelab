@@ -107,7 +107,7 @@ EOF
       }
 
       config {
-        image = "hashicorp/vault:latest"
+        image = "hashicorp/vault:1.21.4"
         args = [
           "kv", "put",
           "-mount", "kv",
