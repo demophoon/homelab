@@ -13,6 +13,12 @@ ui_config {
   enabled = true
 }
 
+acl {
+  enabled = true
+  default_policy = "allow"
+  enable_token_persistence = true
+}
+
 node_meta {
   resource = "${resource}"
 }
