@@ -105,6 +105,17 @@ resource "google_dns_record_set" "cube" {
 ## Records
 ##===================================================
 
+## Openpgpkey wildcard deny
+resource "google_dns_record_set" "openpgpkey-brittg" {
+  name         = "openpgpkey.brittg.com."
+  type         = "CNAME"
+  ttl          = 300
+  managed_zone = google_dns_managed_zone.brittg_com.name
+
+  rrdatas = ["compute-lb.demophoon.com."]
+}
+
+
 ## Valheim
 ##---------------------------------------------------
 resource "google_dns_record_set" "valheim" {
