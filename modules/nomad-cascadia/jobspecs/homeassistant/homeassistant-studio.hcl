@@ -1,6 +1,6 @@
 variable "ha_version" {
   type = string
-  default = "2026.3.4" # image: ghcr.io/home-assistant/raspberrypi5-64-homeassistant
+  default = "2026.4.3" # image: ghcr.io/home-assistant/raspberrypi5-64-homeassistant
 }
 
 job "homeassistant-studio" {
