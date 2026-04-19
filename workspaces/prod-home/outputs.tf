@@ -18,18 +18,6 @@ output "google_dns_managed_zone_flawedfauna_com" {
   value = google_dns_managed_zone.flawedfauna_com.name
 }
 
-output "beryllium_template_id" {
-  description = "vmid for beryllium"
-  #value = proxmox_virtual_environment_download_file.beryllium_ubuntu_2404_noble_img.id
-  value = "local:iso/noble-server-cloudimg-amd64.img"
-}
-
-output "nuc_template_id" {
-  description = "vmid for nuc"
-  #value = proxmox_virtual_environment_download_file.nuc_ubuntu_2404_noble_img.id
-  value = "local:iso/noble-server-cloudimg-amd64.img"
-}
-
 output "lynx_template_id" {
   description = "vmid for lynx"
   value = proxmox_virtual_environment_download_file.lynx_ubuntu_2404_noble_img.id
