@@ -271,3 +271,7 @@ resource "nomad_job" "actualbudget" {
 resource "nomad_job" "gotify" {
   jobspec = file("${path.module}/jobspecs/gotify/app.hcl")
 }
+
+resource "nomad_job" "wellknown" {
+  jobspec = file("${path.module}/jobspecs/static/well-known.hcl")
+}
