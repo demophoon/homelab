@@ -163,6 +163,11 @@ resource "vault_policy" "terraform-apply" {
       capabilities = ["read", "create", "update", "delete", "sudo"]
     }
 
+    # Vend Consul tokens
+    path "consul/creds/*" {
+      capabilities = ["read"]
+    }
+
     # Tuning nomad cluster
     path "sys/mounts/nomad/tune" {
       capabilities = ["read", "list", "create", "update"]
