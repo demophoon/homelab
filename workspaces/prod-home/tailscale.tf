@@ -2,8 +2,10 @@ locals {
   tags = {
     // This node is offsite
     "tag:offsite" = ["autogroup:network-admin"],
+    // Node has been provisioned through automation
+    "tag:automation" = ["autogroup:admin"],
     // Node has been provisioned with Terraform
-    "tag:terraform-provisioned" = ["autogroup:network-admin"],
+    "tag:terraform-provisioned" = ["tag:automation"],
     // Nomad client is running on this node
     "tag:nomad-client" = ["tag:terraform-provisioned"],
     // This node can provision nomad jobs for the cluster
