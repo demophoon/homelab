@@ -56,6 +56,10 @@ job "infrastructure-maintenance-reprovision-${workspace}" {
           CONSUL_HTTP_ADDR="https://consul.service.consul.demophoon.com:8501"
           CONSUL_CACERT="/local/ca.crt"
 
+          {{ with secret "consul/creds/admin" }}
+          CONSUL_HTTP_TOKEN="{{ .Data.token }}"
+          {{ end }}
+
           NOMAD_META_APPLY_WORKSPACE="${workspace}"
         EOH
       }
