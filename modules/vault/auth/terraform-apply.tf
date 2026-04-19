@@ -163,6 +163,11 @@ resource "vault_policy" "terraform-apply" {
       capabilities = ["read", "create", "update", "delete", "sudo"]
     }
 
+    # Modify Consul roles
+    path "consul/roles/*" {
+      capabilities = ["read", "list", "create", "update", "delete"]
+    }
+
     # Vend Consul tokens
     path "consul/creds/*" {
       capabilities = ["read"]
