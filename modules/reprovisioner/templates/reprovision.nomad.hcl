@@ -37,7 +37,7 @@ job "infrastructure-maintenance-reprovision-${workspace}" {
         destination = "$${NOMAD_SECRETS_DIR}/env"
         env = true
         data = <<-EOH
-          GIT_REPO_URL = "https://github.com/demophoon/homelab"
+          GIT_REPO_URL = "https://git.brittg.com/demophoon/homelab"
 
           {{ with secret "kv/env/infra/terraform" }}
             {{ range $k, $v := .Data.data }}
