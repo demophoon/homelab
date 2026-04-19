@@ -1,8 +1,10 @@
-ephemeral "vault_kv_secret_v2" "consul_token" {
-  mount = vault_mount.kv.path
-  mount_id = vault_mount.kv.id
-  name = "env/infra/consul"
-}
+#TODO: This is dependant on the vault terraform provider to support setting up
+# the consul secret backend without bootstrapping.
+#ephemeral "vault_kv_secret_v2" "consul_token" {
+#  mount = vault_mount.kv.path
+#  mount_id = vault_mount.kv.id
+#  name = "env/infra/consul"
+#}
 
 #resource "vault_consul_secret_backend" "consul" {
 #  path        = "consul"
