@@ -155,8 +155,10 @@ entryPoints:
 {{{- if env "meta.region" | eq "cascadia" }}}
   traefik:
     address: ':8081'
+    reusePort: true
   internal:
     address: ':8082'
+    reusePort: true
 {{{- end }}}
 
   insecure:
@@ -178,6 +180,7 @@ entryPoints:
       tls: {}
 
   ssh:
+    reusePort: true
     address: ':2222'
 
   valheim:
