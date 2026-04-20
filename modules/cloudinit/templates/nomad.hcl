@@ -14,6 +14,7 @@ server {
 client {
   enabled       = true
   network_interface = "tailscale0"
+  preferred_address_family = "ipv4"
 
   node_class = "ephemeral"
   node_pool = "${node_pool}"
