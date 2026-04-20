@@ -22,7 +22,7 @@ job "forgejo-runner" {
   # ---------------------------------------------------------------------------
 
   group "forgejo-runner" {
-    count = 2
+    count = 1
 
     # Force allocations onto different nodes
     constraint {
