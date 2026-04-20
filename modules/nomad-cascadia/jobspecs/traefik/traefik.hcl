@@ -20,6 +20,12 @@ job "traefik" {
     value     = "studio"
   }
 
+  affinity {
+    attribute = "${node.pool}"
+    value     = "ingress"
+    weight    = 50
+  }
+
   spread {
     attribute = "${node.datacenter}"
   }
@@ -28,7 +34,8 @@ job "traefik" {
     auto_revert  = true
     health_check = "task_states"
     stagger      = "30s"
-    max_parallel = 1
+    max_parallel = 3
+    canary       = 3
   }
 
   group "web" {
