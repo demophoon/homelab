@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v2.3.0" # image: grimmory/grimmory
+  default = "v2.3.1" # image: grimmory/grimmory
 }
 job "booklore" {
   datacenters = ["cascadia"]
