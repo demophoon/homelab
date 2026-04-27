@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "14.3.0" # image: technitium/dns-server
+  default = "15.0.1" # image: technitium/dns-server
 }
 
 job "technitium" {
