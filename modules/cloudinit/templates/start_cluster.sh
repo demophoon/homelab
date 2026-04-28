@@ -45,7 +45,7 @@ mount_nfs() {
 %{endif}
 
 start_tailscale_services() {
-  tailscale serve --service=svc:nomad --tcp=4646 tcp://${hostname}.blue-bowfin.ts.net:4646
+  tailscale serve --service=svc:nomad  --tcp=4646 tcp://${hostname}.blue-bowfin.ts.net:4646
 
   tailscale serve --service=svc:consul --tcp=8300 tcp://${hostname}.blue-bowfin.ts.net:8300
   tailscale serve --service=svc:consul --tcp=8301 tcp://${hostname}.blue-bowfin.ts.net:8301

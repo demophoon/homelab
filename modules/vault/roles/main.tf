@@ -1,3 +1,1 @@
-module "consul" {
-  source = "./consul"
-}
+
