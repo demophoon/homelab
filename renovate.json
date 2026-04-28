@@ -21,5 +21,6 @@
   "ignorePaths": [
     "docker/**"
   ],
-  "prBodyNotes": ["@demophoon"]
+  "prBodyNotes": ["@demophoon"],
+  "minimumReleaseAge": "10 days"
 }
