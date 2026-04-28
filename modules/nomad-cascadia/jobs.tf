@@ -178,6 +178,9 @@ resource "nomad_job" "bliss" {
 resource "nomad_job" "jellyfin" {
   jobspec = file("${path.module}/jobspecs/jellyfin/jellyfin.hcl")
 }
+resource "nomad_job" "audiomuse" {
+  jobspec = file("${path.module}/jobspecs/jellyfin/audiomuse.hcl")
+}
 
 resource "nomad_job" "valheim" {
   jobspec = file("${path.module}/jobspecs/valheim/valheim.nomad.hcl")
