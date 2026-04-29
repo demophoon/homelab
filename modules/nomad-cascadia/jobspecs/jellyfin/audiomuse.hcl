@@ -72,6 +72,19 @@ job "audiomuse" {
 
       }
     }
+  }
+
+  group "audiomuse-worker" {
+    scaling {
+      enabled = true
+      min     = 1
+      max     = 5
+    }
+
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
+    }
 
     task "audiomuse-worker" {
       driver = "docker"
