@@ -181,6 +181,9 @@ resource "nomad_job" "jellyfin" {
 resource "nomad_job" "audiomuse" {
   jobspec = file("${path.module}/jobspecs/jellyfin/audiomuse.hcl")
 }
+resource "nomad_job" "audiomuse-worker" {
+  jobspec = file("${path.module}/jobspecs/jellyfin/audiomuse-worker.hcl")
+}
 resource "nomad_job" "audiomuse-backend" {
   jobspec = file("${path.module}/jobspecs/jellyfin/audiomuse-backend.hcl")
 }

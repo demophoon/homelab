@@ -3,17 +3,22 @@ variable "image_version" {
   default = "1.0.4" # image: ghcr.io/neptunehub/audiomuse-ai
 }
 
-job "audiomuse" {
+job "audiomuse-workers" {
   datacenters = ["cascadia"]
 
-  group "audiomuse" {
-    count = 1
-
-    network {
-      port "app" { to = 8000 }
+  group "audiomuse-worker" {
+    scaling {
+      enabled = true
+      min     = 1
+      max     = 6
     }
 
-    task "audiomuse" {
+    constraint {
+      operator  = "distinct_hosts"
+      value     = "true"
+    }
+
+    task "audiomuse-worker" {
       driver = "docker"
 
       vault {
@@ -28,7 +33,7 @@ job "audiomuse" {
 
       template {
         data = <<-EOF
-          SERVICE_TYPE = "flask"
+          SERVICE_TYPE = "worker"
           TZ = "UTC"
 
           {{ with secret "kv/data/apps/audiomuse" }}
@@ -53,23 +58,12 @@ job "audiomuse" {
       config {
         image = "ghcr.io/neptunehub/audiomuse-ai:${var.image_version}"
         image_pull_timeout = "15m"
-        ports = ["app"]
       }
 
       resources {
         cpu = 512
         memory = 512
         memory_max = 4096
-      }
-      service {
-        name = "audiomuse"
-        port = "app"
-        tags = [
-          "internal=true",
-          "traefik.enable=true",
-          "traefik.http.routers.audiomuse.rule=Host(`audiomuse.internal.demophoon.com`)",
-        ]
-
       }
     }
   }
