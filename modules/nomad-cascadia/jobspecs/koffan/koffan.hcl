@@ -14,7 +14,7 @@ job "koffan" {
     }
 
     network {
-      port "app" { to = 80 }
+      port "app" { to = 8080 }
     }
 
     task "app" {
