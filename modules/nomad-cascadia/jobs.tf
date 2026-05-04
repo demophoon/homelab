@@ -285,3 +285,7 @@ resource "nomad_job" "gotify" {
 resource "nomad_job" "wellknown" {
   jobspec = file("${path.module}/jobspecs/static/well-known.hcl")
 }
+
+resource "nomad_job" "openwebui" {
+  jobspec = file("${path.module}/jobspecs/openwebui/app.hcl")
+}
