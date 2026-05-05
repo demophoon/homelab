@@ -289,3 +289,7 @@ resource "nomad_job" "wellknown" {
 resource "nomad_job" "openwebui" {
   jobspec = file("${path.module}/jobspecs/openwebui/app.hcl")
 }
+
+resource "nomad_job" "donezo" {
+  jobspec = file("${path.module}/jobspecs/donezo/donezo.hcl")
+}
