@@ -39,7 +39,7 @@ job "traefik" {
   }
 
   group "web" {
-    count = 3
+    count = 5
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }
