@@ -10,7 +10,7 @@ module "nomad-jobs" {
   homeassistant_version = "2026.5.0" # image: homeassistant/home-assistant
   zigbee2mqtt_version = "2.9.2" # image: koenkk/zigbee2mqtt
 
-  vaultwarden_version = "1.35.7" # image: vaultwarden/server
+  vaultwarden_version = "1.35.8" # image: vaultwarden/server
 
   nextcloud_version = "33.0.2" # image: nextcloud
 
