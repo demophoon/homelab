@@ -96,7 +96,7 @@ job "bluesky-pds" {
           # AT Protocol PDS
           "traefik.http.routers.bluesky-pds-bare.rule=host(`demophoon.brittg.com`)",
 
-          "traefik.http.routers.bluesky-pds-well-known.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/.well-known/oauth-protected-resource`) || pathprefix(`/.well-known/atproto-did`))",
+          "traefik.http.routers.bluesky-pds-well-known.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/.well-known/oauth`) || pathprefix(`/.well-known/atproto-did`))",
           "traefik.http.routers.bluesky-pds-xrpc.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/xrpc`))",
           "traefik.http.routers.bluesky-pds-oauth.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/oauth`))",
           "traefik.http.routers.bluesky-pds-atproto.rule=(host(`brittg.com`) || host(`demophoon.brittg.com`)) && (pathprefix(`/@atproto`))",
