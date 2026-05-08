@@ -293,3 +293,7 @@ resource "nomad_job" "openwebui" {
 resource "nomad_job" "donezo" {
   jobspec = file("${path.module}/jobspecs/donezo/donezo.hcl")
 }
+
+resource "nomad_job" "tangled-knot" {
+  jobspec = file("${path.module}/jobspecs/tangled/knot.hcl")
+}
