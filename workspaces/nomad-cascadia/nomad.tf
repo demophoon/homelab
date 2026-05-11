@@ -3,7 +3,7 @@ module "nomad-jobs" {
 
   autoscaler_version = "0.4.9" # image: hashicorp/nomad-autoscaler
 
-  traefik_version = "v3.6.14" # image: traefik
+  traefik_version = "v3.6.15" # image: traefik
 
   immich_version = "v2.7.5" # image: ghcr.io/immich-app/immich-server
 
