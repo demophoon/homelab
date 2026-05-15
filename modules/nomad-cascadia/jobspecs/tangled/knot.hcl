@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.13.0-alpha" # image: registry.services.demophoon.com/tangled-org/knot
+  default = "v1.14.0-alpha" # image: registry.services.demophoon.com/tangled-org/knot
 }
 
 job "tangled-knot" {
