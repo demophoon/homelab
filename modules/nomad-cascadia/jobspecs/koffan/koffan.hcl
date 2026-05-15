@@ -36,9 +36,6 @@ job "koffan" {
       template {
         data = <<-EOT
           APP_ENV=production
-          {{ with secret "kv/data/apps/koffan" }}
-            APP_PASSWORD={{ .Data.data.app_password }}
-          {{ end }}
         EOT
         destination = "secrets/config"
         env = true
@@ -55,6 +52,7 @@ job "koffan" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.koffan.rule=host(`shopping.brittg.com`)",
+          "traefik.http.routers.koffan.middlewares=authentik",
         ]
       }
 
