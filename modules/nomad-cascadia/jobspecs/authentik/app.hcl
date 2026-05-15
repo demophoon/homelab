@@ -105,7 +105,7 @@ job "authentik-app" {
       driver = "docker"
 
       config {
-        image = "ghcr.io/goauthentik/proxy"
+        image = "ghcr.io/goauthentik/proxy:${var.image_version}"
         ports = ["app"]
       }
       resources {
