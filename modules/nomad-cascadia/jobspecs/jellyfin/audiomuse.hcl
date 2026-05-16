@@ -45,6 +45,8 @@ job "audiomuse" {
           {{ end }}
 
           TEMP_DIR = "/tmp/temp_audio"
+
+          NUM_RECENT_ALBUMS = 10
         EOF
         env = true
         destination = "local/audiomuse.env"
