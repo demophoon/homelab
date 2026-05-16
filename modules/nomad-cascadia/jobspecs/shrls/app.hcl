@@ -52,6 +52,7 @@ job "shrls-app" {
       tags = [
         "traefik.enable=true",
         "traefik.http.routers.shrls.rule=host(`brittg.com`)",
+	"traefik.http.routers.shrls.middlewares=anubis",
       ]
       port = "app"
     }

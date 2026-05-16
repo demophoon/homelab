@@ -43,32 +43,32 @@ job "static" {
           # factoids.brittg.com
           "traefik.http.routers.factoids-old.rule=host(`assets.brittg.com`) && PathPrefix(`/factoids/`)",
           "traefik.http.routers.factoids.rule=host(`factoid.brittg.com`) || host(`factoids.brittg.com`)",
-          "traefik.http.routers.factoids.middlewares=factoids-static",
+          "traefik.http.routers.factoids.middlewares=anubis,factoids-static",
           "traefik.http.middlewares.factoids-static.addPrefix.prefix=/factoids",
 
           # cci-emoji.services.demophoon.com
           "traefik.http.routers.cciemoji.rule=host(`cci-emoji.brittg.com`)",
-          "traefik.http.routers.cciemoji.middlewares=cciemoji-static",
+          "traefik.http.routers.cciemoji.middlewares=anubis,cciemoji-static",
           "traefik.http.middlewares.cciemoji-static.addPrefix.prefix=/emoji",
 
           # assets.brittg.com
           "traefik.http.routers.assets.rule=host(`assets.brittg.com`)",
-          "traefik.http.routers.assets.middlewares=assets-static",
+          "traefik.http.routers.assets.middlewares=anubis,assets-static",
           "traefik.http.middlewares.assets-static.addPrefix.prefix=/assets",
 
           # htdocs.brittg.com
           "traefik.http.routers.htdocs.rule=host(`htdocs.brittg.com`)",
-          "traefik.http.routers.htdocs.middlewares=htdocs-static",
+          "traefik.http.routers.htdocs.middlewares=anubis,htdocs-static",
           "traefik.http.middlewares.htdocs-static.addPrefix.prefix=/htdocs",
 
           # pico-8.brittg.com
           "traefik.http.routers.pico8.rule=host(`pico-8.brittg.com`)",
-          "traefik.http.routers.pico8.middlewares=pico8-static",
+          "traefik.http.routers.pico8.middlewares=anubis,pico8-static",
           "traefik.http.middlewares.pico8-static.addPrefix.prefix=/pico-8",
 
           # ddbbb.brittg.com
           "traefik.http.routers.ddbbb.rule=host(`ddbbb.brittg.com`)",
-          "traefik.http.routers.ddbbb.middlewares=ddbbb-static",
+          "traefik.http.routers.ddbbb.middlewares=anubis,ddbbb-static",
           "traefik.http.middlewares.ddbbb-static.addPrefix.prefix=/ddbbb",
         ]
       }

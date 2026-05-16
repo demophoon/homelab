@@ -297,3 +297,7 @@ resource "nomad_job" "donezo" {
 resource "nomad_job" "tangled-knot" {
   jobspec = file("${path.module}/jobspecs/tangled/knot.hcl")
 }
+
+resource "nomad_job" "anubis" {
+  jobspec = file("${path.module}/jobspecs/anubis/anubis.hcl")
+}

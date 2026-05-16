@@ -125,6 +125,7 @@ EOF
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.immich-frontend.rule=host(`photos.brittg.com`)",
+          "traefik.http.routers.immich-frontend.middlewares=anubis",
         ]
       }
       service {
