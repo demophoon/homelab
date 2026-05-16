@@ -32,6 +32,7 @@ job "traefik" {
 
   update {
     auto_revert  = true
+    auto_promote = true
     health_check = "task_states"
     stagger      = "30s"
     max_parallel = 3
