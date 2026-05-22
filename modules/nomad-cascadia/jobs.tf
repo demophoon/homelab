@@ -301,3 +301,7 @@ resource "nomad_job" "tangled-knot" {
 resource "nomad_job" "anubis" {
   jobspec = file("${path.module}/jobspecs/anubis/anubis.hcl")
 }
+
+resource "nomad_job" "koito" {
+  jobspec = file("${path.module}/jobspecs/koito/app.hcl")
+}
