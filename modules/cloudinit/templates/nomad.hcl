@@ -142,15 +142,6 @@ consul {
   address = "127.0.0.1:8500"
   tags = ["ephemeral"]
   server_auto_join = ${is_server}
-
-  service_identity {
-    aud = ["demophoon.com"]
-    ttl = "1h"
-  }
-  task_identity {
-    aud = ["demophoon.com"]
-    ttl = "1h"
-  }
 }
 
 vault {
