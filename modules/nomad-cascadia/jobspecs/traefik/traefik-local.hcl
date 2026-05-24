@@ -3,31 +3,13 @@ variable "image_version" {
   default = "v3.5.0"
 }
 
-job "traefik" {
+job "traefik-local" {
   datacenters = ["cascadia"]
   region = "global"
   priority = 100
-  node_pool = "all"
-
-  constraint {
-    attribute = "${meta.machine}"
-    operator  = "!="
-    value     = "truenas"
-  }
-  constraint {
-    attribute = "${meta.region}"
-    operator  = "!="
-    value     = "studio"
-  }
-
-  affinity {
-    attribute = "${node.pool}"
-    value     = "ingress"
-    weight    = 50
-  }
 
   spread {
-    attribute = "${node.datacenter}"
+    attribute = "${node.unique.id}"
   }
 
   update {
@@ -40,7 +22,7 @@ job "traefik" {
   }
 
   group "web" {
-    count = 5
+    count = 6
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }

@@ -1,5 +1,14 @@
-resource "nomad_job" "traefik_global" {
-  jobspec = file("${path.module}/jobspecs/traefik/traefik.hcl")
+resource "nomad_job" "traefik_ingress" {
+  jobspec = file("${path.module}/jobspecs/traefik/traefik-ingress.hcl")
+  hcl2 {
+    vars = {
+      image_version = var.traefik_version
+    }
+  }
+}
+
+resource "nomad_job" "traefik_local" {
+  jobspec = file("${path.module}/jobspecs/traefik/traefik-local.hcl")
   hcl2 {
     vars = {
       image_version = var.traefik_version
