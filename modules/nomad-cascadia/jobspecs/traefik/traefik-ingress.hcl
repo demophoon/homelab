@@ -40,7 +40,7 @@ job "traefik-ingress" {
   }
 
   group "web" {
-    count = 2
+    count = 1
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }

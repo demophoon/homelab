@@ -22,7 +22,7 @@ job "traefik-local" {
   }
 
   group "web" {
-    count = 6
+    count = 3
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }
