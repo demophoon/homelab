@@ -1,18 +1,18 @@
 module "nomad-jobs" {
   source = "../../modules/nomad-cascadia"
 
-  autoscaler_version = "0.4.9" # image: hashicorp/nomad-autoscaler
+  autoscaler_version = "0.5.0" # image: hashicorp/nomad-autoscaler
 
   traefik_version = "v3.7.1" # image: traefik
 
   immich_version = "v2.7.5" # image: ghcr.io/immich-app/immich-server
 
-  homeassistant_version = "2026.5.2" # image: homeassistant/home-assistant
+  homeassistant_version = "2026.5.4" # image: homeassistant/home-assistant
   zigbee2mqtt_version = "2.10.1" # image: koenkk/zigbee2mqtt
 
   vaultwarden_version = "1.36.0" # image: vaultwarden/server
 
-  nextcloud_version = "33.0.2" # image: nextcloud
+  nextcloud_version = "33.0.3" # image: nextcloud
 
   syncthing_version = "2.1.0" # image: syncthing/syncthing
 
