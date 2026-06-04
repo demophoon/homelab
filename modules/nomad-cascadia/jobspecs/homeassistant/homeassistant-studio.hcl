@@ -1,6 +1,6 @@
 variable "ha_version" {
   type = string
-  default = "2026.5.2" # image: homeassistant/home-assistant
+  default = "2026.5.4" # image: homeassistant/home-assistant
 }
 
 job "homeassistant-studio" {
