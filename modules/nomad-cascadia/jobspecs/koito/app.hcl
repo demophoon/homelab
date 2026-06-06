@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v0.2.1" # image: gabehf/koito
+  default = "v0.3.1" # image: gabehf/koito
 }
 
 job "koito" {
