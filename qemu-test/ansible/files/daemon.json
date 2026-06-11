@@ -1,0 +1,4 @@
+{
+  "dns": ["172.17.0.1", "1.1.1.1"],
+  "registry-mirrors": ["https://registry-cache.service.consul.demophoon.com"]
+}
