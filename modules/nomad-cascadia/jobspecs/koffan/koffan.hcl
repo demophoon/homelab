@@ -36,6 +36,7 @@ job "koffan" {
       template {
         data = <<-EOT
           APP_ENV=production
+          DISABLE_AUTH=true
         EOT
         destination = "secrets/config"
         env = true
