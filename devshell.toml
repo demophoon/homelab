@@ -4,7 +4,7 @@ packages = [
   "jq",
   "terraform",
   "google-cloud-sdk",
-  "nomad_1_9",
+  "nomad",
   "consul",
   "vault",
 ]
