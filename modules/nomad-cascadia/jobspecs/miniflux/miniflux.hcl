@@ -45,6 +45,7 @@ job "miniflux" {
           # Enable Traefik
           "traefik.enable=true",
           "traefik.http.routers.miniflux.rule=host(`reader.brittg.com`)",
+          "traefik.http.routers.miniflux.middlewares=anubis",
         ]
       }
 

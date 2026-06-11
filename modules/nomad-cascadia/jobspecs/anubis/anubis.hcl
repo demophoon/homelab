@@ -39,9 +39,13 @@ job "anubis" {
           USE_SIMPLIFIED_EXPLANATION=true
 
           TARGET=" "
-          REDIRECT_DOMAINS=brittg.com,*.brittg.com,*.demophoon.com,*.brittslittlesliceofheaven.org,*.services.demophoon.com,*.internal.demophoon.com
+          REDIRECT_DOMAINS=brittg.com,*.brittg.com,*.internal.demophoon.com
           PUBLIC_URL=https://speedbump.brittg.com
           COOKIE_DYNAMIC_DOMAIN=true
+
+          {{- with secret "kv/data/apps/anubis" }}
+          ED25519_PRIVATE_KEY_HEX={{ .Data.data.ed25519_private_key_hex }}
+          {{- end }}
         EOF
         destination = "local/env"
         env = true
@@ -74,8 +78,18 @@ job "anubis" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.anubis.rule=host(`speedbump.brittg.com`)",
+          "traefik.http.routers.anubis.entrypoints=secure",
           "traefik.http.middlewares.anubis.forwardauth.address=http://anubis.service.consul.demophoon.com:16758/.within.website/x/cmd/anubis/api/check",
         ]
+      }
+
+      vault {
+        role = "anubis"
+      }
+      identity {
+        name = "vault_default"
+        aud  = ["demophoon.com"]
+        ttl  = "1h"
       }
 
     }

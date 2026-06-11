@@ -53,6 +53,7 @@ job "koito" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.koito.rule=host(`as.brittg.com`) || host(`koito.brittg.com`)",
+          "traefik.http.routers.koito.middlewares=anubis",
         ]
       }
 
@@ -67,5 +68,3 @@ job "koito" {
     }
   }
 }
-
-
