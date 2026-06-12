@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "26.5.2" # image: actualbudget/actual-server
+  default = "26.6.0" # image: actualbudget/actual-server
 }
 
 job "actualbudget-app" {
