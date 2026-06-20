@@ -1,4 +1,4 @@
-job "ubuntu-server" {
+job "runner" {
   datacenters = ["cascadia"]
   node_pool = "nuc"
 
@@ -25,6 +25,9 @@ job "ubuntu-server" {
       size = 51200
     }
 
+    network {
+      port "novnc" {}
+    }
 
     task "disk-prepare" {
       driver = "raw_exec"
@@ -88,7 +91,7 @@ job "ubuntu-server" {
         once = true
         data = <<EOH
 #cloud-config
-hostname: runner-{{ env "NOMAD_SHORT_ALLOC_ID" }}
+hostname: {{ env "NOMAD_JOB_NAME" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}
 ssh_pwauth: no
 manage_etc_hosts: true
 package_update: true
@@ -133,11 +136,16 @@ ca_certs:
       0uIz3uOy/6H6p0TO0yQbdyQ=
       -----END CERTIFICATE-----
 
+chpasswd:
+  expire: false
+  users:
+    - name: "britt"
+      password: "$6$w3HX3vUYWY864jM0$EKv0ymf6ZelHp9.5ockQwKqz89V6SwvCeI9QXPJGjdCXs0GjkdT5R4CDBE.pWvcbf4DgR4sTBkmBib5GfYFFu0"
+
 users:
   - name: runner
     groups: docker
-  - name: britt
-    passwd: $6$b/Uz.gnAWxZP.$MmYPCl1ytwajanhoSHbUdtlwvWdTNOiv5ebiPfm9Pb7v3C2eFZ8E98WIK1u2836vNoFiKjt9GezXKar99CPPZ0
+  - name: "britt"
     sudo: ALL=(ALL:ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       # Yk5
@@ -145,14 +153,11 @@ users:
 
 ansible:
   package_name: ansible-core
-  install_method: distro
+  install_method: pip
   pull:
-    - url: https://git.brittg.com/demophoon/homelab
-      checkout: ansible
-      playbook_names:
-        - qemu-test/ansible/runner-setup.yml
-      inventory: localhost,
-      connection: local
+    url: https://git.brittg.com/demophoon/homelab.git
+    checkout: ansible
+    playbook_name: qemu-test/ansible/runner-setup.yml
 
 write_files:
   - path: /home/runner/runner-token.sh
@@ -167,7 +172,7 @@ write_files:
         -H 'Authorization: Bearer {{ .Data.data.registration_token }}' \
         -H 'Content-Type: application/json' \
         -d '{
-        "name": "{{ env "NOMAD_ALLOC_NAME" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}",
+        "name": "{{ env "NOMAD_JOB_NAME" }}-{{ env "NOMAD_ALLOC_INDEX" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}",
         "ephemeral": true
       }' > /home/runner/registration.json
       {{ end }}
@@ -207,6 +212,7 @@ write_files:
           "-enable-kvm",
           "-cpu", "host",
           "-drive", "file=${NOMAD_ALLOC_DIR}/data/seed.iso,index=1,media=cdrom",
+          "-vnc", "unix:${NOMAD_ALLOC_DIR}/vnc.sock",
           #"-netdev", "bridge,id=net0,br=br0",
           #"-device", "virtio-net-pci,netdev=net0",
         ]
@@ -214,6 +220,38 @@ write_files:
       resources {
         cpu    = 1000
         memory = 2048
+      }
+    }
+
+    task "novnc" {
+      driver = "docker"
+      lifecycle {
+        hook    = "poststart"
+        sidecar = true
+      }
+      config {
+        image      = "theasp/novnc:latest"
+        entrypoint = ["/usr/bin/websockify"]
+        args = [
+          "--web", "/usr/share/novnc",
+          "${NOMAD_PORT_novnc}",
+          "--unix-target", "/alloc/vnc.sock",
+        ]
+        ports = ["novnc"]
+      }
+      service {
+        name     = "runner-vnc"
+        port     = "novnc"
+        provider = "consul"
+        tags = [
+          "traefik.enable=true",
+          "traefik.http.routers.runner-vnc-${NOMAD_ALLOC_INDEX}.rule=Host(`vnc.internal.demophoon.com`)",
+          "traefik.http.services.runner-vnc-${NOMAD_ALLOC_INDEX}.loadbalancer.server.port=${NOMAD_PORT_novnc}",
+        ]
+      }
+      resources {
+        cpu    = 100
+        memory = 128
       }
     }
 
