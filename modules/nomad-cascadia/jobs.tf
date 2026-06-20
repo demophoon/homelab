@@ -249,9 +249,6 @@ resource "nomad_job" "ittools" {
 resource "nomad_job" "forgejo" {
   jobspec = file("${path.module}/jobspecs/forgejo/forgejo.hcl")
 }
-resource "nomad_job" "forgejo-runner" {
-  jobspec = file("${path.module}/jobspecs/forgejo/runner.hcl")
-}
 resource "nomad_job" "renovate" {
   jobspec = file("${path.module}/jobspecs/renovate/renovate.hcl")
 }
