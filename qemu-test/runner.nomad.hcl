@@ -157,7 +157,7 @@ ansible:
   pull:
     url: https://git.brittg.com/demophoon/homelab.git
     checkout: main
-    playbook_name: qemu-test/ansible/runner-setup.yml
+    playbook_name: ansible/runner-setup.yml
 
 write_files:
   - path: /home/runner/runner-token.sh
