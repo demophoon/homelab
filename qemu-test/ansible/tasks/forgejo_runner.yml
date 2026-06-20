@@ -1,0 +1,24 @@
+---
+- name: Check whether Forgejo runner binary already exists
+  ansible.builtin.stat:
+    path: /usr/local/bin/forgejo-runner
+  register: forgejo_runner_bin
+
+- name: Lookup latest Forgejo runner release
+  ansible.builtin.uri:
+    url: https://data.forgejo.org/api/v1/repos/forgejo/runner/releases/latest
+    return_content: true
+  register: forgejo_runner_release
+  when: not forgejo_runner_bin.stat.exists
+
+- name: Extract Forgejo runner version string
+  ansible.builtin.set_fact:
+    forgejo_runner_version: "{{ forgejo_runner_release.json.name | regex_replace('^v', '') }}"
+  when: not forgejo_runner_bin.stat.exists
+
+- name: Install Forgejo runner binary
+  ansible.builtin.get_url:
+    url: "https://code.forgejo.org/forgejo/runner/releases/download/v{{ forgejo_runner_version }}/forgejo-runner-{{ forgejo_runner_version }}-linux-{{ resolved_arch }}"
+    dest: /usr/local/bin/forgejo-runner
+    mode: "0755"
+  when: not forgejo_runner_bin.stat.exists

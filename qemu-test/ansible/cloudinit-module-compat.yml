@@ -1,0 +1,250 @@
+---
+- name: Cloudinit Module Compatibility Provisioning
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  become: true
+
+  vars_files:
+    - vars/cloudinit-compat.yml
+
+  vars:
+    arch_map:
+      x86_64: amd64
+      aarch64: arm64
+    cni_plugins_version: "1.0.0"
+
+  tasks:
+    - name: Run bootstrap tasks
+      ansible.builtin.import_tasks: tasks/bootstrap.yml
+
+    - name: Ensure required variables are present
+      ansible.builtin.assert:
+        that:
+          - hostname | length > 0
+          - tailscale_auth_key | length > 0
+          - nomad_hcl | length > 0
+          - consul_hcl | length > 0
+          - vault_hcl | length > 0
+          - start_cluster_script | length > 0
+          - sshd_config_content | length > 0
+          - backplane_ca_pem | length > 0
+          - ssh_ca_pem | length > 0
+          - consul_pki_cert_pem | length > 0
+          - consul_pki_key_pem | length > 0
+        fail_msg: "Missing required inputs. Populate vars/cloudinit-compat.yml (or pass via inventory/extra-vars)."
+
+    - name: Configure compat apt keys and repositories
+      ansible.builtin.import_tasks: tasks/apt_keys_and_repos.yml
+      vars:
+        apt_repo_filename: cloudinit-compat
+        apt_signing_keys:
+          - url: https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg
+            dest: /etc/apt/keyrings/tailscale.gpg
+          - url: https://apt.releases.hashicorp.com/gpg
+            dest: /etc/apt/keyrings/hashicorp.asc
+          - url: https://download.docker.com/linux/ubuntu/gpg
+            dest: /etc/apt/keyrings/docker.asc
+          - url: https://packagecloud.io/crowdsec/crowdsec/gpgkey
+            dest: /etc/apt/keyrings/crowdsec.asc
+        apt_repositories:
+          - "deb [arch=amd64 signed-by=/etc/apt/keyrings/tailscale.gpg] https://pkgs.tailscale.com/stable/ubuntu jammy main"
+          - "deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com jammy main"
+          - "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu jammy stable"
+          - "deb [arch=amd64 signed-by=/etc/apt/keyrings/crowdsec.asc] https://packagecloud.io/crowdsec/crowdsec/ubuntu jammy main"
+
+    - name: Install cloudinit-module packages
+      ansible.builtin.apt:
+        name: "{{ cloudinit_packages }}"
+        state: present
+        update_cache: true
+      vars:
+        cloudinit_packages: >-
+          {{
+            [
+              'qemu-guest-agent',
+              vault_package,
+              nomad_package,
+              consul_package,
+              'tailscale',
+              'docker-ce',
+              'docker-ce-cli',
+              'containerd.io',
+              'docker-compose-plugin',
+              'nfs-common',
+              'dnsmasq',
+              'jq',
+              'crowdsec',
+              'crowdsec-firewall-bouncer-iptables'
+            ]
+            + (['keepalived'] if include_keepalived else [])
+            + (['unzip'] if install_miren else [])
+          }}
+
+    - name: Ensure directories exist
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: directory
+        mode: "{{ item.mode }}"
+      loop:
+        - { path: /opt/cluster/certs/consul, mode: "0755" }
+        - { path: /etc/nomad.d, mode: "0755" }
+        - { path: /etc/consul.d, mode: "0755" }
+        - { path: /etc/vault.d, mode: "0755" }
+        - { path: /etc/systemd/resolved.conf.d, mode: "0755" }
+        - { path: /opt/cni/bin, mode: "0755" }
+        - { path: /etc/docker, mode: "0755" }
+
+    - name: Write certificate and config files from rendered module content
+      ansible.builtin.copy:
+        dest: "{{ item.dest }}"
+        content: "{{ item.content }}"
+        mode: "{{ item.mode | default('0644') }}"
+      loop:
+        - { dest: "/opt/cluster/certs/backplane_ca.pem", content: "{{ backplane_ca_pem }}" }
+        - { dest: "/opt/cluster/certs/consul/cert.pem", content: "{{ consul_pki_cert_pem }}" }
+        - { dest: "/opt/cluster/certs/consul/priv.key", content: "{{ consul_pki_key_pem }}", mode: "0600" }
+        - { dest: "/etc/ssh/sshd_config", content: "{{ sshd_config_content }}" }
+        - { dest: "/etc/ssh/ca.pem", content: "{{ ssh_ca_pem }}" }
+        - { dest: "/etc/nomad.d/nomad.hcl", content: "{{ nomad_hcl }}" }
+        - { dest: "/etc/consul.d/consul.hcl", content: "{{ consul_hcl }}" }
+        - { dest: "/etc/vault.d/vault.hcl", content: "{{ vault_hcl }}" }
+
+    - name: Write cluster bootstrap script
+      ansible.builtin.copy:
+        dest: /opt/start_cluster.sh
+        content: "{{ start_cluster_script }}"
+        mode: "0700"
+
+    - name: Ensure @reboot cluster bootstrap cron exists
+      ansible.builtin.copy:
+        dest: /etc/cron.d/join_cluster
+        content: "@reboot /opt/start_cluster.sh\n"
+        mode: "0644"
+
+    - name: Write docker daemon config
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        mode: "0644"
+        content: |
+          {
+            "dns": [ "172.17.0.1", "1.1.1.1" ],
+            "registry-mirrors": ["https://registry-cache.service.consul.demophoon.com"]
+          }
+
+    - name: Write dnsmasq config
+      ansible.builtin.copy:
+        dest: /etc/dnsmasq.conf
+        mode: "0644"
+        content: |
+          interface=docker0
+          bind-interfaces
+          listen-address=127.0.0.1,172.17.0.1
+          server=/consul.demophoon.com/127.0.0.1#8600
+          server=1.1.1.1
+
+    - name: Write systemd-resolved config snippets
+      ansible.builtin.copy:
+        dest: "{{ item.dest }}"
+        mode: "0644"
+        content: "{{ item.content }}"
+      loop:
+        -
+          dest: /etc/systemd/resolved.conf.d/tail
+          content: |
+            nameserver 172.17.0.1
+        -
+          dest: /etc/systemd/resolved.conf.d/00_consul.conf
+          content: |
+            [Resolve]
+            DNS=127.0.0.1:8600
+            DNSSEC=false
+            Domains=~consul.demophoon.com
+
+    - name: Write keepalived config and check script
+      when: include_keepalived | bool
+      block:
+        - name: Ensure keepalived config directory exists
+          ansible.builtin.file:
+            path: /etc/keepalived
+            state: directory
+            mode: "0755"
+
+        - name: Write keepalived config
+          ansible.builtin.copy:
+            dest: /etc/keepalived/keepalived.conf
+            content: "{{ keepalived_conf_content }}"
+            mode: "0644"
+
+        - name: Write VRRP health script
+          ansible.builtin.copy:
+            dest: /opt/vrrp_check.sh
+            mode: "0700"
+            content: |
+              #!/usr/bin/env bash
+              set -euxo pipefail
+              docker ps --filter "status=running" | grep -q traefik
+
+    - name: Run shared CNI installation tasks
+      ansible.builtin.import_tasks: tasks/cni.yml
+
+    - name: Remove DigitalOcean resolved config
+      ansible.builtin.file:
+        path: /etc/systemd/resolved.conf.d/DigitalOcean.conf
+        state: absent
+
+    - name: Enable qemu guest agent
+      ansible.builtin.systemd_service:
+        name: qemu-guest-agent
+        enabled: true
+        state: started
+
+    - name: Restart foundational services
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+        - ssh
+        - systemd-resolved
+        - dnsmasq
+
+    - name: Bring up tailscale without advertised routes
+      ansible.builtin.command:
+        argv:
+          - tailscale
+          - up
+          - --authkey
+          - "{{ tailscale_auth_key }}"
+          - --accept-routes
+      changed_when: false
+      when: not advertise_routes | bool
+
+    - name: Bring up tailscale with advertised routes
+      ansible.builtin.command:
+        argv:
+          - tailscale
+          - up
+          - --authkey
+          - "{{ tailscale_auth_key }}"
+          - --accept-routes
+          - "--advertise-routes={{ advertise_routes_value }}"
+      changed_when: false
+      when: advertise_routes | bool
+
+    - name: Run cluster bootstrap script
+      ansible.builtin.command: /opt/start_cluster.sh
+      when: run_start_cluster | bool
+
+    - name: Verify Miren install request
+      when: install_miren | bool
+      block:
+        - name: Check whether Miren is installed by start script
+          ansible.builtin.stat:
+            path: /usr/local/bin/miren
+          register: miren_bin
+
+        - name: Ensure Miren binary is present
+          ansible.builtin.assert:
+            that:
+              - miren_bin.stat.exists
+            fail_msg: "install_miren=true but /usr/local/bin/miren is missing after bootstrap."

@@ -1,0 +1,78 @@
+---
+- name: Check whether Miren CLI is already installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/miren
+  register: miren_bin
+  when: install_miren | bool
+
+- name: Fetch Miren release manifest
+  ansible.builtin.uri:
+    url: "{{ miren_release_base_url }}/{{ miren_version }}/version.json"
+    return_content: true
+  register: miren_release_manifest
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Resolve Miren artifact name and checksum
+  ansible.builtin.set_fact:
+    miren_archive_name: "miren-linux-{{ resolved_arch }}.tar.gz"
+    miren_artifact: >-
+      {{
+        (
+          miren_release_manifest.json.artifacts
+          | selectattr('name', 'equalto', 'miren-linux-' ~ resolved_arch ~ '.tar.gz')
+          | list
+          | first
+        )
+        | default({})
+      }}
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Ensure Miren artifact checksum is available
+  ansible.builtin.assert:
+    that:
+      - miren_artifact is mapping
+      - miren_artifact.sha256 is defined
+      - miren_artifact.sha256 is match('^[a-fA-F0-9]{64}$')
+    fail_msg: "Could not validate Miren checksum metadata for {{ miren_archive_name }}"
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Download Miren CLI archive
+  ansible.builtin.get_url:
+    url: "{{ miren_release_base_url }}/{{ miren_version }}/miren-linux-{{ resolved_arch }}.tar.gz"
+    dest: "/tmp/miren-linux-{{ resolved_arch }}.tar.gz"
+    checksum: "sha256:{{ miren_artifact.sha256 }}"
+    mode: "0644"
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Extract Miren CLI archive
+  ansible.builtin.unarchive:
+    src: "/tmp/miren-linux-{{ resolved_arch }}.tar.gz"
+    dest: /tmp
+    remote_src: true
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Install Miren CLI binary
+  ansible.builtin.copy:
+    src: /tmp/miren
+    dest: /usr/local/bin/miren
+    remote_src: true
+    mode: "0755"
+  when:
+    - install_miren | bool
+    - not miren_bin.stat.exists
+
+- name: Verify Miren CLI installation
+  ansible.builtin.command: /usr/local/bin/miren version
+  register: miren_version_check
+  changed_when: false
+  when: install_miren | bool

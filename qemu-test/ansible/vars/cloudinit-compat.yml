@@ -1,0 +1,28 @@
+---
+# Toggle/selection
+install_miren: false
+include_keepalived: false
+advertise_routes: false
+advertise_routes_value: "192.168.1.114/32,192.168.1.34/32,192.168.1.3/32"
+run_start_cluster: true
+
+# Required runtime values
+hostname: ""
+tailscale_auth_key: ""
+
+# Rendered content (recommended: source from Terraform/template outputs)
+backplane_ca_pem: ""
+ssh_ca_pem: ""
+consul_pki_cert_pem: ""
+consul_pki_key_pem: ""
+nomad_hcl: ""
+consul_hcl: ""
+vault_hcl: ""
+start_cluster_script: ""
+sshd_config_content: ""
+keepalived_conf_content: ""
+
+# Optional package versions
+vault_package: "vault=1.21.4-1"
+nomad_package: "nomad=1.11.2-1"
+consul_package: "consul=1.22.5-1"

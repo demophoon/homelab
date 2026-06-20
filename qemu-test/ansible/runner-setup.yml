@@ -5,145 +5,33 @@
   gather_facts: true
   become: true
 
-  vars:
-    runner_packages:
-      - openssh-server
-      - qemu-guest-agent
-      - vault=1.21.4-1
-      - nomad=1.11.2-1
-      - consul=1.22.5-1
-      - tailscale
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-compose-plugin
-      - nfs-common
-      - dnsmasq
-      - jq
-      - curl
-      - git
+  vars_files:
+    - vars/runner.yml
 
   tasks:
-    - name: Ensure apt prerequisites exist
-      ansible.builtin.apt:
-        name:
-          - ca-certificates
-          - curl
-          - gnupg
-        state: present
-        update_cache: true
+    - name: Run bootstrap tasks
+      ansible.builtin.import_tasks: tasks/bootstrap.yml
 
-    - name: Ensure apt keyring directory exists
-      ansible.builtin.file:
-        path: /etc/apt/keyrings
-        state: directory
-        mode: "0755"
+    - name: Run repository tasks
+      ansible.builtin.import_tasks: tasks/repos.yml
 
-    - name: Install Tailscale apt key
-      ansible.builtin.get_url:
-        url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
-        dest: /etc/apt/keyrings/tailscale.gpg
-        mode: "0644"
+    - name: Run user setup tasks
+      ansible.builtin.import_tasks: tasks/users.yml
 
-    - name: Install HashiCorp apt key
-      ansible.builtin.get_url:
-        url: https://apt.releases.hashicorp.com/gpg
-        dest: /etc/apt/keyrings/hashicorp.gpg
-        mode: "0644"
+    - name: Run package tasks
+      ansible.builtin.import_tasks: tasks/packages.yml
 
-    - name: Install Docker apt key
-      ansible.builtin.get_url:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        dest: /etc/apt/keyrings/docker.asc
-        mode: "0644"
+    - name: Run configuration tasks
+      ansible.builtin.import_tasks: tasks/config.yml
 
-    - name: Configure apt repositories
-      ansible.builtin.apt_repository:
-        repo: "{{ item }}"
-        state: present
-        filename: homelab-runner
-      loop:
-        - "deb [arch=amd64 signed-by=/etc/apt/keyrings/tailscale.gpg] https://pkgs.tailscale.com/stable/ubuntu noble main"
-        - "deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp.gpg] https://apt.releases.hashicorp.com noble main"
-        - "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable"
+    - name: Run Forgejo runner installation tasks
+      ansible.builtin.import_tasks: tasks/forgejo_runner.yml
 
-    - name: Ensure docker group exists
-      ansible.builtin.group:
-        name: docker
-        state: present
+    - name: Run CNI installation tasks
+      ansible.builtin.import_tasks: tasks/cni.yml
 
-    - name: Ensure runner user exists
-      ansible.builtin.user:
-        name: runner
-        shell: /bin/bash
-        create_home: true
-        groups: docker
-        append: true
+    - name: Run optional Miren installation tasks
+      ansible.builtin.import_tasks: tasks/miren.yml
 
-    - name: Install runner packages
-      ansible.builtin.apt:
-        name: "{{ runner_packages }}"
-        state: present
-        update_cache: true
-
-    - name: Ensure config directories exist
-      ansible.builtin.file:
-        path: "{{ item.path }}"
-        state: directory
-        mode: "{{ item.mode }}"
-      loop:
-        - { path: /etc/consul.d, mode: "0755" }
-        - { path: /etc/docker, mode: "0755" }
-        - { path: /etc/systemd/resolved.conf.d, mode: "0755" }
-        - { path: /opt/cni/bin, mode: "0755" }
-
-    - name: Install static configuration files
-      ansible.builtin.copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-        owner: "{{ item.owner | default('root') }}"
-        group: "{{ item.group | default('root') }}"
-        mode: "{{ item.mode }}"
-      loop:
-        - { src: runner-config.yml, dest: /home/runner/runner-config.yml, owner: runner, group: runner, mode: "0700" }
-        - { src: forgejo-runner.service, dest: /etc/systemd/system/forgejo-runner.service, mode: "0644" }
-        - { src: consul.hcl, dest: /etc/consul.d/consul.hcl, mode: "0644" }
-        - { src: sshd_config, dest: /etc/ssh/sshd_config, mode: "0644" }
-        - { src: install_runner.sh, dest: /opt/install_runner.sh, mode: "0700" }
-        - { src: install_cni.sh, dest: /opt/install_cni.sh, mode: "0700" }
-        - { src: daemon.json, dest: /etc/docker/daemon.json, mode: "0644" }
-        - { src: dnsmasq.conf, dest: /etc/dnsmasq.conf, mode: "0644" }
-        - { src: resolved-tail.conf, dest: /etc/systemd/resolved.conf.d/tail, mode: "0644" }
-
-    - name: Install Forgejo runner binary
-      ansible.builtin.command: /opt/install_runner.sh
-      args:
-        creates: /usr/local/bin/forgejo-runner
-
-    - name: Install CNI plugins
-      ansible.builtin.command: /opt/install_cni.sh
-      args:
-        creates: /opt/cni/bin/bridge
-
-    - name: Generate Forgejo runner registration token
-      ansible.builtin.command: /home/runner/runner-token.sh
-      args:
-        creates: /home/runner/token
-
-    - name: Reload systemd
-      ansible.builtin.systemd_service:
-        daemon_reload: true
-
-    - name: Ensure core services are enabled and running
-      ansible.builtin.systemd_service:
-        name: "{{ item }}"
-        enabled: true
-        state: started
-      loop:
-        - qemu-guest-agent
-        - docker
-        - tailscaled
-        - consul
-        - nomad
-        - dnsmasq
-        - forgejo-runner
+    - name: Run finalization tasks
+      ansible.builtin.import_tasks: tasks/finalize.yml

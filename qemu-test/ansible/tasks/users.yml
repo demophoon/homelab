@@ -1,0 +1,13 @@
+---
+- name: Ensure docker group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Ensure runner user exists
+  ansible.builtin.user:
+    name: runner
+    shell: /bin/bash
+    create_home: true
+    groups: docker
+    append: true

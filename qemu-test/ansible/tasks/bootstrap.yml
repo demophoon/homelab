@@ -1,0 +1,19 @@
+---
+- name: Ensure apt prerequisites exist
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+    update_cache: true
+
+- name: Ensure apt keyring directory exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Resolve architecture label for downloads
+  ansible.builtin.set_fact:
+    resolved_arch: "{{ arch_map.get(ansible_architecture, 'amd64') }}"

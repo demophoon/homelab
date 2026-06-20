@@ -1,0 +1,16 @@
+---
+- name: Configure runner apt keys and repositories
+  ansible.builtin.import_tasks: apt_keys_and_repos.yml
+  vars:
+    apt_repo_filename: homelab-runner
+    apt_signing_keys:
+      - url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
+        dest: /etc/apt/keyrings/tailscale.gpg
+      - url: https://apt.releases.hashicorp.com/gpg
+        dest: /etc/apt/keyrings/hashicorp.asc
+      - url: https://download.docker.com/linux/ubuntu/gpg
+        dest: /etc/apt/keyrings/docker.asc
+    apt_repositories:
+      - "deb [arch=amd64 signed-by=/etc/apt/keyrings/tailscale.gpg] https://pkgs.tailscale.com/stable/ubuntu noble main"
+      - "deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com noble main"
+      - "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu noble stable"

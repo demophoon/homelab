@@ -10,6 +10,7 @@ runner:
   fetch_interval: 2s
   labels:
     - "ci:host"
+    - "docker:docker://registry.services.demophoon.com/demophoon/dispatcher:dc15fa0-1775855159"
 
 cache:
   enabled: true

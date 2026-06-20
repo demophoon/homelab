@@ -1,0 +1,14 @@
+---
+- name: Install apt signing keys
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode | default('0644') }}"
+  loop: "{{ apt_signing_keys }}"
+
+- name: Configure apt repositories
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: "{{ apt_repo_filename | default('homelab-runner') }}"
+  loop: "{{ apt_repositories }}"
