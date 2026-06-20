@@ -182,6 +182,8 @@ write_files:
       echo "      token: $(cat /home/runner/token)" >> /home/runner/runner-config.yml
       echo "      uuid: $(cat /home/runner/uuid)" >> /home/runner/runner-config.yml
       chown runner:runner /home/runner/runner-config.yml
+      mkdir -p /home/runner/.cache
+      chown runner:runner /home/runner/.cache
 
   {{ with secret "proxmox/config/ca" }}
   - path: /etc/ssh/ca.pem
