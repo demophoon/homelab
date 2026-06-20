@@ -156,7 +156,7 @@ ansible:
   install_method: pip
   pull:
     url: https://git.brittg.com/demophoon/homelab.git
-    checkout: ansible
+    checkout: main
     playbook_name: qemu-test/ansible/runner-setup.yml
 
 write_files:
@@ -172,8 +172,7 @@ write_files:
         -H 'Authorization: Bearer {{ .Data.data.registration_token }}' \
         -H 'Content-Type: application/json' \
         -d '{
-        "name": "{{ env "NOMAD_JOB_NAME" }}-{{ env "NOMAD_ALLOC_INDEX" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}",
-        "ephemeral": true
+        "name": "{{ env "NOMAD_JOB_NAME" }}-{{ env "NOMAD_ALLOC_INDEX" }}-{{ env "NOMAD_SHORT_ALLOC_ID" }}"
       }' > /home/runner/registration.json
       {{ end }}
 
