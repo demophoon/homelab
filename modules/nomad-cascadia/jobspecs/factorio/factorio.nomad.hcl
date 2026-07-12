@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "2.0.77" # image: factoriotools/factorio
+  default = "2.1.9" # image: factoriotools/factorio
 }
 
 job "factorio" {
