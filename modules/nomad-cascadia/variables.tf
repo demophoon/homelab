@@ -21,10 +21,6 @@ variable "vaultwarden_version" {
   default = "1.32.5"
 }
 
-variable "factorio_version" {
-  default = "1.1.110"
-}
-
 variable "nextcloud_version" {
   default = "30.0.1"
 }
