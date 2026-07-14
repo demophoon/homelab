@@ -7,10 +7,6 @@ variable "traefik_version" {
   default = "v3.1.2"
 }
 
-variable "immich_version" {
-  default = "v1.121.0"
-}
-
 variable "homeassistant_version" {
   default = "2024.12"
 }

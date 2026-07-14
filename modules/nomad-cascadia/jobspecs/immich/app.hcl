@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v1.133.0"
+  default = "v3.0.2" # image: ghcr.io/immich-app/immich-server
 }
 
 job "immich-app" {
@@ -63,7 +63,7 @@ job "immich-app" {
 # You can find documentation for all the supported env variables at https://immich.app/docs/install/environment-variables
 TZ="America/Los_Angeles"
 
-IMMICH_VERSION=v1.102.3
+IMMICH_VERSION=v3
 
 LOG_LEVEL=debug
 IMMICH_METRICS=true

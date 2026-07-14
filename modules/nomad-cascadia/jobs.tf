@@ -68,20 +68,10 @@ resource "nomad_job" "immich-backend" {
 
 resource "nomad_job" "immich-ml" {
   jobspec = file("${path.module}/jobspecs/immich/ml.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.immich_version
-    }
-  }
 }
 
 resource "nomad_job" "immich-app" {
   jobspec = file("${path.module}/jobspecs/immich/app.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.immich_version
-    }
-  }
 }
 
 resource "nomad_job" "shrls-backend" {
