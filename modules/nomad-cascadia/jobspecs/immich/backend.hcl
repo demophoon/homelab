@@ -1,3 +1,8 @@
+variable "image_version" {
+  type = string
+  default = "14-vectorchord0.4.3-pgvectors0.2.0" # image: ghcr.io/immich-app/postgres
+}
+
 job "immich-backend" {
   datacenters = ["cascadia"]
 
@@ -18,7 +23,7 @@ job "immich-backend" {
         destination = "/var/lib/postgresql/data"
       }
       config {
-        image = "ghcr.io/immich-app/postgres:14-vectorchord0.3.0-pgvectors0.2.0"
+        image = "ghcr.io/immich-app/postgres:${var.image_version}"
         ports = ["postgres"]
       }
       template {
