@@ -176,6 +176,12 @@ plugin "docker" {
 
 ui {
   enabled = true
+  consul {
+    ui_url = "https://consul-ui.internal.demophoon.com/ui"
+  }
+  vault {
+    ui_url = "https://vault-ui.internal.demophoon.com/ui"
+  }
 }
 
 tls {
