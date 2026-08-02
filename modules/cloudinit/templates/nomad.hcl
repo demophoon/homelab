@@ -9,7 +9,7 @@ bind_addr = "{{ GetPrivateInterfaces | exclude `type` `IPv6` | include `name` `t
 server {
   enabled = ${is_server}
 
-  job_gc_threshold = "7d"
+  job_gc_threshold = "168h"
 }
 %{ endif }
 
