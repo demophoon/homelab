@@ -51,6 +51,9 @@ start_tailscale_services() {
   tailscale serve --service=svc:consul --tcp=8301 tcp://${hostname}.blue-bowfin.ts.net:8301
   tailscale serve --service=svc:consul --tcp=8302 tcp://${hostname}.blue-bowfin.ts.net:8302
   tailscale serve --service=svc:consul --tcp=8501 tcp://${hostname}.blue-bowfin.ts.net:8501
+
+  tailscale serve --service=svc:internal --tcp=80  tcp://${hostname}.blue-bowfin.ts.net:80
+  tailscale serve --service=svc:internal --tcp=443 tcp://${hostname}.blue-bowfin.ts.net:443
 }
 
 rm -f /etc/systemd/resolved.conf.d/DigitalOcean.conf
