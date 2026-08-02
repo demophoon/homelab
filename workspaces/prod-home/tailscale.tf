@@ -18,6 +18,8 @@ locals {
     "tag:miren" = ["tag:terraform-provisioned"],
     // This node is publicly available as an ingress node
     "tag:ingress" = ["tag:terraform-provisioned"],
+    // This node is load balancing internal services
+    "tag:internal-ingress" = ["tag:terraform-provisioned"],
   }
 
   grants = [
@@ -58,8 +60,9 @@ resource "tailscale_acl" "json" {
   acl = jsonencode({
     autoApprovers = {
       services = {
-	"svc:nomad"  = ["tag:nomad-server"],
-	"svc:consul" = ["tag:consul-server"],
+	"svc:nomad"    = ["tag:nomad-server"],
+	"svc:consul"   = ["tag:consul-server"],
+	"svc:internal" = ["tag:internal-ingress"],
       }
     },
     nodeAttrs = [

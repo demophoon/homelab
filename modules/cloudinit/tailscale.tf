@@ -7,6 +7,8 @@ locals {
   miren_tag = var.use_miren ? "tag:miren" : null
 
   ingress_tag = var.node_pool == "ingress" ? "tag:ingress" : null
+
+  internal_ingress_tag = var.node_pool == "default" ? "tag:internal-ingress" : null
 }
 
 module "ts" {
@@ -19,5 +21,6 @@ module "ts" {
     local.nomad_client_tag,
     local.miren_tag,
     local.ingress_tag,
+    local.internal_ingress_tag,
   ]
 }
