@@ -63,9 +63,14 @@ job "arrs" {
         name = "lidarr"
         port = "lidarr"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.lidarr-internal.rule=Host(`lidarr.internal.demophoon.com`) || Host(`music.internal.demophoon.com`)",
+        ]
+      }
+      service {
+        name = "music"
+        port = "lidarr"
+        tags = [
+          "internal=true",
         ]
       }
     }
@@ -131,9 +136,14 @@ job "arrs" {
         name = "sonarr"
         port = "sonarr"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.sonarr-internal.rule=Host(`sonarr.internal.demophoon.com`) || Host(`tv.internal.demophoon.com`)",
+        ]
+      }
+      service {
+        name = "tv"
+        port = "sonarr"
+        tags = [
+          "internal=true",
         ]
       }
     }
@@ -199,9 +209,14 @@ job "arrs" {
         name = "radarr"
         port = "radarr"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.radarr-internal.rule=Host(`radarr.internal.demophoon.com`) || Host(`movies.internal.demophoon.com`)",
+        ]
+      }
+      service {
+        name = "movies"
+        port = "radarr"
+        tags = [
+          "internal=true",
         ]
       }
     }
@@ -251,9 +266,14 @@ job "arrs" {
         name = "jackett"
         port = "jackett"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.jackett-internal.rule=Host(`jackett.internal.demophoon.com`) || Host(`trackers.internal.demophoon.com`)",
+        ]
+      }
+      service {
+        name = "trackers"
+        port = "jackett"
+        tags = [
+          "internal=true",
         ]
       }
     }

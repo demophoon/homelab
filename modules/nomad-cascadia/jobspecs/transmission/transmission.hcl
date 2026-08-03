@@ -88,9 +88,7 @@ job "transmission" {
         name = "transmission"
         port = "transmission"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.transmission-internal.rule=Host(`transmission.internal.demophoon.com`)",
         ]
       }
 
