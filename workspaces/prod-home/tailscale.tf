@@ -51,7 +51,7 @@ locals {
     },
     // Enable tsidp for all members of the tailnet.
     {
-      "src" = ["autogroup:member"],
+      "src" = ["autogroup:members"],
       "dst" = ["tag:tsidp"],
       "app" = {
 	"tailscale.com/cap/tsidp": [
