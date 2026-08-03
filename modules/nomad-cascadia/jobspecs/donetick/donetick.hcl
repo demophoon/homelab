@@ -1,7 +1,6 @@
 variable "image_version" {
   type = string
-  //default = "v0.1.64"
-  default = "dev"
+  default = "v0.1.76"
 }
 
 job "donetick" {
@@ -27,7 +26,7 @@ job "donetick" {
       }
 
       config {
-        image = "registry.ts.demophoon.com/donetick/donetick:${var.image_version}"
+        image = "donetick/donetick:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/lynx/donetick/data:/donetick-data",
