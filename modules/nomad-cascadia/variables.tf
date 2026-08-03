@@ -41,10 +41,6 @@ variable "shrls_version" {
   default = "0.2.0"
 }
 
-variable "authentik_version" {
-  default = "2024.12.2"
-}
-
 variable "calibre_version" {
   default = "v3.1.4"
 }

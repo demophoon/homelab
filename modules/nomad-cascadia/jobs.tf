@@ -148,11 +148,6 @@ resource "nomad_job" "authentik_backend" {
 
 resource "nomad_job" "authentik_app" {
   jobspec = file("${path.module}/jobspecs/authentik/app.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.authentik_version
-    }
-  }
 }
 resource "nomad_job" "changedetection" {
   jobspec = file("${path.module}/jobspecs/changedetection/app.hcl")

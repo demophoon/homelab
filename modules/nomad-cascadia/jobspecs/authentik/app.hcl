@@ -4,7 +4,7 @@ variable "image_uri" {
 }
 variable "image_version" {
   type = string
-  default = "2024.12.1"
+  default = "2026.5.6" # image: ghcr.io/goauthentik/server
 }
 
 job "authentik-app" {
@@ -222,4 +222,3 @@ job "authentik-app" {
     }
   }
 }
-
