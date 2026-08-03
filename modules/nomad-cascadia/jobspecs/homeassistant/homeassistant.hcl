@@ -64,7 +64,7 @@ job "homeassistant-app" {
           "traefik.enable=true",
           "traefik.http.middlewares.ha-redirect.redirectregex.regex=^https?://ha.cascadia.demophoon.com/",
           "traefik.http.middlewares.ha-redirect.redirectregex.replacement=https://ha.services.demophoon.com/",
-          "traefik.http.routers.ha.rule=Host(`ha.services.demophoon.com`) || Host(`ha.cascadia.demophoon.com`)",
+          "traefik.http.routers.ha.rule=Host(`ha.services.demophoon.com`) || Host(`ha.ts.demophoon.com`)",
           "traefik.http.routers.ha.middlewares=ha-redirect",
         ]
         check {
