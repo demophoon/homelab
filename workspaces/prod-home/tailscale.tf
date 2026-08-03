@@ -49,10 +49,28 @@ locals {
       "dst" = ["tag:nomad-client"],
       "ip"  = ["tcp:20000-32000"],
     },
+    {
+      "src" = ["autogroup:admin"],
+      "dst" = ["*"],
+      "app" = {
+	"tailscale.com/cap/tsidp": [
+	  {
+	    "allow_admin_ui":    true,
+	    "allow_dcr":         true,
+	    "users":             ["*"],
+	    "resources":         ["*"],
+	    "extraClaims": {
+	      "idp": "tailscale",
+	    },
+	    "includeInUserInfo": true,
+	  }
+	],
+      },
+    },
     // Enable tsidp for all members of the tailnet.
     {
       "src" = ["autogroup:members"],
-      "dst" = ["tag:tsidp"],
+      "dst" = ["*"],
       "app" = {
 	"tailscale.com/cap/tsidp": [
 	  {
