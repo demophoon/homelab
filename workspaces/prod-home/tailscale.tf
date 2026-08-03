@@ -20,6 +20,8 @@ locals {
     "tag:ingress" = ["tag:terraform-provisioned"],
     // This node is load balancing internal services
     "tag:internal-ingress" = ["tag:terraform-provisioned"],
+    // Tailscale IDP
+    "tag:tsidp" = ["tag:nomad-client"],
   }
 
   grants = [

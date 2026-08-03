@@ -301,3 +301,7 @@ resource "nomad_job" "anubis" {
 resource "nomad_job" "koito" {
   jobspec = file("${path.module}/jobspecs/koito/app.hcl")
 }
+
+resource "nomad_job" "tsidp" {
+  jobspec = file("${path.module}/jobspecs/tsidp/tsidp.hcl")
+}
