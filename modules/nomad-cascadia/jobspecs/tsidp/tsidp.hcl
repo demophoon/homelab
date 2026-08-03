@@ -8,7 +8,7 @@ job "tsidp" {
 
   group "tsidp" {
     network {
-      port "app" { static = 5380 }
+      port "app" { to = 443 }
     }
 
     task "app" {
