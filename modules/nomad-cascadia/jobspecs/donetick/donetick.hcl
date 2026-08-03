@@ -27,7 +27,7 @@ job "donetick" {
       }
 
       config {
-        image = "registry.internal.demophoon.com/donetick/donetick:${var.image_version}"
+        image = "registry.ts.demophoon.com/donetick/donetick:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/lynx/donetick/data:/donetick-data",
