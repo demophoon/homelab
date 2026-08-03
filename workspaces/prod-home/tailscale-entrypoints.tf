@@ -1,6 +1,6 @@
-data "tailscale_service" "internal" {
-  name = "svc:internal"
-}
+#data "tailscale_service" "internal" {
+#  name = "svc:internal"
+#}
 
 resource "google_dns_record_set" "demophoon-ts" {
   name         = "*.ts.demophoon.com."
@@ -8,6 +8,6 @@ resource "google_dns_record_set" "demophoon-ts" {
   ttl          = 300
   managed_zone = google_dns_managed_zone.demophoon_com.name
 
-  rrdatas = data.tailscale_service.internal.addrs
+  rrdatas = ["100.113.204.81"]
 }
 
