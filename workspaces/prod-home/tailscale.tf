@@ -49,6 +49,21 @@ locals {
       "dst" = ["tag:nomad-client"],
       "ip"  = ["tcp:20000-32000"],
     },
+    // Enable tsidp for all members of the tailnet.
+    {
+      "src" = ["autogroup:member"],
+      "dst" = ["tag:tsidp"],
+      "app" = {
+	"tailscale.com/cap/tsidp": [
+	  {
+	    "extraClaims": {
+	      "idp": "tailscale",
+	    },
+	    "includeInUserInfo": true,
+	  }
+	],
+      },
+    },
     // Match absolutely everything.
     // Comment this section out if you want to define specific restrictions.
     {
