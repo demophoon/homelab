@@ -61,7 +61,7 @@ job "homeassistant-app" {
         name = "ha"
         port = "homeassistant"
         tags = [
-          "traefik.enable=true",
+          "internal=true",
           "traefik.http.middlewares.ha-redirect.redirectregex.regex=^https?://ha.services.demophoon.com/",
           "traefik.http.middlewares.ha-redirect.redirectregex.replacement=https://ha.ts.demophoon.com/",
           "traefik.http.routers.ha.rule=Host(`ha.services.demophoon.com`) || Host(`ha.ts.demophoon.com`)",
@@ -80,9 +80,8 @@ job "homeassistant-app" {
         name = "ha-internal"
         port = "homeassistant"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.ha-internal.rule=Host(`ha.internal.demophoon.com`)",
+          "traefik.http.routers.ha-internal.rule=Host(`ha.ts.demophoon.com`) || Host(`ha.internal.demophoon.com`)",
         ]
       }
     }

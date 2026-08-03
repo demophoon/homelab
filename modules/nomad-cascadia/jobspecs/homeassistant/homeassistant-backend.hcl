@@ -58,8 +58,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
         name = "had"
         port = "appdaemon"
         tags = [
-          "traefik.enable=true",
-
+          "internal=true",
           "traefik.http.middlewares.had-redirect.redirectregex.regex=^https?://had.cascadia.demophoon.com/",
           "traefik.http.middlewares.had-redirect.redirectregex.replacement=https://had.services.demophoon.com/",
           "traefik.http.routers.had.rule=host(`had.services.demophoon.com`) || host(`had.cascadia.demophoon.com`)",
