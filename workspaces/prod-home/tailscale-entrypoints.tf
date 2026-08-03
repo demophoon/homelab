@@ -8,6 +8,6 @@ resource "google_dns_record_set" "demophoon-ts" {
   ttl          = 300
   managed_zone = google_dns_managed_zone.demophoon_com.name
 
-  rrdatas = tailscale_service.internal.addrs
+  rrdatas = data.tailscale_service.internal.addrs
 }
 
