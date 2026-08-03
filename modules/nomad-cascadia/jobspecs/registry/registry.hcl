@@ -113,9 +113,7 @@ job "registry" {
       service {
         name = "registry-internal"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.registry-internal.rule=Host(`registry.internal.demophoon.com`)",
         ]
 
         port = "registry-internal"
