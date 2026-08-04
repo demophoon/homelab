@@ -49,7 +49,7 @@ job "paperless" {
         PAPERLESS_SOCIALACCOUNT_PROVIDERS = '{ "openid_connect": { "APPS": [ { "provider_id": "authentik", "name": "Authentik", "client_id": "{{ .Data.data.client_id }}", "secret": "{{ .Data.data.client_secret }}", "settings": { "server_url": "{{ .Data.data.provider_url }}" } } ], "OAUTH_PKCE_ENABLED": "True" } }'
         {{- end }}
 
-        PAPERLESS_DBENGINE = "postgres"
+        PAPERLESS_DBENGINE = "postgresql"
         {{- with service "paperless-ngx-db" }}
           {{- with index . 0 }}
             PAPERLESS_DBHOST = "{{ .Address  }}"
