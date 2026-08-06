@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v3.5.0"
+  default = "v3.7.8" # image: traefik
 }
 
 job "traefik-local" {

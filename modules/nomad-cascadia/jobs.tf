@@ -1,19 +1,9 @@
 resource "nomad_job" "traefik_ingress" {
   jobspec = file("${path.module}/jobspecs/traefik/traefik-ingress.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.traefik_version
-    }
-  }
 }
 
 resource "nomad_job" "traefik_local" {
   jobspec = file("${path.module}/jobspecs/traefik/traefik-local.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.traefik_version
-    }
-  }
 }
 
 resource "nomad_job" "certbot" {
@@ -26,13 +16,6 @@ resource "nomad_job" "certbot-flawedfauna" {
 # Home Assistant
 resource "nomad_job" "homeassistant-app" {
   jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant.hcl")
-  hcl2 {
-    vars = {
-      ha_version = var.homeassistant_version
-      ha_image = var.homeassistant_image // Overrides ha_version
-      zigbee2mqtt_version = var.zigbee2mqtt_version
-    }
-  }
 }
 resource "nomad_job" "homeassistant-backend" {
   jobspec = file("${path.module}/jobspecs/homeassistant/homeassistant-backend.hcl")
@@ -55,11 +38,6 @@ resource "nomad_job" "minio" {
 
 resource "nomad_job" "vaultwarden" {
   jobspec = file("${path.module}/jobspecs/vaultwarden/vaultwarden.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.vaultwarden_version
-    }
-  }
 }
 
 resource "nomad_job" "immich-backend" {
@@ -98,11 +76,6 @@ resource "nomad_job" "shrls-demo" {
 
 resource "nomad_job" "syncthing" {
   jobspec = file("${path.module}/jobspecs/syncthing/syncthing.hcl")
-  hcl2 {
-    vars = {
-      image_version = var.syncthing_version
-    }
-  }
 }
 
 
@@ -127,19 +100,10 @@ resource "nomad_job" "resume" {
 
 resource "nomad_job" "bluesky-pds" {
   jobspec = file("${path.module}/jobspecs/bluesky-pds/app.hcl")
-  hcl2 {
-    vars = {
-      image_version = "0.4"
-    }
-  }
 }
 
 resource "nomad_job" "podgrab" {
   jobspec = file("${path.module}/jobspecs/podgrab/podgrab.hcl")
-  hcl2 {
-    vars = {
-    }
-  }
 }
 
 resource "nomad_job" "authentik_backend" {

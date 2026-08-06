@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "0.3.5"
+  default = "0.5.0" # image: hashicorp/nomad-autoscaler
 }
 
 job "autoscaler" {

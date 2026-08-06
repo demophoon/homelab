@@ -1,14 +1,10 @@
 variable "ha_version" {
   type = string
-  default = "2024.9.0"
-}
-variable "ha_image" {
-  type = string
-  default = null
+  default = "2026.8.0" # image: homeassistant/home-assistant
 }
 variable "zigbee2mqtt_version" {
   type = string
-  default = "1.40.0"
+  default = "2.12.1" # image: koenkk/zigbee2mqtt
 }
 
 job "homeassistant-app" {
@@ -41,7 +37,7 @@ job "homeassistant-app" {
 
       config {
         network_mode = "host"
-        image = var.ha_image != null ? var.ha_image : "homeassistant/home-assistant:${var.ha_version}"
+        image = "homeassistant/home-assistant:${var.ha_version}"
         privileged = true
         volumes = [
           "/run/dbus:/run/dbus:ro",

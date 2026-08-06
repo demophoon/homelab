@@ -1,3 +1,7 @@
+variable "appdaemon_version" {
+  default = "4.4.2" # image: acockburn/appdaemon
+}
+
 job "homeassistant-backend" {
   datacenters = ["cascadia"]
   priority = 100
@@ -33,7 +37,7 @@ job "homeassistant-backend" {
 
       config {
         network_mode = "host"
-        image = "acockburn/appdaemon:4.4.2"
+        image = "acockburn/appdaemon:${var.appdaemon_version}"
         image_pull_timeout = "15m"
         ports = ["appdaemon"]
       }
