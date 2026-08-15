@@ -1,3 +1,8 @@
+variable "image_version" {
+  type    = string
+  default = "dc15fa0-1775855159"
+}
+
 job "infrastructure-maintenance-reprovision-${workspace}" {
   datacenters = ["cascadia"]
   type = "batch"
@@ -37,8 +42,6 @@ job "infrastructure-maintenance-reprovision-${workspace}" {
         destination = "$${NOMAD_SECRETS_DIR}/env"
         env = true
         data = <<-EOH
-          GIT_REPO_URL = "https://git.brittg.com/demophoon/homelab"
-
           {{ with secret "kv/env/infra/terraform" }}
             {{ range $k, $v := .Data.data }}
               {{ $k }} = "{{ $v }}"
@@ -94,8 +97,17 @@ job "infrastructure-maintenance-reprovision-${workspace}" {
         perms = "600"
       }
 
+      artifact {
+        source      = "git::https://git.brittg.com/demophoon/homelab"
+        destination = "local/repo"
+        options {
+          ref   = "main"
+          depth = 1
+        }
+      }
+
       config {
-        image = "registry.services.demophoon.com/demophoon/terraform:0.1.1"
+        image = "registry.services.demophoon.com/demophoon/terraform:$${var.image_version}"
         args = [
           "apply",
         ]
