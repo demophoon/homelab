@@ -1,5 +1,5 @@
 variable "appdaemon_version" {
-  default = "4.4.2" # image: acockburn/appdaemon
+  default = "4.5.13" # image: acockburn/appdaemon
 }
 
 job "homeassistant-backend" {
