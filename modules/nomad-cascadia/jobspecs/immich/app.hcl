@@ -120,7 +120,7 @@ EOF
         memory_max = 4096
       }
       service {
-        name = "immich-app"
+        name = "immich-public"
         port = "app"
         tags = [
           "traefik.enable=true",
@@ -129,12 +129,10 @@ EOF
         ]
       }
       service {
-        name = "immich-app-internal"
+        name = "immich"
         port = "app"
         tags = [
           "internal=true",
-          "traefik.enable=true",
-          "traefik.http.routers.immich-frontend-internal.rule=host(`photos.internal.demophoon.com`)",
         ]
       }
 
