@@ -71,6 +71,9 @@ job "forgejo" {
            {{ end }}
 
            FORGEJO__openid__ENABLE_OPENID_SIGNIN = false
+
+           FORGEJO__repository__ENABLE_PUSH_CREATE_USER = true
+           FORGEJO__repository__ENABLE_PUSH_CREATE_ORG = true
          EOF
          env = true
          destination = "/secret/config.env"
