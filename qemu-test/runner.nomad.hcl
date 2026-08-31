@@ -22,7 +22,7 @@ job "runner" {
     }
 
     ephemeral_disk {
-      size = 51200
+      size = 102400
     }
 
     network {
@@ -219,8 +219,8 @@ write_files:
         ]
       }
       resources {
-        cpu    = 1000
-        memory = 2048
+        cpu    = 4000
+        memory = 8196
       }
     }
 
