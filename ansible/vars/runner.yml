@@ -3,7 +3,7 @@ arch_map:
   x86_64: amd64
   aarch64: arm64
 
-install_miren: true
+install_miren: false
 miren_version: "v0.10.0"
 miren_release_base_url: "https://api.miren.cloud/assets/release/miren"
 
