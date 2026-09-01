@@ -8,8 +8,6 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/workspaces/nomad-digitalocean/nomad.tf/",
-        "/workspaces/nomad-cascadia/nomad.tf/",
         "/modules/nomad-cascadia/jobspecs/.*\\.hcl/"
       ],
       "matchStrings": [
@@ -21,6 +19,5 @@
   "ignorePaths": [
     "docker/**"
   ],
-  "prBodyNotes": ["@demophoon"],
-  "minimumReleaseAge": "10 days"
+  "prBodyNotes": ["@demophoon"]
 }
