@@ -36,7 +36,7 @@ job "traefik-ingress" {
     health_check = "task_states"
     stagger      = "30s"
     max_parallel = 3
-    canary       = 3
+    canary       = 1
   }
 
   group "web" {
