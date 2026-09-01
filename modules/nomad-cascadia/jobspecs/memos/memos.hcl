@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "0.27.1" # image: ghcr.io/usememos/memos
+  default = "0.30.0" # image: ghcr.io/usememos/memos
 }
 
 job "memos-app" {

@@ -1,5 +1,5 @@
 variable "image_version" {
-  default = "v1.25.0" # image: ghcr.io/techarohq/anubis
+  default = "v1.27.0" # image: ghcr.io/techarohq/anubis
 }
 
 job "anubis" {

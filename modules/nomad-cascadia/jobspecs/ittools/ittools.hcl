@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "2026.1.4" # image: ghcr.io/sharevb/it-tools
+  default = "2026.7.11" # image: ghcr.io/sharevb/it-tools
 }
 
 job "it-tools" {

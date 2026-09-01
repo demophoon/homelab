@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "33.0.6" # image: nextcloud
+  default = "33.0.8" # image: nextcloud
 }
 
 job "nextcloud-app" {

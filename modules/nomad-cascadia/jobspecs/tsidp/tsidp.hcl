@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v0.0.14" # image: ghcr.io/tailscale/tsidp
+  default = "v0.0.15" # image: ghcr.io/tailscale/tsidp
 }
 
 job "tsidp" {

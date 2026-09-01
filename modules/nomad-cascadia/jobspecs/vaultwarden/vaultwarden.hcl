@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "1.37.1" # image: vaultwarden/server
+  default = "1.37.2" # image: vaultwarden/server
 }
 
 job "vaultwarden" {
