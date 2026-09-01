@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "14-vectorchord0.4.3-pgvectors0.2.0" # image: ghcr.io/immich-app/postgres
+  default = "16-vectorchord0.4.3-pgvectors0.2.0" # image: ghcr.io/immich-app/postgres
 }
 
 job "immich-backend" {
