@@ -20,7 +20,7 @@ output "google_dns_managed_zone_flawedfauna_com" {
 
 output "lynx_template_id" {
   description = "vmid for lynx"
-  value = proxmox_virtual_environment_download_file.lynx_ubuntu_2404_noble_img.id
+  value = proxmox_virtual_environment_download_file.lynx_ubuntu_2604_resolute_img.id
 }
 
 output "backplane_certificate" {

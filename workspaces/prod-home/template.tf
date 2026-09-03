@@ -25,3 +25,16 @@ resource "proxmox_virtual_environment_download_file" "lynx_ubuntu_2404_noble_img
   #checksum_algorithm = "sha256"
   overwrite          = false
 }
+
+resource "proxmox_virtual_environment_download_file" "lynx_ubuntu_2604_resolute_img" {
+  provider           = proxmox.proxmox-lynx
+
+  content_type       = "iso"
+  datastore_id       = "local"
+  node_name          = "lynx"
+  file_name          = "resolute-server-cloudimg.img"
+  url                = "https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img"
+  #checksum           = var.ubuntu_image.sha256
+  #checksum_algorithm = "sha256"
+  overwrite          = false
+}
