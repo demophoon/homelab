@@ -16,6 +16,7 @@ locals {
       consul_pki_cert   = base64encode(vault_pki_secret_backend_cert.consul_internal.certificate)
       consul_pki_key    = base64encode(vault_pki_secret_backend_cert.consul_internal.private_key)
       start_cluster_sh  = base64encode(local.start_cluster_sh)
+      dnsmasq_config    = base64encode(file("${path.module}/templates/dnsmasq.conf"))
 
       include_keepalived = var.nomad_region == "cascadia" ? true : false
       advertise_routes   = var.nomad_region == "cascadia" ? true : false
