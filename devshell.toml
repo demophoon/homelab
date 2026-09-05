@@ -7,4 +7,6 @@ packages = [
   "nomad",
   "consul",
   "vault",
+  "dig",
+  "gnugrep",
 ]
