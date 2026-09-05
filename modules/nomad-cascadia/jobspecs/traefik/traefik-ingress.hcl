@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v3.7.12" # image: traefik
+  default = "v3.7.13" # image: traefik
 }
 
 job "traefik-ingress" {
