@@ -1,10 +1,10 @@
 variable "ha_version" {
   type = string
-  default = "2026.8.3" # image: homeassistant/home-assistant
+  default = "2026.9.1" # image: homeassistant/home-assistant
 }
 variable "zigbee2mqtt_version" {
   type = string
-  default = "2.14.0" # image: koenkk/zigbee2mqtt
+  default = "2.14.1" # image: koenkk/zigbee2mqtt
 }
 
 job "homeassistant-app" {
