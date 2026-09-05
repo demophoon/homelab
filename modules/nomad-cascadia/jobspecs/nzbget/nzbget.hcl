@@ -54,9 +54,7 @@ job "nzbget" {
         name = "nzbget"
         port = "nzbget"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.nzbget-internal.rule=Host(`nzbget.internal.demophoon.com`)",
         ]
       }
     }

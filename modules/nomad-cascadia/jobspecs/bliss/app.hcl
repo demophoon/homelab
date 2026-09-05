@@ -49,12 +49,10 @@ job "bliss" {
       }
 
       service {
-        name = "bliss-ui"
+        name = "bliss"
         port = "app"
         tags = [
-          "traefik.enable=true",
           "internal=true",
-          "traefik.http.routers.bliss-internal.rule=Host(`bliss.internal.demophoon.com`)",
         ]
       }
     }
