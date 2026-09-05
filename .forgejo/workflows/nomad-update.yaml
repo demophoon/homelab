@@ -23,3 +23,5 @@ jobs:
         uses: ./.forgejo/actions/dispatch-terraform
         with:
           workspace: nomad-cascadia
+      - id: renovate
+        uses: ./.forgejo/actions/renovate
