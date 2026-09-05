@@ -4,7 +4,7 @@ job "certbot" {
   type = "batch"
 
   periodic {
-    cron             = "0 5 */5 * *"
+    cron             = "0 5 */3 * *"
     prohibit_overlap = true
   }
 
