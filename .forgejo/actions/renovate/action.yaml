@@ -9,7 +9,7 @@ runs:
   steps:
     - name: 'Run Renovate'
       run: |
-        nomad job dispatch renovate | tee nomad.output
+        nomad job periodic force renovate | tee nomad.output
         while true; do
           STATUS=$(nomad job status --short $(grep 'Dispatched Job ID' nomad.output | awk '{print $5}') | grep Status | awk '{print $3}')
           if [[ "$STATUS" == "dead" ]]; then
