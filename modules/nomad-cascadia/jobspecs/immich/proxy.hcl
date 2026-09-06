@@ -29,6 +29,7 @@ job "immich-proxy" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.immich-proxy.rule=host(`photos.brittg.com`)",
+          "traefik.http.routers.immich-proxy.middlewares=anubis",
         ]
         check {
           type        = "http"
@@ -42,7 +43,7 @@ job "immich-proxy" {
       template {
         data = <<-EOF
           PUBLIC_BASE_URL = "https://photos.brittg.com"
-          {{ range service "immich-public" }}
+          {{ range service "immich" }}
           IMMICH_URL = "http://{{ .Address }}:{{ .Port }}"
           {{ end }}
         EOF
