@@ -109,7 +109,6 @@ EOF
         image = "ghcr.io/immich-app/immich-server:${var.image_version}"
         ports = ["app"]
         volumes = [
-          #"/mnt/nfs/nextcloud/data/demophoon/files:/mnt/media",
           "/tmp/empty-dir:/mnt/media",
           "/mnt/nfs/immich/import:/mnt/import",
         ]
@@ -118,15 +117,6 @@ EOF
         cpu = 400
         memory = 256
         memory_max = 4096
-      }
-      service {
-        name = "immich-public"
-        port = "app"
-        tags = [
-          "traefik.enable=true",
-          "traefik.http.routers.immich-frontend.rule=host(`photos.brittg.com`)",
-          "traefik.http.routers.immich-frontend.middlewares=anubis",
-        ]
       }
       service {
         name = "immich"

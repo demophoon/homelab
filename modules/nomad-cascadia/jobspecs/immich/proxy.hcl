@@ -28,7 +28,7 @@ job "immich-proxy" {
         port = "app"
         tags = [
           "traefik.enable=true",
-          "traefik.http.routers.immich-proxy.rule=host(`photos-public.brittg.com`)",
+          "traefik.http.routers.immich-proxy.rule=host(`photos.brittg.com`)",
           "traefik.http.routers.immich-proxy.middlewares=anubis",
         ]
         check {
@@ -42,7 +42,7 @@ job "immich-proxy" {
 
       template {
         data = <<-EOF
-          PUBLIC_BASE_URL = "https://photos-public.brittg.com"
+          PUBLIC_BASE_URL = "https://photos.brittg.com"
           {{ range service "immich-public" }}
           IMMICH_URL = "http://{{ .Address }}:{{ .Port }}"
           {{ end }}
