@@ -7,6 +7,15 @@ job "immich-proxy" {
   datacenters = ["cascadia"]
   region = "global"
 
+  update {
+    auto_revert  = true
+    auto_promote = true
+    health_check = "task_states"
+    stagger      = "30s"
+    max_parallel = 3
+    canary       = 1
+  }
+
   group "proxy" {
     count = 1
 
