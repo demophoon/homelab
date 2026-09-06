@@ -42,7 +42,7 @@ job "immich-proxy" {
       template {
         data = <<-EOF
           PUBLIC_BASE_URL = "https://photos-public.brittg.com"
-          {{ with service "immich" }}
+          {{ range service "immich-public" }}
           IMMICH_URL: http://{{ .Address }}:{{ .Port }}
           {{ end }}
         EOF
