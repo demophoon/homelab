@@ -52,6 +52,10 @@ resource "nomad_job" "immich-app" {
   jobspec = file("${path.module}/jobspecs/immich/app.hcl")
 }
 
+resource "nomad_job" "immich-proxy" {
+  jobspec = file("${path.module}/jobspecs/immich/proxy.hcl")
+}
+
 resource "nomad_job" "shrls-backend" {
   jobspec = file("${path.module}/jobspecs/shrls/backend.hcl")
 }
