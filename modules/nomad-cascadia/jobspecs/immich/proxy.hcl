@@ -43,7 +43,7 @@ job "immich-proxy" {
         data = <<-EOF
           PUBLIC_BASE_URL = "https://photos-public.brittg.com"
           {{ range service "immich-public" }}
-          IMMICH_URL: http://{{ .Address }}:{{ .Port }}
+          IMMICH_URL = "http://{{ .Address }}:{{ .Port }}"
           {{ end }}
         EOF
         destination = "local/env"
