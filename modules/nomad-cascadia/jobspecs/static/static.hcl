@@ -1,4 +1,4 @@
-variable "image_verison" {
+variable "image_version" {
   type = string
   default = "1.30.4" # image: nginx
 }

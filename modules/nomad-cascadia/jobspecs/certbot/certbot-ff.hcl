@@ -1,4 +1,4 @@
-variable "image_verison" {
+variable "image_version" {
   type = string
   default = "v5.8.0" # image: certbot/dns-google
 }

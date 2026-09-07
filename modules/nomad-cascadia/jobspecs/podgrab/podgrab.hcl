@@ -1,4 +1,4 @@
-variable "image_verison" {
+variable "image_version" {
   type = string
   default = "1.0.0" # image: akhilrex/podgrab
 }

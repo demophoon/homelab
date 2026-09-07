@@ -1,4 +1,4 @@
-variable "image_verison" {
+variable "image_version" {
   type = string
   default = "v26.3" # image: nzbgetcom/nzbget
 }

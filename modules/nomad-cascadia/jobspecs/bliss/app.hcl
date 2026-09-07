@@ -1,4 +1,4 @@
-variable "image_verison" {
+variable "image_version" {
   type = string
   default = "20250121" # image: elstensoftware/bliss
 }

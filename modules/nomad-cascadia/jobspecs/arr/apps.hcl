@@ -1,24 +1,24 @@
-variable "lidarr_image_verison" {
+variable "lidarr_image_version" {
   type = string
   default = "2.12.4" # image: 11notes/lidarr
 }
 
-variable "sonarr_image_verison" {
+variable "sonarr_image_version" {
   type = string
   default = "4.0.19" # image: lscr.io/linuxserver/sonarr
 }
 
-variable "radarr_image_verison" {
+variable "radarr_image_version" {
   type = string
   default = "6.3.0" # image: lscr.io/linuxserver/radarr
 }
 
-variable "jackett_image_verison" {
+variable "jackett_image_version" {
   type = string
   default = "0.24.2544" # image: lscr.io/linuxserver/jackett
 }
 
-variable "flaresolverr_image_verison" {
+variable "flaresolverr_image_version" {
   type = string
   default = "v3.5.0" # image: ghcr.io/flaresolverr/flaresolverr
 }
@@ -59,7 +59,7 @@ job "arrs" {
       }
 
       config {
-        image = "11notes/lidarr:${var.lidarr_image_verison}"
+        image = "11notes/lidarr:${var.lidarr_image_version}"
         image_pull_timeout = "15m"
         ports = ["lidarr"]
       }
