@@ -1,6 +1,6 @@
 variable "lidarr_image_version" {
   type = string
-  default = "2.14.5" # image: 11notes/lidarr
+  default = "2.12.4"
 }
 
 variable "sonarr_image_version" {
