@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "latest"
+  default = "44.69.4" # image: ghcr.io/renovate/renovate
 }
 
 job "renovate" {
@@ -35,7 +35,7 @@ job "renovate" {
       }
 
       config {
-        image = "renovate/renovate:${var.image_version}"
+        image = "ghcr.io/renovate/renovate:${var.image_version}"
       }
 
       template {
@@ -63,6 +63,7 @@ job "renovate" {
           RENOVATE_CONFIG_FILE=/local/config.js
           {{- with secret "kv/apps/renovate" }}
           RENOVATE_TOKEN={{ .Data.data.token }}
+          RENOVATE_GITHUB_COM_TOKEN="{{ .Data.data.github_token }}"
           {{- end }}
         EOF
         env         = true
