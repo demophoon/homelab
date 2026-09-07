@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "44.69.4" # image: ghcr.io/renovate/renovate
+  default = "44.69.4" # image: ghcr.io/renovatebot/renovate
 }
 
 job "renovate" {
@@ -35,7 +35,7 @@ job "renovate" {
       }
 
       config {
-        image = "ghcr.io/renovate/renovate:${var.image_version}"
+        image = "ghcr.io/renovatebot/renovate:${var.image_version}"
       }
 
       template {
