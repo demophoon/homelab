@@ -1,6 +1,6 @@
 variable "image_verison" {
   type = string
-  default = "1.30.4" # image: nginx
+  default = "1.31.5" # image: nginx
 }
 
 job "static" {
