@@ -15,7 +15,7 @@ job "paperless" {
     task "paperless" {
       driver = "docker"
       config {
-        image = "ghcr.io/paperless-ngx/paperless-ngx:latest"
+        image = "ghcr.io/paperless-ngx/paperless-ngx:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/nfs/paperless-ngx/server/data:/usr/src/paperless/data",
