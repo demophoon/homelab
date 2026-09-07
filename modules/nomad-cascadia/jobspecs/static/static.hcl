@@ -1,3 +1,8 @@
+variable "image_verison" {
+  type = string
+  default = "1.30.4" # image: nginx
+}
+
 job "static" {
   datacenters = ["cascadia"]
 
@@ -18,7 +23,7 @@ job "static" {
       driver = "docker"
 
       config {
-        image = "nginx:latest"
+        image = "nginx:${var.image_version}"
         image_pull_timeout = "15m"
 
         ports = ["nginx"]

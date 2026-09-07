@@ -1,3 +1,28 @@
+variable "lidarr_image_verison" {
+  type = string
+  default = "2.12.4" # image: 11notes/lidarr
+}
+
+variable "sonarr_image_verison" {
+  type = string
+  default = "4.0.19" # image: lscr.io/linuxserver/sonarr
+}
+
+variable "radarr_image_verison" {
+  type = string
+  default = "6.3.0" # image: lscr.io/linuxserver/radarr
+}
+
+variable "jackett_image_verison" {
+  type = string
+  default = "0.24.2544" # image: lscr.io/linuxserver/jackett
+}
+
+variable "flaresolverr_image_verison" {
+  type = string
+  default = "v3.5.0" # image: ghcr.io/flaresolverr/flaresolverr
+}
+
 job "arrs" {
   datacenters = ["cascadia"]
   node_pool = "nas"
@@ -34,8 +59,7 @@ job "arrs" {
       }
 
       config {
-        #image = "lscr.io/linuxserver/lidarr:latest"
-        image = "11notes/lidarr:2.12.4"
+        image = "11notes/lidarr:${var.lidarr_image_verison}"
         image_pull_timeout = "15m"
         ports = ["lidarr"]
       }
@@ -108,7 +132,7 @@ job "arrs" {
       }
 
       config {
-        image = "lscr.io/linuxserver/sonarr:latest"
+        image = "lscr.io/linuxserver/sonarr:${var.sonarr_image_version}"
         image_pull_timeout = "15m"
         ports = ["sonarr"]
       }
@@ -181,7 +205,7 @@ job "arrs" {
       }
 
       config {
-        image = "lscr.io/linuxserver/radarr:latest"
+        image = "lscr.io/linuxserver/radarr:${var.radarr_image_version}"
         image_pull_timeout = "15m"
         ports = ["radarr"]
       }
@@ -246,7 +270,7 @@ job "arrs" {
       }
 
       config {
-        image = "lscr.io/linuxserver/jackett:latest"
+        image = "lscr.io/linuxserver/jackett:${var.jackett_image_version}"
         image_pull_timeout = "15m"
         ports = ["jackett"]
       }
@@ -290,7 +314,7 @@ job "arrs" {
       driver = "docker"
 
       config {
-        image = "ghcr.io/flaresolverr/flaresolverr:latest"
+        image = "ghcr.io/flaresolverr/flaresolverr:${var.flaresolverr_image_version}"
         image_pull_timeout = "15m"
         ports = ["flaresolverr"]
       }

@@ -1,3 +1,8 @@
+variable "image_verison" {
+  type = string
+  default = "v26.3" # image: nzbgetcom/nzbget
+}
+
 job "nzbget" {
   datacenters = ["cascadia"]
   node_pool = "nas"
@@ -30,7 +35,7 @@ job "nzbget" {
       }
 
       config {
-        image = "nzbgetcom/nzbget:latest"
+        image = "nzbgetcom/nzbget:${var.image_version}"
 
         ports = ["nzbget"]
       }

@@ -1,4 +1,7 @@
-//  docker run -d -p 8080:8080 --name=podgrab -v "/host/path/to/assets:/assets" -v "/host/path/to/config:/config"  akhilrex/podgrab
+variable "image_verison" {
+  type = string
+  default = "1.0.0" # image: akhilrex/podgrab
+}
 
 job "podgrab" {
   datacenters = ["cascadia"]
@@ -14,7 +17,7 @@ job "podgrab" {
       driver = "docker"
 
       config {
-        image = "akhilrex/podgrab:latest"
+        image = "akhilrex/podgrab:${var.image_version}"
         ports = ["app"]
         volumes = [
           "/mnt/media/Podcasts:/assets",

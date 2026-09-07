@@ -1,3 +1,8 @@
+variable "image_verison" {
+  type = string
+  default = "20250121" # image: elstensoftware/bliss
+}
+
 job "bliss" {
   datacenters = ["cascadia"]
   node_pool = "nas"
@@ -25,7 +30,7 @@ job "bliss" {
       user = "1000"
 
       config {
-        image = "elstensoftware/bliss:latest"
+        image = "elstensoftware/bliss:${var.image_version}"
         ports = ["app", "app2"]
 
         volumes = [

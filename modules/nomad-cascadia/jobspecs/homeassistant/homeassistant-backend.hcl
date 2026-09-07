@@ -2,6 +2,10 @@ variable "appdaemon_version" {
   default = "4.5.13" # image: acockburn/appdaemon
 }
 
+variable "esphome_version" {
+  default = "2026.8.2" # image: ghcr.io/esphome/esphome
+}
+
 job "homeassistant-backend" {
   datacenters = ["cascadia"]
   priority = 100
@@ -121,7 +125,7 @@ ha_url: http://{{ .Address }}:{{ .Port }}
       driver = "docker"
       config {
         network_mode = "host"
-        image = "ghcr.io/esphome/esphome:latest"
+        image = "ghcr.io/esphome/esphome:${var.esphome_version}"
         image_pull_timeout = "15m"
         privileged = true
         volumes = [

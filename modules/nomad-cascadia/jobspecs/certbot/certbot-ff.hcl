@@ -1,3 +1,8 @@
+variable "image_verison" {
+  type = string
+  default = "v5.8.0" # image: certbot/dns-google
+}
+
 job "certbot-flawedfauna" {
   datacenters = ["cascadia"]
   node_pool = "ingress"
@@ -26,7 +31,7 @@ job "certbot-flawedfauna" {
       driver = "docker"
 
       config {
-        image = "certbot/dns-google:latest"
+        image = "certbot/dns-google:${var.image_version}"
         args = [
           "certonly",
           "-v",

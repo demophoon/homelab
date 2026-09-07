@@ -1,3 +1,8 @@
+variable "image_verison" {
+  type = string
+  default = "1.38.0" # image: busybox
+}
+
 job "wellknown" {
   datacenters = ["cascadia"]
   node_pool = "all"
@@ -28,7 +33,7 @@ job "wellknown" {
       }
 
       config {
-        image = "busybox:latest"
+        image = "busybox:${var.image_version}"
         ports = ["nginx"]
         args   = [
           "busybox", "httpd", "-f", "-v", "-p", "3000", "-h", "/local/static"
