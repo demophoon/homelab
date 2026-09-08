@@ -168,6 +168,9 @@ entryPoints:
         - '100.64.0.0/10'
     http:
       tls: {}
+    transport:
+      respondingTimeouts:
+        readTimeout: '0s'
 
   ssh:
     reusePort: true
