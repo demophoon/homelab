@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "44.69.7" # image: ghcr.io/renovatebot/renovate
+  default = "44.69.10" # image: ghcr.io/renovatebot/renovate
 }
 
 job "renovate" {
