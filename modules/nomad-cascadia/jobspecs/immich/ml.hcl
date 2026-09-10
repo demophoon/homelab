@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v3.1.0" # image: ghcr.io/immich-app/immich-machine-learning
+  default = "v3.2.0" # image: ghcr.io/immich-app/immich-machine-learning
 }
 
 job "immich-ml" {
