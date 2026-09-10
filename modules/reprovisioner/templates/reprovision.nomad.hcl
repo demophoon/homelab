@@ -8,7 +8,7 @@ job "infrastructure-maintenance-reprovision-${workspace}" {
   type = "batch"
 
   periodic {
-    cron      = "30 3 ${day_of_month} * *"
+    cron      = "30 14 ${day_of_month} * *"
     time_zone = "America/Los_Angeles"
   }
 
