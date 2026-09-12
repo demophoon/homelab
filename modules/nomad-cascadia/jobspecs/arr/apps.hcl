@@ -20,7 +20,7 @@ variable "jackett_image_version" {
 
 variable "flaresolverr_image_version" {
   type = string
-  default = "v3.5.0" # image: ghcr.io/flaresolverr/flaresolverr
+  default = "v3.5.2" # image: ghcr.io/flaresolverr/flaresolverr
 }
 
 job "arrs" {
