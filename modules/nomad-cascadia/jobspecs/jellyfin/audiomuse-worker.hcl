@@ -1,6 +1,6 @@
 variable "image_version" {
   type    = string
-  default = "3.5.2" # image: ghcr.io/neptunehub/audiomuse-ai
+  default = "3.6.0" # image: ghcr.io/neptunehub/audiomuse-ai
 }
 
 job "audiomuse-workers" {
