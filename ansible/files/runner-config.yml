@@ -10,7 +10,11 @@ runner:
   fetch_interval: 2s
   labels:
     - "ci:host"
+    - "ubuntu:docker://ubuntu:26.04"
     - "docker:docker://registry.services.demophoon.com/demophoon/dispatcher:dc15fa0-1775855159"
+
+  envs:
+    DOCKER_HOST: tcp://dind.docker.internal:2375
 
 cache:
   enabled: true
@@ -21,7 +25,8 @@ container:
   privileged: true
   valid_volumes:
     - /usr/local/share/ca-certificates
-  docker_host: "-"
+  docker_host: 'tcp://127.0.0.1:2376'
+  options: '--add-host=dind.docker.internal:host-gateway'
 
 server:
   connections:

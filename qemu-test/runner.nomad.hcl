@@ -153,7 +153,7 @@ users:
 
 ansible:
   package_name: ansible-core
-  install_method: pip
+  install_method: distro
   pull:
     url: https://git.brittg.com/demophoon/homelab.git
     checkout: main
