@@ -1,0 +1,15 @@
+---
+- name: Start Docker-in-Docker (DinD) container
+  docker_container:
+    name: dind
+    image: docker:dind
+    state: started
+    restart_policy: always
+    privileged: true
+    ports:
+      - "127.0.0.1:2376:2375"
+    command:
+      - "dockerd"
+      - "-H"
+      - "tcp://0.0.0.0:2375"
+      - "--tls=false"

@@ -24,6 +24,9 @@
     - name: Run configuration tasks
       ansible.builtin.import_tasks: tasks/config.yml
 
+    - name: Run DIND container
+      ansible.builtin.import_tasks: tasks/dind.yml
+
     - name: Run Forgejo runner installation tasks
       ansible.builtin.import_tasks: tasks/forgejo_runner.yml
 
