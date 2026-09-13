@@ -46,11 +46,11 @@ job "runner" {
         data = <<-EOH
         #!/bin/sh
         set -eux
-        /usr/bin/qemu-img resize ${NOMAD_ALLOC_DIR}/data/noble-server-cloudimg-amd64.img 40G
+        /usr/bin/qemu-img resize ${NOMAD_ALLOC_DIR}/data/resolute-server-cloudimg-amd64.img 40G
         EOH
       }
       artifact {
-        source = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
+        source = "https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img"
         destination = "${NOMAD_ALLOC_DIR}/data"
       }
     }
@@ -206,7 +206,7 @@ write_files:
     task "server" {
       driver = "qemu"
       config {
-        image_path  = "${NOMAD_ALLOC_DIR}/data/noble-server-cloudimg-amd64.img"
+        image_path  = "${NOMAD_ALLOC_DIR}/data/resolute-server-cloudimg-amd64.img"
         accelerator = "kvm"
         guest_agent = true
         args = [
