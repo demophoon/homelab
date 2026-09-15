@@ -52,7 +52,7 @@ job "gotosocial" {
           GTS_DB_TYPE = "postgres"
 
           {{ with secret "kv/data/apps/gotosocial/db" }}
-            GTS_DB_POSTGRES_CONNECTION_STRING: "postgres://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres-nas.service.consul.demophoon.com:5432/{{ .Data.data.database }}"
+            GTS_DB_POSTGRES_CONNECTION_STRING = "postgres://{{ .Data.data.username }}:{{ .Data.data.password }}@postgres-nas.service.consul.demophoon.com:5432/{{ .Data.data.database }}"
           {{ end }}
 
           {{ with secret "kv/apps/smtp" }}
@@ -67,9 +67,9 @@ job "gotosocial" {
           GTS_LETSENCRYPT_ENABLED = "false"
 
           # Disabled until a local, stable storage path is configured.
-          #GTS_WAZERO_COMPILATION_CACHE: /gotosocial/.cache
+          #GTS_WAZERO_COMPILATION_CACHE = /gotosocial/.cache
 
-          GTS_TRUSTED_PROXIES: "100.64.0.0/10"
+          GTS_TRUSTED_PROXIES = "100.64.0.0/10"
         EOT
         destination = "secrets/config"
         env = true
