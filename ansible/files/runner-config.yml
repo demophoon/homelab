@@ -25,7 +25,7 @@ container:
   privileged: true
   valid_volumes:
     - /usr/local/share/ca-certificates
-  docker_host: 'tcp://127.0.0.1:2376'
+  docker_host: 'tcp://10.0.2.15:2376'
   options: '--add-host=dind.docker.internal:host-gateway'
 
 server:

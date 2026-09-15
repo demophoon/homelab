@@ -7,7 +7,7 @@
     restart_policy: always
     privileged: true
     ports:
-      - "127.0.0.1:2376:2375"
+      - "2376:2375"
     command:
       - "dockerd"
       - "-H"
