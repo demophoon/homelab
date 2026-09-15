@@ -4,7 +4,7 @@ on:
       - main
 
 env:
-  NOMAD_ADDR: https://nomad.service.consul.demophoon.com:4646
+  NOMAD_ADDR: https://nomad-ui.internal.demophoon.com
 
 jobs:
   prod-home:
