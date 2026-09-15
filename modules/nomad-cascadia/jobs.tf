@@ -268,3 +268,7 @@ resource "nomad_job" "koito" {
 resource "nomad_job" "tsidp" {
   jobspec = file("${path.module}/jobspecs/tsidp/tsidp.hcl")
 }
+
+resource "nomad_job" "gotosocial" {
+  jobspec = file("${path.module}/jobspecs/gotosocial/gotosocial.hcl")
+}
