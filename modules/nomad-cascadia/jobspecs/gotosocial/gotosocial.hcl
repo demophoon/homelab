@@ -69,7 +69,7 @@ job "gotosocial" {
           # Disabled until a local, stable storage path is configured.
           #GTS_WAZERO_COMPILATION_CACHE = /gotosocial/.cache
 
-          GTS_TRUSTED_PROXIES = "100.64.0.0/10"
+          GTS_TRUSTED_PROXIES = "100.64.0.0/10,172.17.0.1/16"
         EOT
         destination = "secrets/config"
         env = true
