@@ -68,7 +68,13 @@ job "jellyfin" {
           "traefik.enable=true",
           "traefik.http.routers.jellyfin-nas.rule=Host(`jellyfin.brittg.com`)",
         ]
-
+      }
+      service {
+        name = "jellyfin"
+        port = "app"
+        tags = [
+          "internal=true",
+        ]
       }
     }
   }
