@@ -56,12 +56,16 @@ job "arrs" {
         PUID = "1000"
         PGID = "1000"
         TZ = "America/Los_Angeles"
+        TMPDIR = "/tmp"
       }
 
       config {
         image = "11notes/lidarr:${var.lidarr_image_version}"
         image_pull_timeout = "15m"
         ports = ["lidarr"]
+        volumes = [
+          "/tmp/lidarr:/tmp",
+        ]
       }
 
       volume_mount {
