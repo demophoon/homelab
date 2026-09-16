@@ -1,6 +1,6 @@
 variable "lidarr_image_version" {
   type = string
-  default = "2.12.4" # image: 11notes/lidarr
+  default = "2.14.5" # image: 11notes/lidarr
 }
 
 variable "sonarr_image_version" {
@@ -15,7 +15,7 @@ variable "radarr_image_version" {
 
 variable "jackett_image_version" {
   type = string
-  default = "0.24.2544" # image: ghcr.io/linuxserver/jackett
+  default = "0.24.2601" # image: ghcr.io/linuxserver/jackett
 }
 
 variable "flaresolverr_image_version" {
