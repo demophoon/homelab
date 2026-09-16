@@ -37,7 +37,7 @@ job "jellyfin" {
       }
 
       config {
-        image = "jellyfin/jellyfin:${var.image_version}"
+        image = "ghcr.io/jellyfin/jellyfin:${var.image_version}"
         image_pull_timeout = "15m"
         ports = ["app"]
       }
