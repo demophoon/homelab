@@ -18,10 +18,19 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode }}"
   loop:
-    - { src: runner-config.yml, dest: /home/runner/runner-config.yml, owner: runner, group: runner, mode: "0700" }
     - { src: forgejo-runner.service, dest: /etc/systemd/system/forgejo-runner.service, mode: "0644" }
     - { src: consul.hcl, dest: /etc/consul.d/consul.hcl, mode: "0644" }
     - { src: sshd_config, dest: /etc/ssh/sshd_config, mode: "0644" }
     - { src: daemon.json, dest: /etc/docker/daemon.json, mode: "0644" }
     - { src: dnsmasq.conf, dest: /etc/dnsmasq.conf, mode: "0644" }
     - { src: resolved-tail.conf, dest: /etc/systemd/resolved.conf.d/tail, mode: "0644" }
+
+- name: Install templated configuration files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - { src: runner-config.yml.j2, dest: /home/runner/runner-config.yml, owner: runner, group: runner, mode: "0700" }

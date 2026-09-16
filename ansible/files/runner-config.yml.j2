@@ -11,7 +11,8 @@ runner:
   labels:
     - "ci:host"
     - "ubuntu:docker://ubuntu:26.04"
-    - "docker:docker://registry.services.demophoon.com/demophoon/dispatcher:dc15fa0-1775855159"
+    - "docker:docker://git.brittg.com/demophoon/forgejo-ci:78d7a4ad70c96aecbf35b45f9d0e0c0f3b038ae3"
+    - "ci:docker://git.brittg.com/demophoon/forgejo-ci:{{ forgejo_ci_image_version }}"
 
   envs:
     DOCKER_HOST: tcp://dind.docker.internal:2375

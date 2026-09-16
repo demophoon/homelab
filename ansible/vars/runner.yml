@@ -9,6 +9,8 @@ miren_release_base_url: "https://api.miren.cloud/assets/release/miren"
 
 cni_plugins_version: "1.0.0"
 
+forgejo_ci_image_version: "78d7a4ad70c96aecbf35b45f9d0e0c0f3b038ae3"
+
 runner_packages:
   - openssh-server
   - qemu-guest-agent
