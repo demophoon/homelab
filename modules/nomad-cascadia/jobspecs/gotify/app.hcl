@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "3.1.0" # image: ghcr.io/gotify/server
+  default = "3.1.1" # image: ghcr.io/gotify/server
 }
 
 job "gotify" {

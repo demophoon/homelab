@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "v3.2.0" # image: ghcr.io/immich-app/immich-server
+  default = "v3.2.2" # image: ghcr.io/immich-app/immich-server
 }
 
 job "immich-app" {

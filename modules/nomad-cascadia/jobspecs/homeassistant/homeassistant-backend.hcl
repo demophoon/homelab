@@ -3,7 +3,7 @@ variable "appdaemon_version" {
 }
 
 variable "esphome_version" {
-  default = "2026.8.2" # image: ghcr.io/esphome/esphome
+  default = "2026.9.0" # image: ghcr.io/esphome/esphome
 }
 
 job "homeassistant-backend" {
