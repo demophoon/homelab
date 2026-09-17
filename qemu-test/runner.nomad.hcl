@@ -245,9 +245,12 @@ write_files:
         port     = "novnc"
         provider = "consul"
         tags = [
-          "traefik.enable=true",
-          "traefik.http.routers.runner-vnc-${NOMAD_ALLOC_INDEX}.rule=Host(`vnc.internal.demophoon.com`)",
+          "traefik.http.routers.runner-vnc-${NOMAD_ALLOC_INDEX}.rule=Host(`runner-${NOMAD_ALLOC_INDEX}.ts.demophoon.com`)",
           "traefik.http.services.runner-vnc-${NOMAD_ALLOC_INDEX}.loadbalancer.server.port=${NOMAD_PORT_novnc}",
+
+          "traefik.http.middlewares.vnc-redirect.replacepathregex.regex=^/$",
+          "traefik.http.middlewares.vnc-redirect.replacepathregex.replacement=/vnc_auto.html",
+          "traefik.http.routers.runner-vnc-${NOMAD_ALLOC_INDEX}.middlewares=vnc-redirect",
         ]
       }
       resources {
