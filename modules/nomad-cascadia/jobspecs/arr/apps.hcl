@@ -5,12 +5,12 @@ variable "lidarr_image_version" {
 
 variable "sonarr_image_version" {
   type = string
-  default = "4.0.19" # image: ghcr.io/linuxserver/sonarr
+  default = "4.0.20" # image: ghcr.io/linuxserver/sonarr
 }
 
 variable "radarr_image_version" {
   type = string
-  default = "6.3.0" # image: ghcr.io/linuxserver/radarr
+  default = "6.4.4" # image: ghcr.io/linuxserver/radarr
 }
 
 variable "jackett_image_version" {
