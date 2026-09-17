@@ -56,16 +56,11 @@ job "arrs" {
         PUID = "1000"
         PGID = "1000"
         TZ = "America/Los_Angeles"
-        TMPDIR = "/tmp"
       }
 
       config {
         image = "11notes/lidarr:${var.lidarr_image_version}"
-        image_pull_timeout = "15m"
         ports = ["lidarr"]
-        volumes = [
-          "/tmp/lidarr:/tmp",
-        ]
       }
 
       volume_mount {
@@ -137,7 +132,6 @@ job "arrs" {
 
       config {
         image = "ghcr.io/linuxserver/sonarr:${var.sonarr_image_version}"
-        image_pull_timeout = "15m"
         ports = ["sonarr"]
       }
 
@@ -210,7 +204,6 @@ job "arrs" {
 
       config {
         image = "ghcr.io/linuxserver/radarr:${var.radarr_image_version}"
-        image_pull_timeout = "15m"
         ports = ["radarr"]
       }
 
@@ -275,7 +268,6 @@ job "arrs" {
 
       config {
         image = "ghcr.io/linuxserver/jackett:${var.jackett_image_version}"
-        image_pull_timeout = "15m"
         ports = ["jackett"]
       }
 
@@ -319,7 +311,6 @@ job "arrs" {
 
       config {
         image = "ghcr.io/flaresolverr/flaresolverr:${var.flaresolverr_image_version}"
-        image_pull_timeout = "15m"
         ports = ["flaresolverr"]
       }
 
