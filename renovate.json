@@ -8,7 +8,8 @@
     {
       "customType": "regex",
       "managerFilePatterns": [
-        "/modules/nomad-cascadia/jobspecs/.*\\.hcl/"
+        "/modules/nomad-cascadia/jobspecs/.*\\.hcl/",
+        "/ansible/vars/.*\\.yml/"
       ],
       "matchStrings": [
         ".*\"(?<currentValue>.+)\"\\s*#\\s*image:\\s*(?<depName>.+)\\n"
