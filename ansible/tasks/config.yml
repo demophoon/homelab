@@ -12,7 +12,7 @@
 
 - name: Install static configuration files
   ansible.builtin.copy:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ item.owner | default('root') }}"
     group: "{{ item.group | default('root') }}"
@@ -33,4 +33,4 @@
     group: "{{ item.group | default('root') }}"
     mode: "{{ item.mode }}"
   loop:
-    - { src: runner-config.yml.j2, dest: /home/runner/runner-config.yml, owner: runner, group: runner, mode: "0700" }
+    - { src: "{{ role_path }}/files/runner-config.yml.j2", dest: /home/runner/runner-config.yml, owner: runner, group: runner, mode: "0700" }
