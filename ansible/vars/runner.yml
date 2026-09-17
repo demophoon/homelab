@@ -9,7 +9,7 @@ miren_release_base_url: "https://api.miren.cloud/assets/release/miren"
 
 cni_plugins_version: "1.0.0"
 
-forgejo_ci_image_version: "0.0.1" # image: git.brittg.com/demophoon/forgejo-ci
+forgejo_ci_image_version: "0.2.3" # image: git.brittg.com/demophoon/forgejo-ci
 
 runner_packages:
   - openssh-server
