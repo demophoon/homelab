@@ -4,7 +4,7 @@ variable "image_version" {
 }
 
 job "traefik-ingress" {
-  datacenters = ["cascadia"]
+  datacenters = ["cascadia", "vultr"]
   region = "global"
   priority = 100
   node_pool = "ingress"
@@ -40,7 +40,7 @@ job "traefik-ingress" {
   }
 
   group "web" {
-    count = 1
+    count = 2
     network {
       port "http"      { static = 80 }
       port "https"     { static = 443 }
