@@ -27,7 +27,7 @@ job "traefik-ingress" {
   }
 
   spread {
-    attribute = "${node.datacenter}"
+    attribute = "${node.unique.id}"
   }
 
   update {
