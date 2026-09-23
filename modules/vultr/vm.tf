@@ -45,7 +45,6 @@ resource "vultr_instance" "web" {
   user_data = module.ci-data.config
 
   lifecycle {
-    create_before_destroy = true
     replace_triggered_by = [
       null_resource.created_at,
     ]
