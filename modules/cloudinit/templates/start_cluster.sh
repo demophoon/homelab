@@ -73,6 +73,8 @@ connect_to_consul() {
   join_addrs=$(tailscale status --json | jq -r '.Peer | to_entries [].value | select( [ .Tags // [] | contains(["tag:consul-server"]) ] | any ) | .TailscaleIPs[0]')
   joined=0
 
+  configure_resolved
+
   set +x
   for join_addr in $${join_addrs}; do
     if consul join "$${join_addr%%:*}"; then
@@ -192,6 +194,13 @@ set_ufw_rules() {
   # Factorio
   ufw allow 34197/udp
   ufw allow 34197/tcp
+}
+
+configure_resolved() {
+  rm /etc/resolv.conf
+  echo "nameserver 172.17.0.1" | tee /etc/resolv.conf
+  echo "nameserver 127.0.0.1"  | tee /etc/resolv.conf
+  systemctl restart systemd-resolved
 }
 
 main() {
