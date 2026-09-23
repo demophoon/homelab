@@ -175,7 +175,28 @@ write_nomad_certificate() {(with_vault
   cat /opt/nomad/certs/issued.json | jq -r .data.private_key > /opt/nomad/certs/priv.key
 )}
 
+set_ufw_rules() {
+  # SSH
+  ufw allow 22/tcp
+  ufw allow 2222/tcp
+
+  # Http(s)
+  ufw allow 80/tcp
+  ufw allow 443/tcp
+
+  # Valheim
+  ufw allow 2456/udp
+  ufw allow 2457/udp
+  ufw allow 2458/udp
+
+  # Factorio
+  ufw allow 34197/udp
+  ufw allow 34197/tcp
+}
+
 main() {
+  set_ufw_rules
+
   if ! is_consul_connected; then
     connect_to_consul
     wait_for_consul
