@@ -70,7 +70,7 @@ connect_to_consul() {
   systemctl restart systemd-resolved &
   sleep 3
 
-  join_addrs=$(tailscale status --json | jq -r '.Peer | to_entries [].value.HostName')
+  join_addrs=$(tailscale status --json | jq -r '.Peer | to_entries [].value | select( [ .Tags // [] | contains(["tag:consul-server"]) ] | any ) | .TailscaleIPs[0]')
   joined=0
 
   set +x
