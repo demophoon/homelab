@@ -1,5 +1,5 @@
 data_dir = "/opt/consul"
-client_addr = "127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}"
+client_addr = "127.0.0.1 {{ GetInterfaceIP \"docker0\" }} {{ GetInterfaceIP \"tailscale0\" }}"
 bind_addr = "{{ GetInterfaceIP \"tailscale0\" }}"
 
 %{if is_server}
@@ -33,10 +33,10 @@ tls {
 }
 
 addresses {
-  dns      = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
-  http     = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
-  grpc     = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
-  grpc_tls = "127.0.0.1 {{ GetInterfaceIP \"eth0\" }} {{ GetInterfaceIP \"tailscale0\" }}",
+  dns      = "127.0.0.1 {{ GetInterfaceIP \"tailscale0\" }}",
+  http     = "127.0.0.1 {{ GetInterfaceIP \"tailscale0\" }}",
+  grpc     = "127.0.0.1 {{ GetInterfaceIP \"tailscale0\" }}",
+  grpc_tls = "127.0.0.1 {{ GetInterfaceIP \"tailscale0\" }}",
 }
 
 domain = "consul.demophoon.com."
