@@ -2,7 +2,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "8.3.0"
+      version = "8.4.0"
     }
     null = {
       source  = "hashicorp/null"
@@ -14,7 +14,7 @@ terraform {
     }
     vultr = {
       source  = "vultr/vultr"
-      version = "2.27.1"
+      version = "2.32.0"
     }
   }
 }

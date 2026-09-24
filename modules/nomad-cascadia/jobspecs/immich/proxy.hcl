@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "3.3.1" # image: ghcr.io/alangrainger/immich-public-proxy
+  default = "3.4.0" # image: ghcr.io/alangrainger/immich-public-proxy
 }
 
 job "immich-proxy" {

@@ -1,6 +1,6 @@
 variable "image_version" {
   type = string
-  default = "3.1.3" # image: ghcr.io/paperless-ngx/paperless-ngx
+  default = "3.2.1" # image: ghcr.io/paperless-ngx/paperless-ngx
 }
 
 job "paperless" {

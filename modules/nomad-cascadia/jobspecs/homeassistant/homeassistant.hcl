@@ -1,6 +1,6 @@
 variable "ha_version" {
   type = string
-  default = "2026.9.2" # image: homeassistant/home-assistant
+  default = "2026.9.3" # image: homeassistant/home-assistant
 }
 variable "zigbee2mqtt_version" {
   type = string
