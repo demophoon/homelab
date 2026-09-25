@@ -9,10 +9,15 @@ variable "image_flavor" {
 
 job "minecraft" {
   datacenters = ["cascadia"]
+
+  meta {
+    pinned = "lynx-aux"
+  }
+
   group "server" {
     volume "server" {
       type            = "host"
-      source          = "lynx-aux-1"
+      source          = "lynx-aux"
     }
 
     network {

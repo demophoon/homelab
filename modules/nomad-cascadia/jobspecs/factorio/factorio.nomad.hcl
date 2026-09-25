@@ -5,10 +5,15 @@ variable "image_version" {
 
 job "factorio" {
   datacenters = ["cascadia"]
+
+  meta {
+    pinned = "lynx-aux"
+  }
+
   group "server" {
     volume "server" {
       type            = "host"
-      source          = "lynx-aux-1"
+      source          = "lynx-aux"
     }
 
     network {

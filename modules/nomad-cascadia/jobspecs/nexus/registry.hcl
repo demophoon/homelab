@@ -2,6 +2,10 @@ job "nexus" {
   datacenters = ["cascadia"]
   priority = 80
 
+  meta {
+    pinned = "lynx-aux"
+  }
+
   group "nexus" {
     count = 1
 
@@ -11,7 +15,7 @@ job "nexus" {
 
     volume "persistance" {
       type            = "host"
-      source          = "lynx-aux-1"
+      source          = "lynx-aux"
     }
 
     task "registry" {

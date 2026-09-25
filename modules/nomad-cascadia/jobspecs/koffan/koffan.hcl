@@ -6,11 +6,15 @@ variable "image_version" {
 job "koffan" {
   datacenters = ["cascadia"]
 
+  meta {
+    pinned = "lynx-aux"
+  }
+
   group "koffan" {
 
     volume "server" {
       type            = "host"
-      source          = "lynx-aux-1"
+      source          = "lynx-aux"
     }
 
     network {
