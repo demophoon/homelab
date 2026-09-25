@@ -9,7 +9,7 @@ terraform {
 
 resource "null_resource" "created_at" {
   triggers = {
-    timestamp = timestamp()
+    hostname = var.hostname
   }
 }
 

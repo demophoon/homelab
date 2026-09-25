@@ -14,6 +14,8 @@ locals {
 module "ts" {
   source = "./tailscale"
 
+  hostname = var.hostname
+
   additional_tags = [
     local.consul_server_tag,
     local.nomad_server_tag,
