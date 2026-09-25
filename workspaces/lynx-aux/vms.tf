@@ -2,7 +2,7 @@ module "vm-lynx-aux" {
   source = "../../modules/proxmox_vm"
   resource = "module.vm-lynx-aux"
 
-  proxmox_node_prefix = "lynx-aux-1"
+  proxmox_node_prefix = "lynx-aux"
   proxmox_node_name = "lynx"
   proxmox_host = "192.168.1.149"
   is_server = "true"
