@@ -10,7 +10,7 @@ job "gotify" {
   group "app" {
     volume "server" {
       type            = "host"
-      source          = "digitalocean"
+      source          = "vultr"
     }
 
     network {
@@ -29,7 +29,7 @@ job "gotify" {
         image = "ghcr.io/gotify/server:${var.image_version}"
         ports = ["app"]
         volumes = [
-          "/mnt/digitalocean/gotify/data:/app/data",
+          "/mnt/vultr/gotify/data:/app/data",
         ]
       }
 
