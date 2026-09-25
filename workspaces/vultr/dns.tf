@@ -7,29 +7,29 @@ locals {
   rrdatas = [module.vm-vultr.ip]
 }
 
-#resource "google_dns_record_set" "main" {
-#  name         = "brittg.com."
-#  type         = "A"
-#  ttl          = 300
-#  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_brittg_com
-#
-#  rrdatas = local.rrdatas
-#}
-#
-#resource "google_dns_record_set" "compute-lb" {
-#  name         = "compute-lb.demophoon.com."
-#  type         = "A"
-#  ttl          = 300
-#  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_demophoon_com
-#
-#  rrdatas = local.rrdatas
-#}
-#
-#resource "google_dns_record_set" "flawedfauna" {
-#  name         = "flawedfauna.com."
-#  type         = "A"
-#  ttl          = 300
-#  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_flawedfauna_com
-#
-#  rrdatas = local.rrdatas
-#}
+resource "google_dns_record_set" "main" {
+  name         = "brittg.com."
+  type         = "A"
+  ttl          = 300
+  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_brittg_com
+
+  rrdatas = local.rrdatas
+}
+
+resource "google_dns_record_set" "compute-lb" {
+  name         = "compute-lb.demophoon.com."
+  type         = "A"
+  ttl          = 300
+  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_demophoon_com
+
+  rrdatas = local.rrdatas
+}
+
+resource "google_dns_record_set" "flawedfauna" {
+  name         = "flawedfauna.com."
+  type         = "A"
+  ttl          = 300
+  managed_zone = data.tfe_outputs.prod_home.values.google_dns_managed_zone_flawedfauna_com
+
+  rrdatas = local.rrdatas
+}
