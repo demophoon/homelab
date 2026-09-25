@@ -40,5 +40,5 @@ resource "vault_approle_auth_backend_role" "vm_instance" {
   ]
   secret_id_num_uses = 1
   secret_id_ttl = "900"
-  secret_id_bound_cidrs = ["100.64.0.0/10"]
+  secret_id_bound_cidrs = ["100.68.0.0/16"]
 }
