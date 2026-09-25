@@ -40,12 +40,12 @@ client {
   host_volume "gpool0" { path = "/mnt/nfs/gpool0" }
   host_volume "media" { path = "/mnt/media" }
 
-    %{if region == "cascadia"}
-      %{if pv_name != "" }
-      # PV
-      host_volume "${pv_name}" { path = "/mnt/${pv_name}" }
-      %{endif}
+    %{if pv_name != "" }
+    # PV
+    host_volume "${pv_name}" { path = "/mnt/${pv_name}" }
+    %{endif}
 
+    %{if region == "cascadia"}
       # Consul Snapshots
       host_volume "consul-snapshots" { path = "/mnt/nfs/consul/snapshots" }
 

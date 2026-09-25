@@ -11,20 +11,20 @@ mount_pv() {
 }
 %{endif}
 
-%{if include_media}
-export mount_flags="rw,relatime,vers=4.2,rsize=65536,wsize=65536,hard,timeo=600,retrans=2,sec=sys,local_lock=none"
-export mount_srv="truenas.service.consul.demophoon.com"
-export mount_srv="${truenas_ip}"
-
 mount_pv() {
-  if [ -e /dev/sda1 ]; then
-    mkdir -p /mnt/${pv_name}
-    mount -t ext4 /dev/sda1 /mnt/${pv_name}
-  elif [ -e /dev/sda ]; then
-    parted -a none /dev/sda --script 'mklabel gpt mkpart ${pv_name} ext4 0 100% resizepart 1 100% quit'
-    mkfs.ext4 /dev/sda1
-    mount_pv
-  fi
+  for mnt in "sda" "vdb"; do
+    vol_path="/dev/$mnt"
+    mnt_path="$vol_path"1
+
+    if [ -e $mnt_path ]; then
+      mkdir -p /mnt/${pv_name}
+      mount -t ext4 $mnt_path /mnt/${pv_name}
+    elif [ -e $vol_path ]; then
+      parted -a none $vol_path --script 'mklabel gpt mkpart ${pv_name} ext4 0 100% resizepart 1 100% quit'
+      mkfs.ext4 $mnt_path
+      mount_pv
+    fi
+  done
 }
 
 install_miren() {
@@ -34,12 +34,21 @@ install_miren() {
   mv "$miren_tmp/miren" /usr/local/bin/miren
 }
 
+%{if include_media}
+export mount_flags="rw,relatime,vers=4.2,rsize=65536,wsize=65536,hard,timeo=600,retrans=2,sec=sys,local_lock=none"
+export mount_srv="truenas.service.consul.demophoon.com"
+export mount_srv="${truenas_ip}"
+
 mount_nfs() {
   mkdir -p /mnt/nfs
   mkdir -p /mnt/media
   mount -t nfs -o "$mount_flags" "$mount_srv:/mnt/dank0/andromeda" /mnt/nfs
   mount -t nfs -o "$mount_flags" "$mount_srv:/mnt/dank0/media" /mnt/media
 
+  mount_pv
+}
+%{else}
+mount_nfs() {
   mount_pv
 }
 %{endif}
@@ -218,8 +227,7 @@ main() {
   write_vault_certificate
   write_consul_certificate
   write_nomad_certificate
-%{if include_media}  mount_nfs%{endif}
-%{if do_pv}  mount_pv%{endif}
+  mount_nfs
 %{if is_server}
   systemctl restart vault
 %{ else }
