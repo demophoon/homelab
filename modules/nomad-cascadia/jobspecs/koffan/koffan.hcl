@@ -53,7 +53,6 @@ job "koffan" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.koffan.rule=host(`shopping.brittg.com`)",
-          "traefik.http.routers.koffan.middlewares=anubis,authentik",
         ]
       }
 

@@ -26,7 +26,6 @@ job "shrls-demo" {
       tags = [
         "traefik.enable=true",
         "traefik.http.routers.shrls-demo.rule=host(`shrls-demo.brittg.com`)",
-	"traefik.http.routers.shrls-demo.middlewares=anubis",
       ]
       port = "app"
     }

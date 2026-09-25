@@ -38,7 +38,6 @@ job "immich-proxy" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.immich-proxy.rule=host(`photos.brittg.com`)",
-          "traefik.http.routers.immich-proxy.middlewares=anubis",
         ]
         check {
           type        = "http"

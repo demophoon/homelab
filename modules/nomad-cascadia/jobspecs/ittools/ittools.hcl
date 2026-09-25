@@ -30,7 +30,6 @@ job "it-tools" {
         tags = [
           "traefik.enable=true",
           "traefik.http.routers.ittools.rule=host(`tools.brittg.com`)",
-          "traefik.http.routers.ittools.middlewares=anubis",
         ]
       }
     }
