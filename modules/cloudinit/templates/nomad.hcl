@@ -176,6 +176,7 @@ plugin "docker" {
   }
 }
 
+%{ if is_server }
 ui {
   enabled = true
   consul {
@@ -191,3 +192,4 @@ tls {
   cert_file = "/opt/nomad/certs/cert.pem"
   key_file = "/opt/nomad/certs/priv.key"
 }
+%{ endif }
