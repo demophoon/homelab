@@ -101,12 +101,17 @@ resource "tailscale_acl" "json" {
       }
     },
     nodeAttrs = [
+      // Funnel policy, which lets tailnet members control Funnel
+      // for their own devices.
+      // Learn more at https://tailscale.com/kb/1223/tailscale-funnel/
       {
-	// Funnel policy, which lets tailnet members control Funnel
-	// for their own devices.
-	// Learn more at https://tailscale.com/kb/1223/tailscale-funnel/
 	target = ["autogroup:members"],
 	attr   = ["funnel"],
+      },
+      // Add ip pool for automation group
+      {
+	target: ["tag:terraform-provisioned"],
+	ipPool: ["100.68.0.0/16"],
       },
     ],
     ssh = [
