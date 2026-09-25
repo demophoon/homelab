@@ -14,6 +14,8 @@ module "vm-vultr" {
   register_reprovision = true
   reprovision_dow      = 0
   persistant_disk      = 32
+
+  created_at = "2026-09-24"
 }
 
 module "vultr-reprovision" {
