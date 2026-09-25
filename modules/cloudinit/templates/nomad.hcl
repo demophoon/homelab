@@ -32,6 +32,12 @@ client {
     read_only = true
   }
 
+  %{if pv_name != "" }
+  # PV
+  host_volume "${pv_name}" { path = "/mnt/${pv_name}" }
+  %{endif}
+
+
   %{if include_mounts}
   host_volume "docker-sock" {
     path = "/var/run/docker.sock"
@@ -39,11 +45,6 @@ client {
 
   host_volume "gpool0" { path = "/mnt/nfs/gpool0" }
   host_volume "media" { path = "/mnt/media" }
-
-    %{if pv_name != "" }
-    # PV
-    host_volume "${pv_name}" { path = "/mnt/${pv_name}" }
-    %{endif}
 
     %{if region == "cascadia"}
       # Consul Snapshots
